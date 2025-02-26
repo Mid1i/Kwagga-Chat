@@ -1,0 +1,46 @@
+:root {
+	// Основные фоны
+	--color-bg-primary: #FFFFFF; /* Основной фон чата */
+	--color-bg-secondary: #F2F3F5; /* Фон боковой панели */
+	--color-bg-tertiary: #EBEDEF; /* Фон профиля, поиска, поля ввода */
+
+	// Текстовые цвета
+	--color-text-primary: #313338; /* Основной текст */
+	--color-text-secondary: #6D6F78; /* Текст в боковой панели, время сообщения */
+	--color-text-muted: #5C5E66; /* Текст даты */
+
+	// Границы и разделители
+	--color-border-light: #E1E1E4;  /* Разделитель по датам */
+
+	// Выбранные элементы
+	--color-selected-chat: #D7D8DD; /* Выбранный чат в боковой панели */
+	--color-selected-message: #F7F7F7; /* Выбранное сообщение */
+	--color-selected-text: #060607; /* Текст в выбранном чате */
+
+	// Акцентные цвета
+	--color-accent-primary: #2690FC;
+	--color-accent-secondary: #5865F2;
+	--color-accent-warning: #F0B232;
+	--color-accent-success: #3BA55C;
+	--color-accent-danger: #ED4245;
+}
+
+[data-theme="dark"] {
+	// Основные фоны
+	--color-bg-primary: #313338;
+	--color-bg-secondary: #2B2D31;
+	--color-bg-tertiary: #383A40;
+
+	// Текстовые цвета
+	--color-text-primary: #B5BAC1;
+	--color-text-secondary: #80848E;
+	--color-text-muted: #949BA4;
+
+	// Границы и разделители
+	--color-border-light: #3F4147;
+
+	// Выбранные элементы
+	--color-selected-chat: #3F4248;
+	--color-selected-message: #2E3035;
+	--color-selected-text: #FFFFFF;
+}
