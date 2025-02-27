@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg">
+	<symbol fill="none" id="check" viewBox="0 0 20 20">
+		<path d="M4 10.1667L8.375 14.3333L15.6667 6" stroke="currentColor" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/>
+	</symbol>
+	<symbol fill="none" id="doubleCheck" viewBox="0 0 20 20">
+		<path d="M2 10.1667L6.375 14.3333L8.5625 11.8333M7 10.1667L11.375 14.3333L18.6667 6M13.6667 6L10.75 9.33333" stroke="currentColor" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/>
+	</symbol>
+</svg>
