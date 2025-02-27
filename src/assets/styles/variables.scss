@@ -1,46 +1,58 @@
 :root {
 	// Основные фоны
-	--color-bg-primary: #FFFFFF; /* Основной фон чата */
-	--color-bg-secondary: #F2F3F5; /* Фон боковой панели */
-	--color-bg-tertiary: #EBEDEF; /* Фон профиля, поиска, поля ввода */
+	--color-bg-primary: #CBD48B; /* Основной фон чата */
+	--color-bg-secondary: #FFFFFF; /* Фон боковой панели */
+
+	// Фоны сообщений
+	--color-message-my: #EFFDDE; /* Фон моих сообщений */
+	--color-message-partner: #FFFFFF; /* Фон сообщений собеседника */
 
 	// Текстовые цвета
-	--color-text-primary: #313338; /* Основной текст */
-	--color-text-secondary: #6D6F78; /* Текст в боковой панели, время сообщения */
-	--color-text-muted: #5C5E66; /* Текст даты */
+	--color-text-primary: #222222; /* Основной текст */
+	--color-text-secondary: #999999; /* Текст сообщений */
+	--color-text-muted: #BBBBBB; /* Текст даты и иконок */
 
 	// Границы и разделители
-	--color-border-light: #E1E1E4;  /* Разделитель по датам */
+	--color-border-light: #E5E5E5; /* Скроллбар */
 
-	// Выбранные элементы
-	--color-selected-chat: #D7D8DD; /* Выбранный чат в боковой панели */
-	--color-selected-message: #F7F7F7; /* Выбранное сообщение */
-	--color-selected-text: #060607; /* Текст в выбранном чате */
+	// Выбранные элементы и hover эффекты
+	--color-hover-bg: #F1F1F1; /* Фон при hover эффекте */
+	--color-selected-bg: #419FD9; /* Выбранный чат */
+	--color-selected-icon: #FFFFFF; /* Иконка в выбранном чате */
 
 	// Акцентные цвета
-	--color-accent-primary: #2690FC;
-	--color-accent-secondary: #5865F2;
+	--color-accent-primary: #5DC452;
 	--color-accent-warning: #F0B232;
 	--color-accent-success: #3BA55C;
 	--color-accent-danger: #ED4245;
+	--color-accent-white: #FFFFFF;
+
+	// Тени
+	--shadow-header: 2px 0px 2px rgb(0, 0, 0, .2); /* Тень у бокового меню */
 }
 
 [data-theme="dark"] {
 	// Основные фоны
-	--color-bg-primary: #313338;
-	--color-bg-secondary: #2B2D31;
-	--color-bg-tertiary: #383A40;
-
+	--color-bg-primary: #0E1621;
+	--color-bg-secondary: #17212B;
+	
+	// Фоны сообщений
+	--color-message-my: #2B5278;
+	--color-message-partner: #182533;
+	
 	// Текстовые цвета
-	--color-text-primary: #B5BAC1;
-	--color-text-secondary: #80848E;
-	--color-text-muted: #949BA4;
-
+	--color-text-primary: #E4ECF2;
+	--color-text-secondary: #7F91A4;
+	--color-text-muted: #3E546A;
+	
 	// Границы и разделители
-	--color-border-light: #3F4147;
+	--color-border-light: #2F3841;
+	
+	// Выбранные элементы и hover эффекты
+	--color-hover-bg: #202B36;
+	--color-selected-bg: #2B5278;
+	--color-selected-icon: #7AA3CA;
 
-	// Выбранные элементы
-	--color-selected-chat: #3F4248;
-	--color-selected-message: #2E3035;
-	--color-selected-text: #FFFFFF;
+	// Акцентные цвета
+	--color-accent-primary: #6FB9F9;
 }
