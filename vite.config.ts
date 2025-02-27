@@ -4,6 +4,7 @@ import vue from "@vitejs/plugin-vue";
 
 export default defineConfig({
   plugins: [vue()],
+  assetsInclude: ["**/*.svg"],
   resolve: {
     alias: {
       "@/": "/src/",
@@ -11,14 +12,11 @@ export default defineConfig({
       "@/components": "/src/components",
       "@/helpers": "/src/helpers",
       "@/hooks": "/src/hooks",
+      "@/interfaces": "/src/interfaces",
       "@/router": "/src/router",
       "@/store": "/src/store",
       "@/types": "/src/types",
       "@/views": "/src/views"
     }
-  },
-  server: {
-    host: true,
-    port: 5173
   }
-})
+});
