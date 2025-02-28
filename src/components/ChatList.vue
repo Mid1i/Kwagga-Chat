@@ -81,20 +81,26 @@
 
 	.chats-list {
 		display: flex;
-		flex: 1 0 auto;
+		flex: 1 1 auto;
 		flex-direction: column;
-		gap: 10px;
+		gap: max(10px, 0.5vw);
+
+		overflow-y: overlay;
+		padding: max(15px, 0.8vw) 0px;
+
+		&::-webkit-scrollbar {
+			display: none;
+		}
 
 		&__button {
 			display: flex;
 			flex-direction: column;
-			gap: 5px;
+			gap: max(5px, 0.25vw);
 
-			padding: 8px 12px;
+			padding: max(8px, 0.4vw) max(12px, 0.6vw);
 
 			width: 100%;
 			
-			&:hover,
 			&:focus-visible {
 				background: var(--color-hover-bg);
 			}
@@ -108,14 +114,14 @@
 			align-items: center;
 			display: flex;
 			justify-content: space-between;
-			gap: 5px;
+			gap: max(5px, 0.25vw);
 
 			width: 100%;
 		}
 
 		&__partner {
 			color: var(--color-text-primary);
-			font-size: 16px;
+			font-size: max(16px, 0.8vw);
 			font-weight: 500;
 
 			@include textOverflow;
@@ -124,19 +130,19 @@
 		&__datetime {
 			align-items: center;
 			display: flex;
-			gap: 5px;
+			gap: max(5px, 0.25vw);
 
 			color: var(--color-text-secondary);
 			font-weight: 500;
-			font-size: 14px;
+			font-size: max(14px, 0.7vw);
 		}
 
 		&__icon {
 			color: var(--color-accent-primary);
 			
 			flex: 0 0 auto;
-			height: 20px;
-			width: 20px;
+			height: max(20px, 1vw);
+			width: max(20px, 1vw);
 
 			&.unread {
 				color: var(--color-text-secondary);
@@ -145,7 +151,7 @@
 
 		&__message {
 			color: var(--color-text-secondary);
-			font-size: 14px;
+			font-size: max(14px, 0.7vw);
 
 			@include textOverflow;
 		}
@@ -154,19 +160,26 @@
 			background: var(--color-text-muted);
 			color: var(--color-accent-white);
 
-			border-radius: 8px;
+			border-radius: max(8px, 0.4vw);
 
 			align-items: center;
 			display: flex;
 			flex: 0 0 auto;
 			justify-content: center;
 
-			font-size: 12px;
+			font-size: max(12px, 0.6vw);
 			font-weight: 600;
 
-			padding: 1px 5px;
+			padding: 1px max(5px, 0.25vw);
 
-			min-width: 18px;
+			min-width: max(18px, 0.9vw);
+		}
+	}
+
+
+	@media(hover: hover) {
+		.chats-list__button:hover:not(.selected) {
+			background: var(--color-hover-bg);
 		}
 	}
 </style>

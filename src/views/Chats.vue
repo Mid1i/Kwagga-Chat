@@ -1,4 +1,5 @@
 <script setup lang="ts">
+	import ProfileNavigation from "@/components/ProfileNavigation.vue";
 	import ChatList from "@/components/ChatList.vue";
 	import Search from "@/components/Search.vue";
 </script>
@@ -9,6 +10,7 @@
 		<aside class="chats">
 			<Search/>
 			<ChatList/>
+			<ProfileNavigation/>
 		</aside>
 	</div>
 </template>
@@ -32,10 +34,9 @@
 
 		display: flex;
 		flex-direction: column;
-		gap: 10px;
 
-		padding: 10px 0px;
+		padding-top: max(10px, 0.52vw);
 
-		width: 280px;
+		width: max(280px, 14.6vw);
 	}
 </style>

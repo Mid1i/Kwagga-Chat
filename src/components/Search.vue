@@ -40,7 +40,8 @@
 
 
 <style scoped lang="scss">
-	@use "@/assets/styles/variables.scss";
+	@use "@/assets/styles/variables.scss" as *;
+	@use "@/assets/styles/mixins.scss" as *;
 
 
 	.search {
@@ -50,9 +51,10 @@
 
 		&__label {
 			color: var(--color-text-secondary);
+			font-size: max(14px, 0.7vw);
 
 			position: absolute;
-			left: 20px;
+			left: max(20px, 1vw);
 			top: 50%;
 			
 			pointer-events: none;
@@ -66,12 +68,10 @@
 
 			font-weight: 500;
 
-			border-radius: 5px;
+			padding-right: max(50px, 2.6vw);
+			padding-left: max(20px, 1vw);
 
-			padding-right: 50px;
-			padding-left: 20px;
-
-			height: 40px;
+			height: max(40px, 2.1vw);
 			width: 100%;
 
 			&::-webkit-search-cancel-button {
@@ -80,17 +80,16 @@
 		}
 
 		&__button {
-			border: 2px solid transparent;
-			border-radius: 5px;
-
 			position: absolute;
-			right: 15px;
-			top: calc(50% + 20px);
+			right: max(15px, 0.8vw);
+			top: calc(50% + max(20px, 1vw));
 
 			transform: translateY(-50%);
 
-			height: 28px;
-			width: 28px;
+			@include focusVisible;
+
+			height: max(31px, 1.6vw);
+			width: max(31px, 1.6vw);
 
 			&:focus-visible {
 				border-color: var(--color-text-primary);
@@ -104,29 +103,32 @@
 				
 				height: 100%;
 				width: 100%;
-	
-				&:hover {
-					color: var(--color-text-primary);
-				}
 			}
 		}
 
 		&.active,
 		&:focus-within {
-			padding-top: 40px;
+			padding-top: max(40px, 2.1vw);
 
 			& .search__label {
 				color: var(--color-text-primary);
 				font-weight: 700;
-				font-size: 16px;
+				font-size: max(16px, 0.8vw);
 
-				left: 10px;
-				top: 15px;
+				left: max(10px, 0.5vw);
+				top: max(15px, 0.8vw);
 			}
 
 			& .search__button-icon {
 				transform: rotate(-135deg) scale(1);
 			}
+		}
+	}
+
+
+	@media(hover: hover) {
+		.search__button:hover .search__button-icon {
+			color: var(--color-text-primary);
 		}
 	}
 </style>
