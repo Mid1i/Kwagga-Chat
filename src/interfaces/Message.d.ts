@@ -1,4 +1,4 @@
-import { Person } from "./Person";
+import type { User } from "./User";
 
 
 export interface MessagePreview {
@@ -9,6 +9,6 @@ export interface MessagePreview {
 };
 
 export interface Message extends Omit<MessagePreview, "senderId"> {
-	sender: Person;
-	partner: Person;
+	sender: User;
+	partner: User;
 };

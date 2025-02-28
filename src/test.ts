@@ -1,14 +1,14 @@
-import type { Person } from "@/interfaces/Person";
 import type { Chat } from "@/interfaces/Chat";
+import { User } from "@/interfaces/User";
 
 
-export const USER_1: Person = {
+export const USER_1: User = {
 	id: 1,
 	firstName: "Михаил",
 	lastName: "Чернов"
 };
 
-export const USER_2: Person = {
+export const USER_2: User = {
 	id: 2,
 	firstName: "Рустам",
 	lastName: "Худоян"

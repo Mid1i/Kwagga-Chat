@@ -1,17 +1,17 @@
 import type { Message, MessagePreview } from "./Message";
-import type { Person } from "./Person";
+import type { User } from "./User";
 
 
 export interface Chat {
 	id: number;
-	partner: Person;
+	partner: User;
 	lastMessage: MessagePreview;
 	unreadMessages: number;
 };
 
 export interface SelectedChat {
 	id: number;
-	sender: Person;
-	partner: Person;
+	sender: User;
+	partner: User;
 	history: Message[];
 };
