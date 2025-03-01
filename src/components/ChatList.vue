@@ -1,17 +1,19 @@
 <script setup lang="ts">
 	import { computed } from "vue";
 
-	import type { Chat } from "@/interfaces/Chat";
-	import { useChatStore } from "@/store/chat";
+	import type { IChat } from "@/interfaces/Chat";
 	import { formattedTime, formattedDate } from "@/helpers/datetime";
+	import { useScrollToTop } from "@/hooks/useScrollToTop";
+	import { useChatStore } from "@/store/chat";
 
 	import messageIcons from "@/assets/icons/message.svg";
 
 
 	const chatStore = useChatStore();
 
-	const chats = computed<Chat[]>(() => chatStore.chats);
+	const chats = computed<IChat[]>(() => chatStore.chats);
 
+	const { containerRef, scrollToTop, isScrolled } = useScrollToTop();
 
 	const getMessageDate = (messageDate: string): string => {
 		const date = new Date(messageDate);
@@ -34,7 +36,7 @@
 
 
 <template>
-	<ul class="chats-list">
+	<ul class="chats-list" ref="containerRef">
 		<li
 			v-for="({ id, partner, lastMessage, unreadMessages }) in chats"
 			:key="id"
@@ -71,6 +73,15 @@
 			</button>
 		</li>
 	</ul>
+	<button 
+		@click="scrollToTop"
+		:class="['scroll-to-top', { active: isScrolled }]"
+		aria-label="Перейти в начало чатов"
+	>
+		<svg class="scroll-to-top__icon" height="20" width="20">
+			<use href="@/assets/icons/navigation.svg#arrowUp"/>
+		</svg>
+	</button>
 </template>
 
 
@@ -89,7 +100,26 @@
 		padding: max(15px, 0.8vw) 0px;
 
 		&::-webkit-scrollbar {
-			display: none;
+			width: max(8px, 0.4vw);
+
+			&-track,
+			&-thumb {
+				border-right: max(6px, 0.3vw) solid var(--color-bg-secondary);
+			}
+
+			&-track {
+				background: var(--color-text-muted);
+			}
+
+			&-thumb {
+				background: var(--color-accent-primary);
+			}
+
+			&-button:start,
+			&-button:end {
+				background: var(--color-bg-secondary);
+				height: max(5px, 0.25vw);
+			}
 		}
 
 		&__button {
@@ -176,10 +206,65 @@
 		}
 	}
 
+	.scroll-to-top {
+		background: var(--color-hover-bg);
+		box-shadow: var(--shadow-scroll-button);
+		border-radius: 100%;
+
+		align-items: center;
+		display: flex;
+		justify-content: center;
+		
+		position: absolute;
+		bottom: 0px;
+		right: max(20px, 1.05vw);
+
+		height: max(40px, 2.1vw);
+		width: max(40px, 2.1vw);
+
+		transition: all 0.2s ease-in-out;
+		z-index: 2;
+
+		&.active {
+			bottom: max(80px, 4.2vw);
+		}
+
+		&__icon {
+			color: var(--color-text-secondary);
+
+			height: 60%;
+			width: 60%;
+		}
+	}
+
 
 	@media(hover: hover) {
 		.chats-list__button:hover:not(.selected) {
 			background: var(--color-hover-bg);
+		}
+
+		.scroll-to-top:hover .scroll-to-top__icon {
+			color: var(--color-text-primary);
+		}
+	}
+
+	@media(max-width: 767px) {
+		.chats-list {
+			padding: 0px;
+			gap: 0px;
+		}
+		
+		.chats-list__el:not(:first-child) {
+			border-top: 1px solid var(--color-border-chat);
+		}
+
+		.chats-list__button {
+			padding: 15px 20px;
+
+			&:active {
+				background: var(--color-hover-bg);
+				transform: none;
+			}
 		}
 	}
 </style>

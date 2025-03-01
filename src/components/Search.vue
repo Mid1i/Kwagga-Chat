@@ -1,7 +1,13 @@
 <script setup lang="ts">
-	import { computed } from "vue";
+	import { ref, computed, watch } from "vue";
 	import { useChatStore } from "@/store/chat";
 
+
+	const { isOpened } = defineProps<{ isOpened: boolean }>();
+
+	defineEmits<{ toggleVisibility: [] }>();
+
+	const inputRef = ref<HTMLElement | null>(null);
 
 	const chatStore = useChatStore();
 
@@ -12,21 +18,29 @@
 	const handleKeydown = (event: KeyboardEvent): void => {
 		if (event.key === "Escape" || (event.key === "Backspace" && !chatStore.searchValue)) chatStore.clearSearch();
 	};
+
+	const focusInput = (): void => {
+		if (window.matchMedia("(max-width: 767px)").matches && inputRef.value && isOpened) inputRef.value.focus(); 
+	};
+
+
+	watch(() => isOpened, focusInput);
 </script>
 
 
 <template>
-	<div :class="['search', { active: isActive }]">
+	<div :class="['search', { active: isActive }, { opened: isOpened }]">
 		<label class="search__label" for="chatSearch">Поиск по чатам</label>
 		<input
 			@keydown="handleKeydown"
 			v-model="chatStore.searchValue"
 			class="search__input"
 			id="chatSearch"
+			ref="inputRef"
 			type="search"
 		/>
 		<button
-			@click="chatStore.clearSearch"
+			@click="chatStore.clearSearch, $emit('toggleVisibility')"
 			:tabindex="tabIndex"
 			class="search__button"
 			aria-label="Очистить поле ввода"
@@ -48,6 +62,7 @@
 		position: relative;
 
 		transition: padding 0.2s ease-in-out;
+		z-index: 2;
 
 		&__label {
 			color: var(--color-text-secondary);
@@ -59,7 +74,7 @@
 			
 			pointer-events: none;
 			transform: translateY(-50%);
-			transition: all 0.2s ease-in-out;
+			transition: all 0.2s ease-in-out, position 0s;
 		}
 
 		&__input {
@@ -84,6 +99,7 @@
 			right: max(15px, 0.8vw);
 			top: calc(50% + max(20px, 1vw));
 
+			pointer-events: none;
 			transform: translateY(-50%);
 
 			@include focusVisible;
@@ -99,7 +115,6 @@
 				color: var(--color-text-secondary);
 	
 				transform: rotate(0deg) scale(0);
-				transition: all 0.1s ease-in-out, color 0s ease-in-out;
 				
 				height: 100%;
 				width: 100%;
@@ -119,6 +134,10 @@
 				top: max(15px, 0.8vw);
 			}
 
+			& .search__button {
+				pointer-events: auto;
+			}
+
 			& .search__button-icon {
 				transform: rotate(-135deg) scale(1);
 			}
@@ -129,6 +148,66 @@
 	@media(hover: hover) {
 		.search__button:hover .search__button-icon {
 			color: var(--color-text-primary);
+		}
+	}
+
+	@media(max-width: 767px) {
+		.search {
+			box-shadow: none;
+
+			display: flex;
+			flex: 0 0 auto;
+			flex-direction: column;
+			gap: 10px;
+
+			padding: 0px;
+			height: 0px;
+
+			overflow: hidden;
+			transition: all 0.2s ease-in-out;
+
+			&__label {
+				color: var(--color-text-primary);
+				font-weight: 700;
+				font-size: 16px;
+
+				padding-left: 20px;
+				
+				position: static;
+				transform: none;
+			}
+
+			&__input {
+				padding-left: 20px;
+			}
+
+			&__button {
+				bottom: 2px;
+				top: auto;
+
+				pointer-events: auto;
+				transform: none;
+			}
+
+			&.active,
+			&:focus-within {
+				padding-top: 0px;
+
+				.search__button-icon {
+					transform: none;
+				}
+			}
+
+			&.opened {
+				box-shadow: var(--shadow-header);
+
+				padding: 10px 0px 0px;
+				height: 82px;
+
+				.search__button-icon {
+					transform: rotate(-135deg) scale(1);
+				}
+			}
 		}
 	}
 </style>
