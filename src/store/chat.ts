@@ -1,15 +1,15 @@
 import { defineStore } from "pinia";
 import { reactive, ref } from "vue";
 
-import type { Chat, SelectedChat } from "@/interfaces/Chat";
+import type { IChat, ISelectedChat } from "@/interfaces/Chat";
 import { CHATS } from "@/test";
 
 
 export const useChatStore = defineStore("chats", () => {
-	const selectedChat = ref<SelectedChat | null>(null);
+	const selectedChat = ref<ISelectedChat | null>(null);
 	const searchValue = ref<string>("");
 
-	const chats = reactive<Chat[]>(CHATS);
+	const chats = reactive<IChat[]>(CHATS);
 
 	const clearSearch = (): void => {
 		(document.activeElement as HTMLElement)?.blur();
@@ -17,6 +17,7 @@ export const useChatStore = defineStore("chats", () => {
 	};
 
 	const selectChat = (id: number): void => {
+		console.log(id);
 		// selectedChat.value = chats.find(chat => chat.id === id);
 	};
 

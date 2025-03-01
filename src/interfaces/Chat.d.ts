@@ -1,17 +1,17 @@
-import type { Message, MessagePreview } from "./Message";
-import type { User } from "./User";
+import type { IMessage, IMessagePreview } from "./Message";
+import type { IUser } from "./User";
 
 
-export interface Chat {
+export interface IChat {
 	id: number;
-	partner: User;
-	lastMessage: MessagePreview;
+	partner: IUser;
+	lastMessage: IMessagePreview;
 	unreadMessages: number;
 };
 
-export interface SelectedChat {
+export interface ISelectedChat {
 	id: number;
-	sender: User;
-	partner: User;
-	history: Message[];
+	sender: IUser;
+	partner: IUser;
+	history: IMessage[];
 };

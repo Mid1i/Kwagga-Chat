@@ -1,14 +1,14 @@
 import { defineStore } from "pinia";
 import { ref } from "vue";
 
-import type { Theme } from "@/types/Theme";
+import type { ThemeType } from "@/types/Theme";
 import { getItem, setItem } from "@/helpers/localStorage";
 
 
 export const useThemeStore = defineStore("theme", () => {
-	const theme = ref<Theme>("light");
+	const theme = ref<ThemeType>("light");
 
-	const changeTheme = (newValue: Theme): void => {
+	const changeTheme = (newValue: ThemeType): void => {
 		theme.value = newValue;
 		setItem("theme", newValue);
 		document.documentElement.setAttribute("data-theme", theme.value);

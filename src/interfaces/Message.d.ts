@@ -1,14 +1,14 @@
-import type { User } from "./User";
+import type { IUser } from "./User";
 
 
-export interface MessagePreview {
+export interface IMessagePreview {
 	id: number;
 	text: string;
 	datetime: string;
 	unread?: boolean;
 };
 
-export interface Message extends Omit<MessagePreview, "senderId"> {
-	sender: User;
-	partner: User;
+export interface IMessage extends Omit<IMessagePreview, "senderId"> {
+	sender: IUser;
+	partner: IUser;
 };
