@@ -5,6 +5,7 @@ export interface IMessagePreview {
 	id: number;
 	text: string;
 	datetime: string;
+	senderId: number;
 	unread?: boolean;
 };
 
