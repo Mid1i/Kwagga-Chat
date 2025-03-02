@@ -9,11 +9,14 @@
 	import messageIcons from "@/assets/icons/message.svg";
 
 
+	defineEmits<{ toggleVisibility: [] }>();
+
 	const chatStore = useChatStore();
 
-	const chats = computed<IChat[]>(() => chatStore.chats);
-
 	const { containerRef, scrollToTop, isScrolled } = useScrollToTop();
+	
+	const chats = computed<IChat[]>(() => chatStore.chats);
+	const tabIndex = computed<number>(() => isScrolled.value ? 0 : -1);
 
 	const getMessageDate = (messageDate: string): string => {
 		const date = new Date(messageDate);
@@ -36,52 +39,62 @@
 
 
 <template>
-	<ul class="chats-list" ref="containerRef">
-		<li
-			v-for="({ id, partner, lastMessage, unreadMessages }) in chats"
-			:key="id"
-			class="chats-list__el"
-		>
-			<button 
-				@click="chatStore.selectChat(id)"
-				:class="['chats-list__button', { selected: isSelected(id) }]"
-				:aria-label="getButtonAria(partner.firstName, partner.lastName)"
+	<template v-if="chats.length > 0">
+		<ul class="chats-list" ref="containerRef">
+			<li
+				v-for="({ id, partner, lastMessage, unreadMessages }) in chats"
+				:key="id"
+				class="chats-list__el"
 			>
-				<div class="chats-list__row">
-					<span class="chats-list__partner">{{ partner.firstName }}</span>
-					<span class="chats-list__datetime">
-						<svg 
-							v-if="lastMessage.unread !== undefined"
-							:aria-label="getIconAria(lastMessage.unread)"
-							:class="['chats-list__icon', { unread: lastMessage.unread }]" 
-							height="20" 
-							width="20"
-						>
-							<use :href="getIconLink(lastMessage.unread)"/>
-						</svg>
-						{{ getMessageDate(lastMessage.datetime) }}
-					</span>
-				</div>
-				<div class="chats-list__row">
-					<span class="chats-list__message">{{ lastMessage.text }}</span>
-					<span 
-						v-show="!!unreadMessages" 
-						aria-label="Непрочитанных сообщений"
-						class="chats-list__unread"
-					>{{ unreadMessages }}</span>
-				</div>
-			</button>
-		</li>
-	</ul>
-	<button 
-		@click="scrollToTop"
-		:class="['scroll-to-top', { active: isScrolled }]"
-		aria-label="Перейти в начало чатов"
-	>
-		<svg class="scroll-to-top__icon" height="20" width="20">
-			<use href="@/assets/icons/navigation.svg#arrowUp"/>
-		</svg>
-	</button>
+				<button 
+					@click="chatStore.selectChat(id), $emit('toggleVisibility')"
+					:class="['chats-list__button', { selected: isSelected(id) }]"
+					:aria-label="getButtonAria(partner.firstName, partner.lastName)"
+				>
+					<div class="chats-list__row">
+						<span class="chats-list__partner">{{ partner.firstName }}</span>
+						<span class="chats-list__datetime">
+							<svg 
+								v-if="lastMessage.unread !== undefined"
+								:aria-label="getIconAria(lastMessage.unread)"
+								:class="['chats-list__icon', { unread: lastMessage.unread }]" 
+								height="20" 
+								width="20"
+							>
+								<use :href="getIconLink(lastMessage.unread)"/>
+							</svg>
+							{{ getMessageDate(lastMessage.datetime) }}
+						</span>
+					</div>
+					<div class="chats-list__row">
+						<span class="chats-list__message">
+							<span class="chats-list__message-accent">{{ lastMessage.senderId !== partner.id ? "Вы: " : "" }}</span>
+							{{ lastMessage.text }}
+						</span>
+						<span 
+							v-show="!!unreadMessages" 
+							aria-label="Непрочитанных сообщений"
+							class="chats-list__unread"
+						>{{ unreadMessages }}</span>
+					</div>
+				</button>
+			</li>
+		</ul>
+		<button 
+			@click="scrollToTop"
+			:class="['scroll-to-top', { active: isScrolled }]"
+			:tabindex="tabIndex"
+			aria-label="Перейти в начало чатов"
+		>
+			<svg class="scroll-to-top__icon" height="20" width="20">
+				<use href="@/assets/icons/navigation.svg#arrowUp"/>
+			</svg>
+		</button>
+	</template>
+	<div v-else class="empty">
+		<p class="empty__text">Здесь пока ничего нет</p>
+		<button class="empty__button">Начать новый чат</button>
+	</div>
 </template>
 
 
@@ -94,50 +107,12 @@
 		display: flex;
 		flex: 1 1 auto;
 		flex-direction: column;
-		gap: max(10px, 0.5vw);
 
 		overflow-y: overlay;
 		padding: max(15px, 0.8vw) 0px;
 
 		&::-webkit-scrollbar {
-			width: max(8px, 0.4vw);
-
-			&-track,
-			&-thumb {
-				border-right: max(6px, 0.3vw) solid var(--color-bg-secondary);
-			}
-
-			&-track {
-				background: var(--color-text-muted);
-			}
-
-			&-thumb {
-				background: var(--color-accent-primary);
-			}
-
-			&-button:start,
-			&-button:end {
-				background: var(--color-bg-secondary);
-				height: max(5px, 0.25vw);
-			}
-		}
-
-		&__button {
-			display: flex;
-			flex-direction: column;
-			gap: max(5px, 0.25vw);
-
-			padding: max(8px, 0.4vw) max(12px, 0.6vw);
-
-			width: 100%;
-			
-			&:focus-visible {
-				background: var(--color-hover-bg);
-			}
-
-			&.selected {
-				background: var(--color-selected-bg);
-			}
+			display: none;
 		}
 
 		&__row {
@@ -163,7 +138,6 @@
 			gap: max(5px, 0.25vw);
 
 			color: var(--color-text-secondary);
-			font-weight: 500;
 			font-size: max(14px, 0.7vw);
 		}
 
@@ -171,8 +145,8 @@
 			color: var(--color-accent-primary);
 			
 			flex: 0 0 auto;
-			height: max(20px, 1vw);
-			width: max(20px, 1vw);
+			height: max(16px, 0.85vw);
+			width: max(16px, 0.85vw);
 
 			&.unread {
 				color: var(--color-text-secondary);
@@ -184,6 +158,10 @@
 			font-size: max(14px, 0.7vw);
 
 			@include textOverflow;
+
+			&-accent {
+				color: var(--color-accent-primary);
+			}
 		}
 
 		&__unread {
@@ -204,9 +182,46 @@
 
 			min-width: max(18px, 0.9vw);
 		}
+
+		&__button {
+			display: flex;
+			flex-direction: column;
+			gap: max(5px, 0.25vw);
+
+			padding: max(15px, 0.75vw) max(12px, 0.6vw);
+
+			width: 100%;
+			
+			&:focus-visible {
+				background: var(--color-hover-bg);
+			}
+
+			&.selected {
+				background: var(--color-selected-bg);
+
+				.chats-list__icon,
+				.chats-list__unread,
+				.chats-list__partner,
+				.chats-list__message,
+				.chats-list__datetime,
+				.chats-list__message-accent {
+					color: var(--color-accent-white);
+				}
+
+				.chats-list__partner {
+					font-weight: 600;
+				}
+
+				.chats-list__unread {
+					background: var(--color-accent-primary);
+				}
+			}
+		}
 	}
 
 	.scroll-to-top {
+		@include focusVisible;
+
 		background: var(--color-hover-bg);
 		box-shadow: var(--shadow-scroll-button);
 		border-radius: 100%;
@@ -237,6 +252,27 @@
 		}
 	}
 
+	.empty {
+		align-items: center;
+		display: flex;
+		flex: 1 0 auto;
+		flex-direction: column;
+		justify-content: center;
+		gap: max(10px, 0.5vw);
+
+		&__text {
+			color: var(--color-text-secondary);
+			font-size: max(14px, 0.7vw);
+		}
+
+		&__button {
+			color: var(--color-text-primary);
+			font-size: max(14px, 0.7vw);
+
+			@include focusVisible;
+		}
+	}
+
 
 	@media(hover: hover) {
 		.chats-list__button:hover:not(.selected) {
@@ -245,6 +281,10 @@
 
 		.scroll-to-top:hover .scroll-to-top__icon {
 			color: var(--color-text-primary);
+		}
+
+		.empty__button:hover {
+			color: var(--color-accent-primary);
 		}
 	}
 
