@@ -2,7 +2,7 @@ import { defineStore } from "pinia";
 import { reactive, ref } from "vue";
 
 import type { IChat, ISelectedChat } from "@/interfaces/Chat";
-import { CHATS } from "@/test";
+import { CHATS, SELECTED_CHAT } from "@/test";
 
 
 export const useChatStore = defineStore("chats", () => {
@@ -17,8 +17,8 @@ export const useChatStore = defineStore("chats", () => {
 	};
 
 	const selectChat = (id: number): void => {
-		console.log(id);
-		// selectedChat.value = chats.find(chat => chat.id === id);
+		console.log(`id чата - ${id}`);
+		selectedChat.value = SELECTED_CHAT;
 	};
 
 
