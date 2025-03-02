@@ -3,7 +3,7 @@
 	import { useChatStore } from "@/store/chat";
 
 
-	const { isOpened } = defineProps<{ isOpened: boolean }>();
+	const { isVisible } = defineProps<{ isVisible: boolean }>();
 
 	defineEmits<{ toggleVisibility: [] }>();
 
@@ -20,16 +20,16 @@
 	};
 
 	const focusInput = (): void => {
-		if (window.matchMedia("(max-width: 767px)").matches && inputRef.value && isOpened) inputRef.value.focus(); 
+		if (window.matchMedia("(max-width: 767px)").matches && inputRef.value && isVisible) inputRef.value.focus(); 
 	};
 
 
-	watch(() => isOpened, focusInput);
+	watch(() => isVisible, focusInput);
 </script>
 
 
 <template>
-	<div :class="['search', { active: isActive }, { opened: isOpened }]">
+	<div :class="['search', { active: isActive }, { opened: isVisible }]">
 		<label class="search__label" for="chatSearch">Поиск по чатам</label>
 		<input
 			@keydown="handleKeydown"
