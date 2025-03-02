@@ -1,10 +1,10 @@
 :root {
 	// Основные фоны
-	--color-bg-primary: #F8D7C9; /* Основной фон чата */
+	--color-bg-primary: #D1D68C; /* Основной фон чата */
 	--color-bg-secondary: #FFFFFF; /* Фон боковой панели */
 
 	// Фоны сообщений
-	--color-message-my: #FFF0EB; /* Фон моих сообщений */
+	--color-message-my: #EFFDDE; /* Фон моих сообщений */
 	--color-message-partner: #FFFFFF; /* Фон сообщений собеседника */
 
 	// Текстовые цвета
@@ -18,15 +18,16 @@
 
 	// Выбранные элементы и hover эффекты
 	--color-hover-bg: #F1F1F1; /* Фон при hover эффекте */
-	--color-selected-bg: #FF8A65; /* Выбранный чат */
+	--color-selected-bg: #5FBE67; /* Выбранный чат */
 	--color-selected-icon: #FFFFFF; /* Иконка в выбранном чате */
 
 	// Акцентные цвета
-	--color-accent-primary: #FF8A65;
+	--color-accent-primary: #5FBE67;
 	--color-accent-warning: #F0B232;
 	--color-accent-success: #3BA55C;
 	--color-accent-danger: #ED4245;
 	--color-accent-white: #FFFFFF;
+	--color-accent-black: #0A1218;
 
 	// Тени
 	--shadow-aside-chats: 2px 0px 2px rgb(0, 0, 0, .2); /* Тень бокового меню с чатами */
@@ -42,19 +43,22 @@
 	--color-bg-secondary: #17232C;
 	
 	// Фоны сообщений
-	--color-message-my: #2B5A7A;
+	--color-message-my: #2B5278;
 	--color-message-partner: #182A38; 
 	
 	// Текстовые цвета
 	--color-text-primary: #E4ECF2;
-	--color-text-secondary: #8FA3B5;
-	--color-text-muted: #4A667A;
+	--color-text-secondary: #8696A8;
+	--color-text-muted: #3E546A;
 	
 	// Границы и разделители
 	--color-border-light: #354351;
 	
 	// Выбранные элементы и hover эффекты
 	--color-hover-bg: #233038;
-	--color-selected-bg: #3E7099;
+	--color-selected-bg: #2B5278;
 	--color-selected-icon: #F2D9CC;
+
+	// Акцентные цвета
+	--color-accent-primary: #6AB3F3;
 }
