@@ -1,217 +1,209 @@
-import type { IChat, ISelectedChat } from "@/interfaces/Chat";
+import type { IHistory } from "@/interfaces/History";
+import type { IMessage } from "@/interfaces/Message";
+import type { IChat } from "@/interfaces/Chat";
 import type { IUser } from "@/interfaces/User";
 
 
-export const USER_1: IUser = {
-	id: 1,
-	online: true,
-	username: "alex",
-	email: "example@mail.ru",
-	firstName: "Александр",
-	lastName: "Смирнов"
-};
+export const USERS: IUser[] = [
+	{
+		id: 1,
+    firstName: "Иван",
+    lastName: "Иванов",
+    username: "ivan123",
+    email: "ivanov@mail.ru",
+    isOnline: true,
+    dateOfRegistration: "2025-01-15T10:30:00"
+	},
+	{
+    id: 2,
+    firstName: "Мария",
+    lastName: "Петрова",
+    username: "masha_p",
+    email: "maria_petrov@mail.ru",
+    isOnline: false,
+    dateOfRegistration: "2025-01-20T14:45:00"
+  },
+	{
+    id: 3,
+    firstName: "Дмитрий",
+    lastName: "Смирнов",
+    username: "dmitry_smirnov",
+    email: "d.smirnov@rambler.ru",
+    isOnline: true,
+    dateOfRegistration: "2025-02-05T08:25:00"
+  }
+];
 
-export const USER_2: IUser = {
-	id: 2,
-	online: true,
-	username: "vanya",
-	email: "test@yandex.ru",
-	firstName: "Иван",
-	lastName: "Иванов"
-};
+export const MESSAGES: IMessage[] = [
+	{
+		id: 1,
+    text: "Привет, как ты? Давно не общались!",
+    sender: USERS[0],
+    recepient: USERS[1],
+    datetime: "2025-03-06T12:15:00",
+    isUnread: true
+	},
+	{
+    id: 2,
+    text: "Добрый день! Как все прошло на встрече?",
+    sender: USERS[1],
+    recepient: USERS[0],
+    datetime: "2025-03-06T12:10:00"
+  },
+  {
+    id: 3,
+    text: "Не забудь про отчет до конца недели!",
+    sender: USERS[2],
+    recepient: USERS[0],
+    datetime: "2025-03-05T09:30:00"
+  },
+  {
+    id: 4,
+    text: "Спасибо за помощь вчера!",
+    sender: USERS[0],
+    recepient: USERS[2],
+    datetime: "2025-03-05T14:00:00",
+    isUnread: true
+  },
+  {
+    id: 5,
+    text: "У тебя получится все сделать в срок?",
+    sender: USERS[1],
+    recepient: USERS[2],
+    datetime: "2025-03-04T15:45:00"
+  },
+  {
+    id: 6,
+    text: "Поздравляю с новой должностью!",
+    sender: USERS[2],
+    recepient: USERS[1],
+    datetime: "2025-03-04T13:20:00"
+  },
+  {
+    id: 7,
+    text: "Что планируешь на выходных?",
+    sender: USERS[0],
+    recepient: USERS[2],
+    datetime: "2025-03-06T11:50:00"
+  },
+  {
+    id: 8,
+    text: "Не забудь про звонок в 16:00",
+    sender: USERS[1],
+    recepient: USERS[0],
+    datetime: "2025-03-06T10:40:00"
+  },
+  {
+    id: 9,
+    text: "Как тебе новая идея для проекта?",
+    sender: USERS[0],
+    recepient: USERS[1],
+    datetime: "2025-03-04T16:00:00"
+  },
+  {
+    id: 10,
+    text: "Привет, ты видел новое обновление на сайте?",
+    sender: USERS[2],
+    recepient: USERS[0],
+    datetime: "2025-03-05T17:10:00",
+    isUnread: true
+  }
+];
 
 export const CHATS: IChat[] = [
 	{
 		id: 1,
-		partner: USER_2,
-		lastMessage: {
-			id: 1,
-			senderId: 1,
-			text: "Выходи",
-			datetime: "2025-03-01T15:30:00.000"
-		},
-		unreadMessages: 2
+    recepient: USERS[1],
+    lastMessage: MESSAGES[1],
+    unreadMessages: 1
 	},
-	{
-		id: 2,
-		partner: USER_2,
-		lastMessage: {
-			id: 1,
-			senderId: 1,
-			text: "Привет! Это тестовое сообщение",
-			datetime: "2025-02-27T12:30:00.000"
-		},
-		unreadMessages: 1
-	},
-	{
-		id: 3,
-		partner: USER_2,
-		lastMessage: {
-			id: 1,
-			senderId: 2,
-			text: "Что-то написано",
-			datetime: "2025-02-27T10:30:00.000",
-			unread: false
-		},
-		unreadMessages: 0
-	},
-	{
-		id: 4,
-		partner: USER_2,
-		lastMessage: {
-			id: 1,
-			senderId: 2,
-			text: "Я на мосту",
-			datetime: "2025-01-27T22:30:00.000"
-		},
-		unreadMessages: 10
-	},
-	{
-		id: 5,
-		partner: USER_2,
-		lastMessage: {
-			id: 1,
-			senderId: 2,
-			text: "Спишь?",
-			datetime: "2025-02-27T00:30:00.000",
-			unread: true
-		},
-		unreadMessages: 0
-	},
-	{
-		id: 1,
-		partner: USER_2,
-		lastMessage: {
-			id: 1,
-			senderId: 1,
-			text: "Выходи",
-			datetime: "2025-03-01T15:30:00.000"
-		},
-		unreadMessages: 2
-	},
-	{
-		id: 2,
-		partner: USER_2,
-		lastMessage: {
-			id: 1,
-			senderId: 1,
-			text: "Привет! Это тестовое сообщение",
-			datetime: "2025-02-27T12:30:00.000"
-		},
-		unreadMessages: 1
-	},
-	{
-		id: 3,
-		partner: USER_2,
-		lastMessage: {
-			id: 1,
-			senderId: 1,
-			text: "Что-то написано",
-			datetime: "2025-02-27T10:30:00.000",
-			unread: false
-		},
-		unreadMessages: 0
-	},
-	{
-		id: 4,
-		partner: USER_2,
-		lastMessage: {
-			id: 1,
-			senderId: 2,
-			text: "Я на мосту",
-			datetime: "2025-01-27T22:30:00.000"
-		},
-		unreadMessages: 10
-	},
-	{
-		id: 5,
-		partner: USER_2,
-		lastMessage: {
-			id: 1,
-			senderId: 2,
-			text: "Спишь?",
-			datetime: "2025-02-27T00:30:00.000",
-			unread: true
-		},
-		unreadMessages: 0
-	},
-	{
-		id: 1,
-		partner: USER_2,
-		lastMessage: {
-			id: 1,
-			senderId: 2,
-			text: "Выходи",
-			datetime: "2025-03-01T15:30:00.000"
-		},
-		unreadMessages: 2
-	},
-	{
-		id: 2,
-		partner: USER_2,
-		lastMessage: {
-			id: 1,
-			senderId: 2,
-			text: "Привет! Это тестовое сообщение",
-			datetime: "2025-02-27T12:30:00.000"
-		},
-		unreadMessages: 1
-	},
-	{
-		id: 3,
-		partner: USER_2,
-		lastMessage: {
-			id: 1,
-			senderId: 2,
-			text: "Что-то написано",
-			datetime: "2025-02-27T10:30:00.000",
-			unread: false
-		},
-		unreadMessages: 0
-	},
-	{
-		id: 4,
-		partner: USER_2,
-		lastMessage: {
-			id: 1,
-			senderId: 2,
-			text: "Я на мосту",
-			datetime: "2025-01-27T22:30:00.000"
-		},
-		unreadMessages: 10
-	},
-	{
-		id: 5,
-		partner: USER_2,
-		lastMessage: {
-			id: 1,
-			senderId: 1,
-			text: "Спишь?",
-			datetime: "2025-02-27T00:30:00.000",
-			unread: true
-		},
-		unreadMessages: 0
-	},
+  {
+    id: 2,
+    recepient: USERS[0],
+    lastMessage: MESSAGES[2],
+    unreadMessages: 0
+  },
+  {
+    id: 3,
+    recepient: USERS[2],
+    lastMessage: MESSAGES[7],
+    unreadMessages: 1
+  },
+  {
+    id: 4,
+    recepient: USERS[1],
+    lastMessage: MESSAGES[5],
+    unreadMessages: 0
+  },
+  {
+    id: 5,
+    recepient: USERS[0],
+    lastMessage: MESSAGES[4],
+    unreadMessages: 0
+  },
+  {
+    id: 6,
+    recepient: USERS[2],
+    lastMessage: MESSAGES[10],
+    unreadMessages: 1
+  },
+  {
+    id: 7,
+    recepient: USERS[0],
+    lastMessage: MESSAGES[3],
+    unreadMessages: 1
+  },
+  {
+    id: 8,
+    recepient: USERS[1],
+    lastMessage: MESSAGES[8],
+    unreadMessages: 0
+  },
+  {
+    id: 9,
+    recepient: USERS[2],
+    lastMessage: MESSAGES[9],
+    unreadMessages: 1
+  },
+  {
+    id: 10,
+    recepient: USERS[1],
+    lastMessage: MESSAGES[6],
+    unreadMessages: 0
+  }
 ];
 
-export const SELECTED_CHAT: ISelectedChat = {
-	id: 1,
-	sender: USER_1,
-	partner: USER_2,
-	history: [
-		{
-			id: 1,
-			text: "Выходи", 
-			datetime: "2025-03-01T15:30:00.000",
-			sender: USER_1,
-			partner: USER_2
-		},
-		{
-			id: 2,
-			text: "Уже",
-			datetime: "2025-03-01T15:35:00.000",
-			sender: USER_2,
-			partner: USER_1
-		}	
-	]
+export const HISTORY: IHistory = {
+  date: "2025-03-06",
+  messages: [
+    {
+      id: 1,
+      text: "Привет, как ты? Давно не общались!",
+      sender: USERS[0],
+      recepient: USERS[1],
+      datetime: "2025-03-06T12:15:00",
+      isUnread: true
+    },
+    {
+      id: 2,
+      text: "Добрый день! Как все прошло на встрече?",
+      sender: USERS[1],
+      recepient: USERS[0],
+      datetime: "2025-03-06T12:10:00"
+    },
+    {
+      id: 9,
+      text: "Как тебе новая идея для проекта?",
+      sender: USERS[0],
+      recepient: USERS[1],
+      datetime: "2025-03-04T16:00:00"
+    },
+    {
+      id: 8,
+      text: "Не забудь про звонок в 16:00",
+      sender: USERS[1],
+      recepient: USERS[0],
+      datetime: "2025-03-06T10:40:00"
+    }
+  ]
 };
