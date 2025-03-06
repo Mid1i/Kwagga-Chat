@@ -1,20 +1,61 @@
 @use "./variables.scss" as *;
 
 
+// Переполнение текста многоточием
 @mixin textOverflow {
 	overflow: hidden;
+
 	text-align: left;
 	text-overflow: ellipsis;
 	white-space: nowrap;
 }
 
+// Состояние при фокусе активного элемента с клавиатуры
 @mixin focusVisible {
 	border: 2px solid transparent;
-	border-radius: max(5px, 0.25vw);
-
-	padding: 3px;
+	border-radius: 5px;
 
 	&:focus-visible {
-		border-color: var(--color-text-primary);
+		border-color: var(--color-accent-primary);
+	}
+}
+
+// Заголовки (название чата, имя собеседника, название файла и т.д.)
+@mixin title {
+	color: var(--color-text-primary);
+	font-weight: 600;
+	font-size: 16px;
+}
+
+// Обычный текст (сообщения, чаты, описание и т.д.)
+@mixin text {
+	color: var(--color-text-primary);
+	font-weight: 400;
+	font-size: 14px;
+}
+
+// Маленький текст (даты сообщений, имя отправителя сообщения в чате и т.д.)
+@mixin smallText {
+	color: var(--color-text-extra);
+	font-weight: 300;
+	font-size: 12px;
+}
+
+// Кнопка с иконкой
+@mixin buttonIcon {
+	height: 24px;
+	width: 24px;
+
+	color: var(--color-text-secondary);
+
+	transition: color 0s;
+
+	@include focusVisible;
+
+	& svg {
+		height: 100%;
+		width: 100%;
+
+		color: inherit;
 	}
 }
