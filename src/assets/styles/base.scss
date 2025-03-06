@@ -4,14 +4,13 @@
 *, 
 *::after,
 *::before {
-	border: 0px;
-	margin: 0px;
-	padding: 0px;
 	box-sizing: border-box;
+	padding: 0px;
+	margin: 0px;
+	
+	border: 0px;
 
-	transition: background 0.2s ease-in-out, border 0.2s ease-in-out, box-shadow 0.2s ease-in-out, color 0.2s ease-in-out, transform 0.2s ease-in-out, font-weight 0.2s ease-in-out, opacity 0.2s ease-in-out;
-
-	user-select: none;
+	transition: background 0.2s ease-in-out, border 0.2s ease-in-out, color 0.2s ease-in-out, transform 0.2s ease-in-out;
 }	
 
 *:focus, 
@@ -22,16 +21,16 @@
 
 html, 
 body {
-	background: var(--color-bg-primary);
-	color: var(--color-text-primary);
+	overflow-x: hidden;
+	height: 100%;
+	width: 100%;
 	
+	color: var(--color-text-primary);
 	font-family: "Open Sans", sans-serif;
 	font-weight: 400;
 	font-size: 14px;
 
-	overflow-x: hidden;
-	height: 100%;
-	width: 100%;
+	background: var(--color-bg-primary);
 }
 
 a, 
@@ -48,9 +47,10 @@ svg {
 input, 
 button,
 textarea {
-	background: transparent;
 	color: inherit;
 	font-family: inherit;
+
+	background: transparent;
 }
 
 button {
@@ -71,8 +71,7 @@ img {
 	width: 100%;
 }
 
-
-@media(max-width: 767px) {
+@media (max-width: 767px) {
 	button:active {
 		transform: scale(0.95);
 	}
