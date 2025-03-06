@@ -4,4 +4,4 @@ node_modules
 dist
 
 # Файлы редактора
-.vscode/*
+.vscode
