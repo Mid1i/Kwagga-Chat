@@ -1,5 +1,5 @@
 <script setup lang="ts">
-	import { computed } from "vue";
+	import { computed, ref, onMounted, nextTick } from "vue";
 
 	import type { IChat } from "@/interfaces/Chat";
 	import { formattedTime, formattedDate } from "@/helpers/datetime";
@@ -13,7 +13,7 @@
 
 	const chatStore = useChatStore();
 
-	const { containerRef, scrollToTop, isScrolled } = useScrollToTop();
+	const { scrollToTop, isScrolled } = useScrollToTop();
 	
 	const chats = computed<IChat[]>(() => chatStore.chats);
 	const tabIndex = computed<number>(() => isScrolled.value ? 0 : -1);
@@ -35,51 +35,56 @@
 	const getIconLink = (unread: boolean): string => `${messageIcons}#${unread ? 'check' : 'doubleCheck'}`;
 	
 	const isSelected = (chatId: number): boolean => chatId === chatStore.selectedChat?.id;
+
+
+	import CustomScrollbar from "@/components/CustomScrollbar.vue";
 </script>
 
 
 <template>
 	<template v-if="chats.length > 0">
-		<ul class="chats-list" ref="containerRef">
-			<li
-				v-for="({ id, partner, lastMessage, unreadMessages }) in chats"
-				:key="id"
-				class="chats-list__el"
-			>
-				<button 
-					@click="chatStore.selectChat(id), $emit('toggleVisibility')"
-					:class="['chats-list__button', { selected: isSelected(id) }]"
-					:aria-label="getButtonAria(partner.firstName, partner.lastName)"
+		<custom-scrollbar css-scrollbar-width="5">
+			<ul class="chats-list">
+				<li
+					v-for="({ id, partner, lastMessage, unreadMessages }) in chats"
+					:key="id"
+					class="chats-list__el"
 				>
-					<div class="chats-list__row">
-						<span class="chats-list__partner">{{ partner.firstName }}</span>
-						<span class="chats-list__datetime">
-							<svg 
-								v-if="lastMessage.unread !== undefined"
-								:aria-label="getIconAria(lastMessage.unread)"
-								:class="['chats-list__icon', { unread: lastMessage.unread }]" 
-								height="20" 
-								width="20"
-							>
-								<use :href="getIconLink(lastMessage.unread)"/>
-							</svg>
-							{{ getMessageDate(lastMessage.datetime) }}
-						</span>
-					</div>
-					<div class="chats-list__row">
-						<span class="chats-list__message">
-							<span class="chats-list__message-accent">{{ lastMessage.senderId !== partner.id ? "Вы: " : "" }}</span>
-							{{ lastMessage.text }}
-						</span>
-						<span 
-							v-show="!!unreadMessages" 
-							aria-label="Непрочитанных сообщений"
-							class="chats-list__unread"
-						>{{ unreadMessages }}</span>
-					</div>
-				</button>
-			</li>
-		</ul>
+					<button 
+						@click="chatStore.selectChat(id), $emit('toggleVisibility')"
+						:class="['chats-list__button', { selected: isSelected(id) }]"
+						:aria-label="getButtonAria(partner.firstName, partner.lastName)"
+					>
+						<div class="chats-list__row">
+							<span class="chats-list__partner">{{ partner.firstName }}</span>
+							<span class="chats-list__datetime">
+								<svg 
+									v-if="lastMessage.unread !== undefined"
+									:aria-label="getIconAria(lastMessage.unread)"
+									:class="['chats-list__icon', { unread: lastMessage.unread }]" 
+									height="20" 
+									width="20"
+								>
+									<use :href="getIconLink(lastMessage.unread)"/>
+								</svg>
+								{{ getMessageDate(lastMessage.datetime) }}
+							</span>
+						</div>
+						<div class="chats-list__row">
+							<span class="chats-list__message">
+								<span class="chats-list__message-accent">{{ lastMessage.senderId !== partner.id ? "Вы: " : "" }}</span>
+								{{ lastMessage.text }}
+							</span>
+							<span 
+								v-show="!!unreadMessages" 
+								aria-label="Непрочитанных сообщений"
+								class="chats-list__unread"
+							>{{ unreadMessages }}</span>
+						</div>
+					</button>
+				</li>
+			</ul>
+		</custom-scrollbar>
 		<button 
 			@click="scrollToTop"
 			:class="['scroll-to-top', { active: isScrolled }]"
@@ -105,11 +110,12 @@
 
 	.chats-list {
 		display: flex;
-		flex: 1 1 auto;
+		// flex: 1 1 auto;
 		flex-direction: column;
 
-		overflow-y: overlay;
+		// overflow-y: overlay;
 		padding: max(15px, 0.8vw) 0px;
+		// height: 100%;
 
 		&::-webkit-scrollbar {
 			display: none;
