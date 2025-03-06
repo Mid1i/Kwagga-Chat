@@ -2,15 +2,15 @@ import { defineStore } from "pinia";
 import { ref } from "vue";
 
 import type { IUser } from "@/interfaces/User";
-import { USER_1 } from "@/test";
+import { USERS } from "@/test";
 
 
 
 export const useUserStore = defineStore("user", () => {
-	const user = ref<IUser>(USER_1);
+	const user = ref<IUser>(USERS[0]);
 
 
 	return {
 		user
-	};
+	}
 });
