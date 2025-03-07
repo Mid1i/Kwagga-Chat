@@ -1,11 +1,6 @@
 <script setup lang="ts">
-	// import ChatList from "@/components/ChatList.vue";
+	import ChatList from "@/components/ChatList.vue";
 	import Search from "@/components/Search.vue";
-
-	// import { useChatStore } from "@/store/chat";
-
-
-	// const chatStore = useChatStore();
 </script>
 
 
@@ -21,7 +16,7 @@
 				<h6 class="side-nav__header-title">Чаты</h6>
 				<Search/>
 			</header>
-			<!-- <ChatList/> -->
+			<ChatList/>
 		</aside>
 	</div>
 </template>
@@ -42,7 +37,6 @@
 	.side-nav {
 		display: flex;
 		flex-direction: column;
-		padding: 20px 15px 0px;
 		width: 430px;
 
 		&__header {
@@ -50,7 +44,7 @@
 			display: flex;
 			flex-wrap: wrap;
 			gap: 15px;
-			padding-bottom: 10px;
+			padding: 20px 15px 10px;
 
 			&-button {
 				@include buttonIcon;
