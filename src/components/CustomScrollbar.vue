@@ -108,12 +108,12 @@
 
 
 <template>
-	<div class="container">
-		<div class="container__scroll" ref="containerRef">
+	<div class="wrapper">
+		<div class="wrapper__scroll" ref="containerRef">
 			<slot></slot>
 		</div>
 		<div 
-			class="container__scrollbar"
+			class="wrapper__scrollbar"
 			:style="{ width: `${cssScrollbarWidth}px` }"
 			role="scrollbar" 
       aria-orientation="vertical"
@@ -124,7 +124,7 @@
 			<span 
 				@mousedown="startDragging"
 				@touchstart="startDragging"
-				class="container__scrollbar-thumb" 
+				class="wrapper__scrollbar-thumb" 
 				ref="thumbRef" 
 			></span>
 		</div>
@@ -143,7 +143,7 @@
 		transform-origin: center;
 	}
 
-	.container {
+	.wrapper {
 		position: relative;
 		
 		flex: 1 1 auto;
@@ -187,7 +187,7 @@
 
 
 	@media(hover: hover) {
-		.container__scrollbar:hover {
+		.wrapper__scrollbar:hover {
 			@include scrollbarActiveHover;
 		}
 	}
