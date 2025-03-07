@@ -85,6 +85,8 @@
 			background: var(--color-bg-extra);
 			border-radius: 5px;
 
+			@include focusVisible;
+			
 			&::-webkit-search-cancel-button {
 				display: none;
 			}
