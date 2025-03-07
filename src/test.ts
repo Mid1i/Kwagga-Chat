@@ -48,14 +48,14 @@ export const MESSAGES: IMessage[] = [
     text: "Добрый день! Как все прошло на встрече?",
     sender: USERS[1],
     recepient: USERS[0],
-    datetime: "2025-03-06T12:10:00"
+    datetime: "2025-03-07T12:10:00"
   },
   {
     id: 3,
     text: "Не забудь про отчет до конца недели!",
     sender: USERS[2],
     recepient: USERS[0],
-    datetime: "2025-03-05T09:30:00"
+    datetime: "2025-01-05T09:30:00"
   },
   {
     id: 4,
@@ -144,7 +144,7 @@ export const CHATS: IChat[] = [
   {
     id: 6,
     recepient: USERS[2],
-    lastMessage: MESSAGES[10],
+    lastMessage: MESSAGES[9],
     unreadMessages: 1
   },
   {
