@@ -9,3 +9,9 @@ export interface IMessage {
 	datetime: string;
 	isUnread?: boolean;
 };
+
+export interface IUnsentMessage {
+	id: number;
+	chatId: number;
+	text: string;
+};
