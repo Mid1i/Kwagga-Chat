@@ -3,9 +3,12 @@
 	import { formattedDatetime, formattedWeekDay } from "@/helpers/datetime";
 	import { generateColor } from "@/helpers/color";
 	import { WEEK_MS, YEAR_MS } from "@/constants";
+	import { useUserStore } from "@/store/user";
 
 
 	defineProps<IChat & { isActive: boolean }>();
+
+	const userStore = useUserStore();
 
 	const getMessageDatetime = (messageDate: string): string => {
 		const date = new Date(messageDate);
@@ -43,7 +46,10 @@
 				<span class="chat__header-datetime">{{ getMessageDatetime(lastMessage.datetime) }}</span>
 			</div>
 			<div class="chat__footer">
-				<span class="chat__footer-message">{{ lastMessage.text }}</span>
+				<span class="chat__footer-message">
+					<span v-if="lastMessage.sender.id === userStore.user.id" class="chat__footer-label">Вы: </span>
+					{{ lastMessage.text }}
+				</span>
 				<span 
 					v-if="unreadMessages" 
 					class="chat__footer-counter" 
@@ -155,6 +161,11 @@
 
 				@include text;
 				@include textOverflow;
+			}
+
+			&-label {
+				@include text;
+				color: var(--color-accent-primary);
 			}
 
 			&-counter {
