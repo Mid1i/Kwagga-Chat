@@ -1,0 +1,80 @@
+/// Базовые стили для сброса
+
+
+*, 
+*::after,
+*::before {
+	user-select: none;
+	
+	box-sizing: border-box;
+	padding: 0px;
+	margin: 0px;
+	
+	border: 0px;
+
+	transition: background 200ms ease-in-out, border 200ms ease-in-out, color 200ms ease-in-out, transform 200ms ease-in-out;
+}	
+
+*:focus, 
+*:active {
+	outline: none;
+	text-decoration: none;
+}
+
+html, 
+body {
+	overflow-x: hidden;
+	height: 100%;
+	width: 100%;
+	
+	color: #FFFFFF;
+	font-family: "Open Sans", sans-serif;
+	font-weight: 400;
+	font-size: 14px;
+
+	background: #202020;
+}
+
+a, 
+a:hover,
+a:visited {
+	color: inherit;
+	text-decoration: none;
+}
+
+svg {
+	transition: all 200ms ease-in-out, color 0s;
+}
+
+input, 
+button,
+textarea {
+	color: inherit;
+	font-family: inherit;
+
+	background: transparent;
+}
+
+button {
+	cursor: pointer;
+}
+
+ul li {
+	list-style: none;
+}
+
+img {
+	height: auto;
+	width: 100%;
+}
+
+#app {
+	height: 100%;
+	width: 100%;
+}
+
+@media (max-width: 767px) {
+	button:active {
+		transform: scale(0.95);
+	}
+}
