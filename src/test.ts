@@ -173,37 +173,53 @@ export const CHATS: IChat[] = [
   }
 ];
 
-export const HISTORY: IHistory = {
-  date: "2025-03-06",
-  messages: [
-    {
-      id: 1,
-      text: "Привет, как ты? Давно не общались!",
-      sender: USERS[0],
-      recepient: USERS[1],
-      datetime: "2025-03-06T12:15:00",
-      isUnread: true
-    },
-    {
-      id: 2,
-      text: "Добрый день! Как все прошло на встрече?",
-      sender: USERS[1],
-      recepient: USERS[0],
-      datetime: "2025-03-06T12:10:00"
-    },
-    {
-      id: 9,
-      text: "Как тебе новая идея для проекта?",
-      sender: USERS[0],
-      recepient: USERS[1],
-      datetime: "2025-03-04T16:00:00"
-    },
-    {
-      id: 8,
-      text: "Не забудь про звонок в 16:00",
-      sender: USERS[1],
-      recepient: USERS[0],
-      datetime: "2025-03-06T10:40:00"
-    }
-  ]
-};
+export const HISTORY: IHistory[] = [
+  {
+    date: "2025-03-06",
+    messages: [
+      {
+        id: 1,
+        text: "Привет, как ты? Давно не общались!",
+        sender: USERS[0],
+        recepient: USERS[1],
+        datetime: "2025-03-06T12:15:00",
+        isUnread: true
+      },
+      {
+        id: 2,
+        text: "Добрый день!",
+        sender: USERS[0],
+        recepient: USERS[1],
+        datetime: "2025-03-06T12:11:00"
+      },
+      {
+        id: 3,
+        text: "Всё отлично!",
+        sender: USERS[0],
+        recepient: USERS[1],
+        datetime: "2025-03-06T12:12:00"
+      },
+      {
+        id: 4,
+        text: "Добрый день! Как все прошло на встрече?",
+        sender: USERS[1],
+        recepient: USERS[0],
+        datetime: "2025-03-06T12:13:00"
+      },
+      {
+        id: 9,
+        text: "Как тебе новая идея для проекта?",
+        sender: USERS[0],
+        recepient: USERS[1],
+        datetime: "2025-03-04T10:00:00"
+      },
+      {
+        id: 8,
+        text: "Не забудь про звонок в 16:00",
+        sender: USERS[1],
+        recepient: USERS[0],
+        datetime: "2025-03-06T09:40:00"
+      }
+    ]
+  }
+];

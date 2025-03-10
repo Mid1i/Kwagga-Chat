@@ -17,6 +17,22 @@ export const WEEK_DAYS: Record<number, string> = {
 	6: "Сб"
 };
 
+// Месяцы по номерам
+export const MONTHES: Record<number, string> = {
+	0: "января",
+	1: "февраля",
+	2: "марта",
+	3: "апреля",
+	4: "мая",
+	5: "июня",
+	6: "июля",
+	7: "августа",
+	8: "сентября",
+	9: "октября",
+	10: "ноября",
+	11: "декабря",
+};
+
 // День в милисекундах
 export const DAY_MS = 24 * 60 * 60 * 1000;
 
@@ -25,3 +41,6 @@ export const WEEK_MS = 7 * DAY_MS;
 
 // Год в милисекундах
 export const YEAR_MS = 365 * DAY_MS;
+
+// Ссылка для api-запросов
+export const API_URL = import.meta.env.VITE_API_URL;
