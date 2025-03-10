@@ -7,8 +7,9 @@
 	const unsentMessage = ref<string>("");
 
 	const updateMessage = (event: Event) => {
-		unsentMessage.value = (event.target as HTMLInputElement).textContent ?? "";
-		console.log(unsentMessage.value)
+		const element = event.target as HTMLInputElement;
+		unsentMessage.value = element.textContent ?? "";
+		
 		emit('inputMessage', unsentMessage.value);
 	};
 </script>
@@ -22,7 +23,7 @@
 				aria-label="Прикрепить файл"
 			>
 				<svg class="footer__button-icon">
-					<use href="@/assets/icons/actions.svg#attach"/>
+					<use href="@/assets/actions.svg#attach"/>
 				</svg>
 			</button>
 			<div class="footer__message">
@@ -42,7 +43,7 @@
 				aria-label="Отправить смайлик"	
 			>
 				<svg class="footer__button-icon">
-					<use href="@/assets/icons/actions.svg#sendEmodji"/>
+					<use href="@/assets/actions.svg#sendEmodji"/>
 				</svg>
 			</button>
 			<button 
@@ -50,7 +51,7 @@
 				aria-label="Отправить голосовое сообщение"
 			>
 				<svg class="footer__button-icon">
-					<use href="@/assets/icons/actions.svg#sendVoice"/>
+					<use href="@/assets/actions.svg#sendVoice"/>
 				</svg>
 			</button>
 			<button 
@@ -58,7 +59,7 @@
 				aria-label="Отправить сообщение"	
 			>
 				<svg class="footer__button-icon">
-					<use href="@/assets/icons/actions.svg#sendMessage"/>
+					<use href="@/assets/actions.svg#sendMessage"/>
 				</svg>
 			</button>
 		</div>
@@ -67,12 +68,8 @@
 
 
 <style lang="scss" scoped>
-	@use "@/assets/styles/variables.scss" as *;
-	@use "@/assets/styles/mixins.scss" as *;
-
-
 	.footer {
-		z-index: 2;
+		z-index: $layer-sticky-z-index;
 
 		padding: 0px 40px 10px;
 		width: 100%;
@@ -84,12 +81,13 @@
 			display: flex;
 			justify-content: space-between;
 
-			background: var(--color-bg-extra);
+			background: $color-message-input;
+			border: 1px solid $color-border-dark;
 			border-radius: 10px;
 		}
 
 		&__button {
-			@include buttonIcon;
+			@include button-base;
 			flex: 0 0 auto;
 			padding: 10px;
 			height: 50px;
@@ -100,7 +98,7 @@
 			}
 
 			&.accent {
-				color: var(--color-accent-primary);
+				color: $color-accent;
 			}
 		}
 
@@ -117,8 +115,7 @@
 				left: 0px;
 				top: 50%;
 
-				@include text;
-				color: var(--color-text-secondary);
+				@include typography(text);
 				
 				transform: translateY(-50%);
 				pointer-events: none;
@@ -135,8 +132,7 @@
 				padding: 15px 0px;
 				width: 100%;
 
-				@include text;
-				color: var(--color-text-primary);
+				@include typography(text, false, true);
 			}
 		}
 	}
@@ -144,7 +140,7 @@
 
 	@media(hover: hover) {
 		.footer__button:hover {
-			color: var(--color-text-primary);
+			color: $color-active-icon;
 		}
 	}
 </style>

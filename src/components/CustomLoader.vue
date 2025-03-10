@@ -20,37 +20,29 @@
 </template>
 
 <style scoped lang="scss">
-	@use "@/assets/styles/variables.scss" as *;
-	@use "@/assets/styles/mixins.scss" as *;
-	
-
 	.loading {
-		align-items: center;
-		display: flex;
+		@include flex-center;
+		@include full-size;
 		flex: 1 1 auto;
-		justify-content: center;
-		height: 100%;
-		width: 100%;
 
 		&__loader {
 			position: relative;
 			height: 50px;
 			width: 50px;
 
-			border: 5px solid var(--color-accent-primary);
+			border: 5px solid $color-accent;
 			border-bottom-color: transparent;
 			border-radius: 100%;
 
-			animation: rotation 1s linear infinite;
+			animation: rotation $duration-animation-loader linear infinite;
 		}
 
 		&__empty {
 			padding: 10px;
 
-			@include text;
-			color: var(--color-text-primary);
+			@include typography(text, false, true);
 
-			background: var(--color-bg-extra);
+			background: $color-bg-extra;
 			border-radius: 17px;
 		}
 	}

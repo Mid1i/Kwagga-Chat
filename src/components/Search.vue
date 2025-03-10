@@ -1,7 +1,7 @@
 <script setup lang="ts">
 	import { ref } from "vue";
 
-	import { useSearch } from "@/hooks/useSearch";
+	import useSearch from "@/composables/useSearch";
 
 
 	const inputRef = ref<HTMLElement | null>(null);
@@ -32,7 +32,7 @@
 			aria-label="Очистить поле ввода"
 		>
 			<svg class="search__button-icon" height="24" width="24">
-				<use href="@/assets/icons/navigation.svg#clearSearch"/>
+				<use href="@/assets/navigation.svg#clearSearch"/>
 			</svg>
 		</button>
 	</div>
@@ -40,15 +40,11 @@
 
 
 <style scoped lang="scss">
-	@use "@/assets/styles/variables.scss" as *;
-	@use "@/assets/styles/mixins.scss" as *;
-
-
-	@mixin activeLabel {
+	@mixin active-label {
 		top: -2px;
 
-		@include smallText;
-		color: var(--color-text-primary);
+		@include typography(date, false);
+		color: $color-text-main;
 	}
 
 	.search {
@@ -62,7 +58,7 @@
 			left: 10px;
 			top: 50%;
 
-			@include text;
+			@include typography(text);
 
 			transform: translateY(-50%);
 			transition: all 0.2s ease-in-out;
@@ -70,29 +66,28 @@
 			pointer-events: none;
 
 			&.active {
-				@include activeLabel;
+				@include active-label;
 			}
 		}
 
 		&__input {
 			padding-right: 40px;
 			padding-left: 10px;
-			height: 100%;
-			width: 100%;
+			@include full-size;
 
-			@include text;
+			@include typography(text, false, true);
 
-			background: var(--color-bg-extra);
+			background: $color-bg-extra;
 			border-radius: 5px;
 
-			@include focusVisible;
+			@include focus-visible;
 			
 			&::-webkit-search-cancel-button {
 				display: none;
 			}
 
 			&:focus + .search__label {
-				@include activeLabel;
+				@include active-label;
 			}
 		}
 
@@ -101,18 +96,16 @@
 			right: 10px;
 			top: 50%;
 
-			color: var(--color-text-secondary);
-
 			transform: translateY(-50%);
 
-			@include buttonIcon;
+			@include button-base;
 		}
 	}
 
 
 	@media(hover: hover) {
 		.search__button:hover {
-			color: var(--color-text-primary);
+			color: $color-active-icon;
 		}
 	}
 </style>

@@ -22,7 +22,7 @@
 				aria-label="Поиск по сообщениям"
 			>
 				<svg class="header__navigation-icon">
-					<use href="@/assets/icons/navigation.svg#searchMessage"/>
+					<use href="@/assets/navigation.svg#searchMessage"/>
 				</svg>
 			</button>
 			<button 
@@ -30,7 +30,7 @@
 				aria-label="Информация по чату"
 			>
 				<svg class="header__navigation-icon">
-					<use href="@/assets/icons/navigation.svg#chatData"/>
+					<use href="@/assets/navigation.svg#chatData"/>
 				</svg>
 			</button>
 			<button 
@@ -38,7 +38,7 @@
 				aria-label="Настройки чата"
 			>
 				<svg class="header__navigation-icon">
-					<use href="@/assets/icons/navigation.svg#moreOptions"/>
+					<use href="@/assets/navigation.svg#moreOptions"/>
 				</svg>
 			</button>
 		</div>
@@ -47,19 +47,13 @@
 
 
 <style lang="scss" scoped>
-	@use "@/assets/styles/variables.scss" as *;
-	@use "@/assets/styles/mixins.scss" as *;
-
-
 	.header {
-		z-index: 2;
-
 		align-items: center;
 		display: flex;
 		justify-content: space-between;
 		padding: 15px 40px;
 
-		border-bottom: 1px solid var(--color-button);
+		border-bottom: 1px solid $color-border-light;
 
 		&__recepient {
 			align-items: center;
@@ -67,34 +61,24 @@
 			gap: 10px;
 
 			&-wrapper {
-				align-items: center;
-				display: flex;
-				justify-content: center;
-				height: 50px;
-				width: 50px;
-
-				@include title;
-
-				border-radius: 100%;
+				@include avatar-base;
 			}
 
 			&-content {
-				display: flex;
-				flex-direction: column;
+				@include flex-column;
 				gap: 5px;
 			}
 
 			&-name {
-				@include title;
-				font-size: 16px;
+				@include typography(title);
 			}
 
 			&-online {
-				@include text;
+				@include typography(text);
 				font-size: 12px;
 
 				&.online {
-					color: var(--color-accent-primary);
+					color: $color-accent;
 				}
 			}
 		}
@@ -104,7 +88,7 @@
 			gap: 10px;
 
 			&-button {
-				@include roundButton;
+				@include button-round;
 			}
 		}
 	}
@@ -112,7 +96,7 @@
 
 	@media(hover: hover) {
 		.header__navigation-button:hover {
-			background: var(--color-bg-extra);
+			background: $color-active-button;
 		}
 	}
 </style>

@@ -1,9 +1,10 @@
 <script setup lang="ts">
-	import type { IChat } from "@/interfaces/Chat";
+	import type { IChat } from "@/types";
+
 	import { formattedDatetime, formattedWeekDay } from "@/helpers/datetime";
 	import { generateColor } from "@/helpers/color";
 	import { WEEK_MS, YEAR_MS } from "@/constants";
-	import { useUserStore } from "@/store/user";
+	import { useUserStore } from "@/stores/user";
 
 
 	defineProps<IChat & { isActive: boolean }>();
@@ -26,7 +27,6 @@
 		return formattedDatetime(date,  ".");
 	};
 </script>
-
 
 <template>
 	<li 
@@ -62,12 +62,7 @@
 	</li>
 </template>
 
-
 <style lang="scss" scoped>
-	@use "@/assets/styles/variables.scss" as *;
-	@use "@/assets/styles/mixins.scss" as *;
-
-
 	.chat {
 		position: relative;
 		
@@ -78,7 +73,7 @@
 		
 		border-radius: 5px;
 
-		@include focusVisible;
+		@include focus-visible;
 
 		&::before {
 			position: absolute;
@@ -97,18 +92,7 @@
 		}
 
 		&__wrapper {
-			position: relative;
-
-			align-items: center;
-			display: flex;
-			flex: 0 0 auto;
-			justify-content: center;
-			height: 50px;
-			width: 50px;
-
-			@include title;
-
-			border-radius: 100%;
+			@include avatar-base;
 
 			&.online::after {
 				position: absolute;
@@ -118,8 +102,8 @@
 				height: 11px;
 				width: 11px;
 				
-				background: var(--color-accent-success);
-				border: 2px solid var(--color-bg-primary);
+				background: $color-green;
+				border: 2px solid $color-bg-chats;
 				border-radius: 100%;
 				
 				content: "";
@@ -127,9 +111,8 @@
 		}
 
 		&__content {
-			display: flex;
+			@include flex-column;
 			flex: 1 1 auto;
-			flex-direction: column;
 			gap: 5px;
 			width: calc(100% - 60px);
 		}
@@ -142,12 +125,11 @@
 			&-recepient {
 				flex: 1 1 auto;
 
-				@include title;
-				@include textOverflow;
+				@include typography(title);
 			}
 
 			&-datetime {
-				@include text;
+				@include typography(text);
 			}
 		}
 
@@ -159,36 +141,34 @@
 			&-message {
 				flex: 1 1 auto;
 
-				@include text;
-				@include textOverflow;
+				@include typography(text);
 			}
 
 			&-label {
-				@include text;
-				color: var(--color-accent-primary);
+				@include typography(text);
+				color: $color-accent;
 			}
 
 			&-counter {
 				flex: 0 0 auto;
 				padding: 3px 8px;
 
-				@include text;
-				color: var(--color-text-primary);
+				@include typography(text, false, true);
 
-				background: var(--color-text-extra);
+				background: $color-messages-counter;
 				border-radius: 20px;
 			}
 		}
 
 		&.active {
-			background: var(--color-active-bg);
+			background: $color-active-chat;
 
 			&::before {
-				background: var(--color-accent-primary);
+				background: $color-accent;
 			}
 
 			.chat__footer-counter {
-				background: var(--color-accent-primary);
+				background: $color-accent;
 			}
 		}
 	}
@@ -196,7 +176,7 @@
 
 	@media(hover: hover) {
 		.chat:hover {
-			background: var(--color-active-bg);
+			background: $color-active-chat;
 		}
 	}
 </style>

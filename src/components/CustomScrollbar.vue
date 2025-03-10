@@ -137,11 +137,8 @@
 
 
 <style lang="scss" scoped>
-	@use "@/assets/styles/variables.scss" as *;
-
-
-	@mixin scrollbarActiveHover {
-		background: var(--color-scrollbar-track);
+	@mixin scrollbar-active-hover {
+		background: $color-scrollbar-track;
 
 		transform: scaleX(1.3);
 		transform-origin: center;
@@ -179,11 +176,11 @@
 				height: 50px;
 				width: 100%;
 				
-				background: var(--color-scrollbar-thumb);
+				background: $color-scrollbar-thumb;
 			}
 
 			&:active {
-				@include scrollbarActiveHover;
+				@include scrollbar-active-hover;
 			}
 		}
 	}
@@ -191,7 +188,7 @@
 
 	@media(hover: hover) {
 		.wrapper__scrollbar:hover {
-			@include scrollbarActiveHover;
+			@include scrollbar-active-hover;
 		}
 	}
 </style>

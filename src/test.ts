@@ -1,7 +1,4 @@
-import type { IHistory } from "@/interfaces/History";
-import type { IMessage } from "@/interfaces/Message";
-import type { IChat } from "@/interfaces/Chat";
-import type { IUser } from "@/interfaces/User";
+import type { IHistory, IMessage, IChat, IUser } from "@/types";
 
 
 export const USERS: IUser[] = [

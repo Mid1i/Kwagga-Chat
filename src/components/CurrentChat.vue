@@ -1,24 +1,27 @@
 <script setup lang="ts">
 	import { computed } from "vue";
 
-	import type { IHistory } from "@/interfaces/History";
-	import type { IChat } from "@/interfaces/Chat";
+	import type { IHistory, StatusAPI, ICurrentChat } from "@/types";
 
 	import CurrentChatHeader from "@/components/CurrentChatHeader.vue";
 	import CurrentChatFooter from "@/components/CurrentChatFooter.vue";
 	import CustomScrollbar from "@/components/CustomScrollbar.vue";
 	import CustomLoader from "@/components/CustomLoader.vue";
 	import Message from "@/components/Message.vue";
-	import { useChatStore } from "@/store/chat";
-	import { useUserStore } from "@/store/user";
+
+	import { useChatStore } from "@/stores/chat";
+	import { useUserStore } from "@/stores/user";
+
 	import { MONTHES } from "@/constants";
 
 
 	const chatStore = useChatStore();
 	const userStore = useUserStore();
 
-	const chat = computed<IChat & { color: string } | null>(() => chatStore.currentChat);
+	const chat = computed<ICurrentChat | null>(() => chatStore.currentChat);
+
 	const history = computed<IHistory[]>(() => chatStore.history);
+	const historyStatus = computed<StatusAPI>(() => chatStore.historyStatus);
 
 	const getGroupMonth = (date: string): string => {
 		const month = new Date(date).getMonth();
@@ -49,13 +52,8 @@
 
 
 <template>
-	<!-- <custom-loader
-		:condition-loading="!!chat && chatStore.historyStatus === 'loading'"
-		:condition-empty="!chat"
-		empty-text="Выберите, кому хотели бы написать"
-	> -->
 	<custom-loader
-		:condition-loading="false"
+		:condition-loading="!!chat && historyStatus === 'loading'"
 		:condition-empty="!chat"
 		empty-text="Выберите, кому хотели бы написать"
 	>
@@ -69,11 +67,11 @@
 				css-scrollbar-width="10" 
 				css-border-radius="3"
 			>
-				<!-- <custom-loader
-					:condition-loading="chatStore.historyStatus === 'loading'"
-					:condition-empty="chatStore.historyStatus === 'success' && !history"
+				<custom-loader
+					:condition-loading="historyStatus === 'loading'"
+					:condition-empty="historyStatus === 'success' && !history"
 					empty-text="Сообщений пока нет"
-				> -->
+				>
 					<div class="chat__history">
 						<div 
 							v-for="(group, groupIndex) in history"
@@ -90,7 +88,7 @@
 							/>
 						</div>
 					</div>
-				<!-- </custom-loader> -->
+				</custom-loader>
 			</custom-scrollbar>
 			<CurrentChatFooter
 				@inputMessage="(text: string) => chatStore.updateUnsentMessages(text)"
@@ -101,18 +99,13 @@
 
 
 <style scoped lang="scss">
-	@use "@/assets/styles/variables.scss" as *;
-	@use "@/assets/styles/mixins.scss" as *;
-
-
 	.chat {
 		position: relative;
 
-		display: flex;
+		@include flex-column;
 		flex: 1 1 auto;
-		flex-direction: column;
 
-		background: var(--color-bg-secondary);
+		background: $color-bg-current-chat;
 		border-top-left-radius: 10px;
 
 		&__history {
@@ -132,6 +125,8 @@
 			gap: inherit;
 
 			&-date {
+				z-index: $layer-sticky-z-index;
+
 				align-self: center;
 				order: 1;
 
@@ -140,10 +135,10 @@
 
 				padding: 10px;
 
-				@include text;
-				color: var(--color-text-primary);
+				@include typography(text, false, true);
 
-				background: var(--color-bg-extra);
+				background: $color-group-date;
+				border: 1px solid $color-border-dark;
 				border-radius: 20px;
 			}
 		}

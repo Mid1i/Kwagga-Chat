@@ -1,18 +1,15 @@
 <script setup lang="ts">
-	import { onBeforeMount } from "vue";
 	import { RouterView } from "vue-router";
-	import { useThemeStore } from "@/store/theme";
 
-
-	const themeStore = useThemeStore();
-
-	onBeforeMount(themeStore.detectTheme);
+	import AppLayout from "@/layouts/AppLayout.vue";
 </script>
 
 
 <template>
-	<RouterView/>
+	<app-layout>
+		<RouterView/>
+	</app-layout>
 </template>
 
 
-<style scoped lang="scss"></style>
+<style lang="scss"></style>

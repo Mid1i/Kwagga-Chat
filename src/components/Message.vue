@@ -1,9 +1,9 @@
 <script setup lang="ts">
-	import type { IMessage } from "@/interfaces/Message";
+	import type { IMessage } from "@/types";
 
 	import { formattedDatetime } from "@/helpers/datetime";
 
-	import checkIcon from "@/assets/icons/message.svg";
+	import checkIcon from "@/assets/message.svg";
 
 
 	defineProps<IMessage & { 
@@ -36,23 +36,17 @@
 
 
 <style lang="scss" scoped>
-	@use "@/assets/styles/variables.scss" as *;
-	@use "@/assets/styles/mixins.scss" as *;
-
-
 	.message {
 		align-self: flex-start;
 		padding: 10px 5px 5px;
 		max-width: 60%;
 
-		background: var(--color-message-recepient);
-		// border-radius: 15px 15px 15px 5px;
+		background: $color-message-recepient-bg;
 
 		&__text {
 			padding: 0px 5px 5px;
 
-			@include text;
-			color: var(--color-text-primary);
+			@include typography(text, false, true);
 			white-space: pre-wrap;
 			word-break: break-word;
 		}
@@ -66,26 +60,26 @@
 			float: right;
 
 			&-time {
-				@include smallText;
+				@include typography(date);
 			}
 
 			&-icon {
-				height: 24px;
-				width: 24px;
-
-				color: var(--color-text-extra);
+				@include button-base;
 			}
 		}
 
 		&.user {
 			align-self: flex-end;
 
-			background: var(--color-message-user);
-			// border-radius: 15px 15px 5px 15px;
+			background: $color-message-user-bg;
 
-			.message__meta-time,
-			.message__meta-icon {
-				color: var(--color-text-extra-user);
+			.message__meta {
+				margin-top: 0px;
+
+				&-time,
+				&-icon {
+					color: $color-message-user-meta;
+				}
 			}
 		}
 	}
