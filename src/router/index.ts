@@ -1,13 +1,10 @@
 import { createRouter, createWebHistory } from "vue-router";
+import { routes } from "./routes";
 
 
-const routes = [{
-	path: "/",
-	component: () => import("@/views/ChatDashboard.vue")
-}];
-
-
-export const router = createRouter({
+const router = createRouter({
 	history: createWebHistory(),
 	routes
 });
+
+export default router;
