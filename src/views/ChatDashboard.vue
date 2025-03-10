@@ -1,6 +1,15 @@
 <script setup lang="ts">
+	import { onMounted } from "vue";
+
+	import CurrentChat from "@/components/CurrentChat.vue";
 	import ChatList from "@/components/ChatList.vue";
 	import Search from "@/components/Search.vue";
+	import { useChatStore } from "@/store/chat";
+
+
+	const chatStore = useChatStore();
+	
+	onMounted(chatStore.getChats);
 </script>
 
 
@@ -18,6 +27,7 @@
 			</header>
 			<ChatList/>
 		</aside>
+		<CurrentChat/>
 	</div>
 </template>
 
@@ -37,7 +47,8 @@
 	.side-nav {
 		display: flex;
 		flex-direction: column;
-		width: 430px;
+		max-width: 430px;
+		width: 100%;
 
 		&__header {
 			align-items: center;
