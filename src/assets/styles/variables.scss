@@ -10,13 +10,14 @@
 	--color-scrollbar-track: #2C2C2C95; /* Фон скроллбара */
 
 	// Фоны сообщений
-	--color-message-my: #007BFF; /* Фон моих сообщений */
-	--color-message-partner: #00000010; /* Фон сообщений собеседника */
+	--color-message-user: #1566A3; /* Фон сообщений пользователя */
+	--color-message-recepient: #00000010; /* Фон сообщений собеседника */
 
 	// Текстовые цвета
 	--color-text-primary: #2E3338; /* Основной текст */
 	--color-text-secondary: #757A80; /* Текст в чатах в боковой панели */
 	--color-text-extra: #4F5660; /* Текст даты сообщений */
+	--color-text-extra-user: #72b5e8;
 
 	// Границы и разделители
 	--color-border: #E5E5E5; /* Скроллбар */
@@ -40,21 +41,22 @@
 	--color-bg-extra: #FFFFFF20;
 
 	// Фоны кнопок и активных элементов
-	--color-button: #FFFFFF05;
+	--color-button: #FFFFFF10;
 	--color-scrollbar-thumb: #FFFFFF50;
 	--color-scrollbar-track: #2C2C2C95;
 	
 	// Фоны сообщений
-	--color-message-my: #1566A3;
-	--color-message-partner: #FFFFFF10; 
+	--color-message-user: #1566A3;
+	--color-message-recepient: #FFFFFF10;
 	
 	// Текстовые цвета
 	--color-text-primary: #FFFFFF;
 	--color-text-secondary: #888888;
 	--color-text-extra: #A1AAB3;
+	--color-text-extra-user: #B7D9F3;
 	
 	// Границы и разделители
-	--color-border: #FFFFFF10;
+	--color-border: #FFFFFF05;
 	
 	// Выбранные элементы и hover эффекты
 	--color-active-bg: #FFFFFF10;
