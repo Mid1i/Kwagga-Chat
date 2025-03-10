@@ -25,17 +25,8 @@
     /* Aliases */
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"],
-      "@/assets/*": ["./src/assets/*"],
-      "@/components/*": ["./src/components/*"],
-      "@/helpers/*": ["./src/helpers/*"],
-      "@/hooks/*": ["./src/hooks/*"],
-      "@/interfaces/*": ["./src/interfaces/*"],
-      "@/router/*": ["./src/router/*"],
-      "@/store/*": ["./src/store/*"],
-      "@/types/*": ["./src/types/*"],
-      "@/views/*": ["./src/views/*"]
+      "@/*": ["./src/*"]
     }
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue"]
+  "include": ["src/**/*", "src/**/*.vue"]
 }

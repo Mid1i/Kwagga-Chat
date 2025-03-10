@@ -2,6 +2,16 @@ import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
 
 
+const SCSS_FILES = [
+  "default",
+  "colors",
+  "layers",
+  "sizes",
+  "durations",
+  "typography",
+  "mixins",
+];
+
 export default defineConfig({
   plugins: [vue()],
   build: {
@@ -10,16 +20,14 @@ export default defineConfig({
   assetsInclude: ["**/*.svg"],
   resolve: {
     alias: {
-      "@/": "/src/",
-      "@/assets": "/src/assets",
-      "@/components": "/src/components",
-      "@/helpers": "/src/helpers",
-      "@/hooks": "/src/hooks",
-      "@/interfaces": "/src/interfaces",
-      "@/router": "/src/router",
-      "@/store": "/src/store",
-      "@/types": "/src/types",
-      "@/views": "/src/views"
+      "@/": "/src/"
+    }
+  },
+  css: {
+    preprocessorOptions: {
+      scss: {
+        additionalData: SCSS_FILES.map(el => `@use "@/design/${el}" as *;`).join("\n")
+      }
     }
   }
 });
