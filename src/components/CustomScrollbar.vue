@@ -3,7 +3,10 @@
 	import { KEYBOARD_ACTIONS } from "@/constants";
 	import { throttle } from "lodash";
 	
-	defineProps<{ cssScrollbarWidth: string }>();
+	defineProps<{ 
+		cssScrollbarWidth: string;
+		cssBorderRadius: string;
+	}>();
 
 	const containerRef = ref<HTMLElement | null>(null);	
 	const thumbRef = ref<HTMLElement | null>(null);
@@ -125,6 +128,7 @@
 				@mousedown="startDragging"
 				@touchstart="startDragging"
 				class="wrapper__scrollbar-thumb" 
+				:style="{ borderRadius: `${cssBorderRadius}px` }"
 				ref="thumbRef" 
 			></span>
 		</div>
@@ -176,7 +180,6 @@
 				width: 100%;
 				
 				background: var(--color-scrollbar-thumb);
-				border-radius: 100px;
 			}
 
 			&:active {
