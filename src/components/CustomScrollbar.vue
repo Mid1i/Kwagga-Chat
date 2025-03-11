@@ -8,7 +8,8 @@
 		cssBorderRadius: string;
 	}>();
 
-	const containerRef = ref<HTMLElement | null>(null);	
+	const containerRef = ref<HTMLElement | null>(null);
+	const trackRef = ref<HTMLElement | null>(null);	
 	const thumbRef = ref<HTMLElement | null>(null);
 	const isDragging = ref<boolean>(false);
 
@@ -24,11 +25,13 @@
 
 	// Обновление позиции ползунка скроллбара
 	const updateThumbPosition = throttle(() => {
-    if (!containerRef.value || !thumbRef.value) return;
+    if (!containerRef.value || !thumbRef.value || !trackRef.value) return;
 
 		const { clientHeight, scrollHeight, scrollTop } = containerRef.value;
+		console.log(scrollHeight, clientHeight)
 		if (scrollHeight <= clientHeight) {
 			thumbRef.value.style.display = "none";
+			trackRef.value.style.display = "none";
 			return;
 		};
 
@@ -40,6 +43,8 @@
 			top: `${thumbPosition}px`,
 			display: "block"
 		});
+
+		trackRef.value.style.display = "block";
 	}, 16);
 
 	// Начало прокрутки с помощью мышки
@@ -118,6 +123,7 @@
 		<div 
 			class="wrapper__scrollbar"
 			:style="{ width: `${cssScrollbarWidth}px` }"
+			ref="trackRef"
 			role="scrollbar" 
       aria-orientation="vertical"
 			:aria-valuenow="scrollPercentage"
