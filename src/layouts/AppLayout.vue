@@ -11,5 +11,7 @@
 		align-items: stretch;
 		display: flex;
 		@include full-size;
+
+		padding-top: 20px;
 	}
 </style>

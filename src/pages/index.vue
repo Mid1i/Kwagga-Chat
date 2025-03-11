@@ -35,15 +35,16 @@
 	.side-nav {
 		display: flex;
 		flex-direction: column;
-		max-width: 430px;
-		width: 100%;
+		max-width: 700px;
+		min-width: 200px;
+		width: 430px;
 
 		&__header {
 			align-items: center;
 			display: flex;
 			flex-wrap: wrap;
 			gap: 15px;
-			padding: 20px 15px 10px;
+			padding: 0px 15px 10px;
 
 			&-button {
 				@include button-base;

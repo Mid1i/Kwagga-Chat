@@ -52,12 +52,12 @@
 
 
 <template>
-	<custom-loader
-		:condition-loading="!!chat && historyStatus === 'loading'"
-		:condition-empty="!chat"
-		empty-text="Выберите, кому хотели бы написать"
-	>
-		<div class="chat">
+	<div class="chat">
+		<custom-loader
+			:condition-loading="!!chat && historyStatus === 'loading'"
+			:condition-empty="!chat"
+			empty-text="Выберите, кому хотели бы написать"
+		>
 			<CurrentChatHeader
 				:chat-color="chat!.color"
 				:chat-name="`${chat!.recepient.firstName} ${chat!.recepient.lastName}`"
@@ -93,8 +93,8 @@
 			<CurrentChatFooter
 				@inputMessage="(text: string) => chatStore.updateUnsentMessages(text)"
 			/>
-		</div>
-	</custom-loader>
+		</custom-loader>
+	</div>
 </template>
 
 
@@ -106,7 +106,7 @@
 		flex: 1 1 auto;
 
 		background: $color-bg-current-chat;
-		border-top-left-radius: 10px;
+		border-radius: 20px 0px 0px 20px;
 
 		&__history {
 			position: relative;
