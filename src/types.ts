@@ -1,5 +1,5 @@
 // СТАТУСЫ API-ЗАПРОСОВ
-export type StatusAPI = "loading" | "success" | "error";
+export type StatusAPI = "idle" | "loading" | "success" | "error";
 
 export type MethodAPI = "get" | "post" | "put" | "delete";
 
