@@ -172,51 +172,481 @@ export const CHATS: IChat[] = [
 
 export const HISTORY: IHistory[] = [
   {
-    date: "2025-03-06",
-    messages: [
-      {
-        id: 1,
-        text: "Привет, как ты? Давно не общались!",
-        sender: USERS[0],
-        recepient: USERS[1],
-        datetime: "2025-03-06T12:15:00",
-        isUnread: true
-      },
-      {
-        id: 2,
-        text: "Добрый день!",
-        sender: USERS[0],
-        recepient: USERS[1],
-        datetime: "2025-03-06T12:11:00"
-      },
-      {
-        id: 3,
-        text: "Всё отлично!",
-        sender: USERS[0],
-        recepient: USERS[1],
-        datetime: "2025-03-06T12:12:00"
-      },
-      {
-        id: 4,
-        text: "Добрый день! Как все прошло на встрече?",
-        sender: USERS[1],
-        recepient: USERS[0],
-        datetime: "2025-03-06T12:13:00"
-      },
-      {
-        id: 9,
-        text: "Как тебе новая идея для проекта?",
-        sender: USERS[0],
-        recepient: USERS[1],
-        datetime: "2025-03-04T10:00:00"
-      },
-      {
-        id: 8,
-        text: "Не забудь про звонок в 16:00",
-        sender: USERS[1],
-        recepient: USERS[0],
-        datetime: "2025-03-06T09:40:00"
-      }
+    "id": 1,
+    "date": "2025-03-06",
+    "messages": [
+        {
+            "id": 1,
+            "text": "Привет, как ты? Давно не общались!",
+            "sender": {
+                "id": 1,
+                "firstName": "Иван",
+                "lastName": "Иванов",
+                "username": "ivan123",
+                "email": "ivanov@mail.ru",
+                "isOnline": true,
+                "dateOfRegistration": "2025-01-15T10:30:00"
+            },
+            "recepient": {
+                "id": 2,
+                "firstName": "Мария",
+                "lastName": "Петрова",
+                "username": "masha_p",
+                "email": "maria_petrov@mail.ru",
+                "isOnline": false,
+                "dateOfRegistration": "2025-01-20T14:45:00"
+            },
+            "datetime": "2025-03-06T12:15:00",
+            "isUnread": true
+        },
+        {
+            "id": 2,
+            "text": "Добрый день! Как все прошло на встрече?",
+            "sender": {
+                "id": 2,
+                "firstName": "Мария",
+                "lastName": "Петрова",
+                "username": "masha_p",
+                "email": "maria_petrov@mail.ru",
+                "isOnline": false,
+                "dateOfRegistration": "2025-01-20T14:45:00"
+            },
+            "recepient": {
+                "id": 1,
+                "firstName": "Иван",
+                "lastName": "Иванов",
+                "username": "ivan123",
+                "email": "ivanov@mail.ru",
+                "isOnline": true,
+                "dateOfRegistration": "2025-01-15T10:30:00"
+            },
+            "datetime": "2025-03-07T12:10:00"
+        },
+        {
+            "id": 3,
+            "text": "Не забудь про отчет до конца недели!",
+            "sender": {
+                "id": 3,
+                "firstName": "Дмитрий",
+                "lastName": "Смирнов",
+                "username": "dmitry_smirnov",
+                "email": "d.smirnov@rambler.ru",
+                "isOnline": true,
+                "dateOfRegistration": "2025-02-05T08:25:00"
+            },
+            "recepient": {
+                "id": 1,
+                "firstName": "Иван",
+                "lastName": "Иванов",
+                "username": "ivan123",
+                "email": "ivanov@mail.ru",
+                "isOnline": true,
+                "dateOfRegistration": "2025-01-15T10:30:00"
+            },
+            "datetime": "2025-01-05T09:30:00"
+        },
+        {
+            "id": 4,
+            "text": "Спасибо за помощь вчера!",
+            "sender": {
+                "id": 1,
+                "firstName": "Иван",
+                "lastName": "Иванов",
+                "username": "ivan123",
+                "email": "ivanov@mail.ru",
+                "isOnline": true,
+                "dateOfRegistration": "2025-01-15T10:30:00"
+            },
+            "recepient": {
+                "id": 3,
+                "firstName": "Дмитрий",
+                "lastName": "Смирнов",
+                "username": "dmitry_smirnov",
+                "email": "d.smirnov@rambler.ru",
+                "isOnline": true,
+                "dateOfRegistration": "2025-02-05T08:25:00"
+            },
+            "datetime": "2025-03-05T14:00:00",
+            "isUnread": true
+        },
+        {
+            "id": 5,
+            "text": "У тебя получится все сделать в срок?",
+            "sender": {
+                "id": 2,
+                "firstName": "Мария",
+                "lastName": "Петрова",
+                "username": "masha_p",
+                "email": "maria_petrov@mail.ru",
+                "isOnline": false,
+                "dateOfRegistration": "2025-01-20T14:45:00"
+            },
+            "recepient": {
+                "id": 3,
+                "firstName": "Дмитрий",
+                "lastName": "Смирнов",
+                "username": "dmitry_smirnov",
+                "email": "d.smirnov@rambler.ru",
+                "isOnline": true,
+                "dateOfRegistration": "2025-02-05T08:25:00"
+            },
+            "datetime": "2025-03-04T15:45:00"
+        },
+        {
+            "id": 6,
+            "text": "Поздравляю с новой должностью!",
+            "sender": {
+                "id": 3,
+                "firstName": "Дмитрий",
+                "lastName": "Смирнов",
+                "username": "dmitry_smirnov",
+                "email": "d.smirnov@rambler.ru",
+                "isOnline": true,
+                "dateOfRegistration": "2025-02-05T08:25:00"
+            },
+            "recepient": {
+                "id": 2,
+                "firstName": "Мария",
+                "lastName": "Петрова",
+                "username": "masha_p",
+                "email": "maria_petrov@mail.ru",
+                "isOnline": false,
+                "dateOfRegistration": "2025-01-20T14:45:00"
+            },
+            "datetime": "2025-03-04T13:20:00"
+        },
+        {
+            "id": 7,
+            "text": "Что планируешь на выходных?",
+            "sender": {
+                "id": 1,
+                "firstName": "Иван",
+                "lastName": "Иванов",
+                "username": "ivan123",
+                "email": "ivanov@mail.ru",
+                "isOnline": true,
+                "dateOfRegistration": "2025-01-15T10:30:00"
+            },
+            "recepient": {
+                "id": 3,
+                "firstName": "Дмитрий",
+                "lastName": "Смирнов",
+                "username": "dmitry_smirnov",
+                "email": "d.smirnov@rambler.ru",
+                "isOnline": true,
+                "dateOfRegistration": "2025-02-05T08:25:00"
+            },
+            "datetime": "2025-03-06T11:50:00"
+        },
+        {
+            "id": 8,
+            "text": "Не забудь про звонок в 16:00",
+            "sender": {
+                "id": 2,
+                "firstName": "Мария",
+                "lastName": "Петрова",
+                "username": "masha_p",
+                "email": "maria_petrov@mail.ru",
+                "isOnline": false,
+                "dateOfRegistration": "2025-01-20T14:45:00"
+            },
+            "recepient": {
+                "id": 1,
+                "firstName": "Иван",
+                "lastName": "Иванов",
+                "username": "ivan123",
+                "email": "ivanov@mail.ru",
+                "isOnline": true,
+                "dateOfRegistration": "2025-01-15T10:30:00"
+            },
+            "datetime": "2025-03-06T10:40:00"
+        },
+        {
+            "id": 9,
+            "text": "Как тебе новая идея для проекта?",
+            "sender": {
+                "id": 1,
+                "firstName": "Иван",
+                "lastName": "Иванов",
+                "username": "ivan123",
+                "email": "ivanov@mail.ru",
+                "isOnline": true,
+                "dateOfRegistration": "2025-01-15T10:30:00"
+            },
+            "recepient": {
+                "id": 2,
+                "firstName": "Мария",
+                "lastName": "Петрова",
+                "username": "masha_p",
+                "email": "maria_petrov@mail.ru",
+                "isOnline": false,
+                "dateOfRegistration": "2025-01-20T14:45:00"
+            },
+            "datetime": "2025-03-04T16:00:00"
+        },
+        {
+            "id": 10,
+            "text": "Привет, ты видел новое обновление на сайте?",
+            "sender": {
+                "id": 3,
+                "firstName": "Дмитрий",
+                "lastName": "Смирнов",
+                "username": "dmitry_smirnov",
+                "email": "d.smirnov@rambler.ru",
+                "isOnline": true,
+                "dateOfRegistration": "2025-02-05T08:25:00"
+            },
+            "recepient": {
+                "id": 1,
+                "firstName": "Иван",
+                "lastName": "Иванов",
+                "username": "ivan123",
+                "email": "ivanov@mail.ru",
+                "isOnline": true,
+                "dateOfRegistration": "2025-01-15T10:30:00"
+            },
+            "datetime": "2025-03-05T17:10:00",
+            "isUnread": true
+        }
+    ]
+  },
+  {
+    "id": 2,
+    "date": "2025-02-06",
+    "messages": [
+        {
+            "id": 1,
+            "text": "Привет, как ты? Давно не общались!",
+            "sender": {
+                "id": 1,
+                "firstName": "Иван",
+                "lastName": "Иванов",
+                "username": "ivan123",
+                "email": "ivanov@mail.ru",
+                "isOnline": true,
+                "dateOfRegistration": "2025-01-15T10:30:00"
+            },
+            "recepient": {
+                "id": 2,
+                "firstName": "Мария",
+                "lastName": "Петрова",
+                "username": "masha_p",
+                "email": "maria_petrov@mail.ru",
+                "isOnline": false,
+                "dateOfRegistration": "2025-01-20T14:45:00"
+            },
+            "datetime": "2025-03-06T12:15:00",
+            "isUnread": true
+        },
+        {
+            "id": 2,
+            "text": "Добрый день! Как все прошло на встрече?",
+            "sender": {
+                "id": 2,
+                "firstName": "Мария",
+                "lastName": "Петрова",
+                "username": "masha_p",
+                "email": "maria_petrov@mail.ru",
+                "isOnline": false,
+                "dateOfRegistration": "2025-01-20T14:45:00"
+            },
+            "recepient": {
+                "id": 1,
+                "firstName": "Иван",
+                "lastName": "Иванов",
+                "username": "ivan123",
+                "email": "ivanov@mail.ru",
+                "isOnline": true,
+                "dateOfRegistration": "2025-01-15T10:30:00"
+            },
+            "datetime": "2025-03-07T12:10:00"
+        },
+        {
+            "id": 3,
+            "text": "Не забудь про отчет до конца недели!",
+            "sender": {
+                "id": 3,
+                "firstName": "Дмитрий",
+                "lastName": "Смирнов",
+                "username": "dmitry_smirnov",
+                "email": "d.smirnov@rambler.ru",
+                "isOnline": true,
+                "dateOfRegistration": "2025-02-05T08:25:00"
+            },
+            "recepient": {
+                "id": 1,
+                "firstName": "Иван",
+                "lastName": "Иванов",
+                "username": "ivan123",
+                "email": "ivanov@mail.ru",
+                "isOnline": true,
+                "dateOfRegistration": "2025-01-15T10:30:00"
+            },
+            "datetime": "2025-01-05T09:30:00"
+        },
+        {
+            "id": 4,
+            "text": "Спасибо за помощь вчера!",
+            "sender": {
+                "id": 1,
+                "firstName": "Иван",
+                "lastName": "Иванов",
+                "username": "ivan123",
+                "email": "ivanov@mail.ru",
+                "isOnline": true,
+                "dateOfRegistration": "2025-01-15T10:30:00"
+            },
+            "recepient": {
+                "id": 3,
+                "firstName": "Дмитрий",
+                "lastName": "Смирнов",
+                "username": "dmitry_smirnov",
+                "email": "d.smirnov@rambler.ru",
+                "isOnline": true,
+                "dateOfRegistration": "2025-02-05T08:25:00"
+            },
+            "datetime": "2025-03-05T14:00:00",
+            "isUnread": true
+        },
+        {
+            "id": 5,
+            "text": "У тебя получится все сделать в срок?",
+            "sender": {
+                "id": 2,
+                "firstName": "Мария",
+                "lastName": "Петрова",
+                "username": "masha_p",
+                "email": "maria_petrov@mail.ru",
+                "isOnline": false,
+                "dateOfRegistration": "2025-01-20T14:45:00"
+            },
+            "recepient": {
+                "id": 3,
+                "firstName": "Дмитрий",
+                "lastName": "Смирнов",
+                "username": "dmitry_smirnov",
+                "email": "d.smirnov@rambler.ru",
+                "isOnline": true,
+                "dateOfRegistration": "2025-02-05T08:25:00"
+            },
+            "datetime": "2025-03-04T15:45:00"
+        },
+        {
+            "id": 6,
+            "text": "Поздравляю с новой должностью!",
+            "sender": {
+                "id": 3,
+                "firstName": "Дмитрий",
+                "lastName": "Смирнов",
+                "username": "dmitry_smirnov",
+                "email": "d.smirnov@rambler.ru",
+                "isOnline": true,
+                "dateOfRegistration": "2025-02-05T08:25:00"
+            },
+            "recepient": {
+                "id": 2,
+                "firstName": "Мария",
+                "lastName": "Петрова",
+                "username": "masha_p",
+                "email": "maria_petrov@mail.ru",
+                "isOnline": false,
+                "dateOfRegistration": "2025-01-20T14:45:00"
+            },
+            "datetime": "2025-03-04T13:20:00"
+        },
+        {
+            "id": 7,
+            "text": "Что планируешь на выходных?",
+            "sender": {
+                "id": 1,
+                "firstName": "Иван",
+                "lastName": "Иванов",
+                "username": "ivan123",
+                "email": "ivanov@mail.ru",
+                "isOnline": true,
+                "dateOfRegistration": "2025-01-15T10:30:00"
+            },
+            "recepient": {
+                "id": 3,
+                "firstName": "Дмитрий",
+                "lastName": "Смирнов",
+                "username": "dmitry_smirnov",
+                "email": "d.smirnov@rambler.ru",
+                "isOnline": true,
+                "dateOfRegistration": "2025-02-05T08:25:00"
+            },
+            "datetime": "2025-03-06T11:50:00"
+        },
+        {
+            "id": 8,
+            "text": "Не забудь про звонок в 16:00",
+            "sender": {
+                "id": 2,
+                "firstName": "Мария",
+                "lastName": "Петрова",
+                "username": "masha_p",
+                "email": "maria_petrov@mail.ru",
+                "isOnline": false,
+                "dateOfRegistration": "2025-01-20T14:45:00"
+            },
+            "recepient": {
+                "id": 1,
+                "firstName": "Иван",
+                "lastName": "Иванов",
+                "username": "ivan123",
+                "email": "ivanov@mail.ru",
+                "isOnline": true,
+                "dateOfRegistration": "2025-01-15T10:30:00"
+            },
+            "datetime": "2025-03-06T10:40:00"
+        },
+        {
+            "id": 9,
+            "text": "Как тебе новая идея для проекта?",
+            "sender": {
+                "id": 1,
+                "firstName": "Иван",
+                "lastName": "Иванов",
+                "username": "ivan123",
+                "email": "ivanov@mail.ru",
+                "isOnline": true,
+                "dateOfRegistration": "2025-01-15T10:30:00"
+            },
+            "recepient": {
+                "id": 2,
+                "firstName": "Мария",
+                "lastName": "Петрова",
+                "username": "masha_p",
+                "email": "maria_petrov@mail.ru",
+                "isOnline": false,
+                "dateOfRegistration": "2025-01-20T14:45:00"
+            },
+            "datetime": "2025-03-04T16:00:00"
+        },
+        {
+            "id": 10,
+            "text": "Привет, ты видел новое обновление на сайте?",
+            "sender": {
+                "id": 3,
+                "firstName": "Дмитрий",
+                "lastName": "Смирнов",
+                "username": "dmitry_smirnov",
+                "email": "d.smirnov@rambler.ru",
+                "isOnline": true,
+                "dateOfRegistration": "2025-02-05T08:25:00"
+            },
+            "recepient": {
+                "id": 1,
+                "firstName": "Иван",
+                "lastName": "Иванов",
+                "username": "ivan123",
+                "email": "ivanov@mail.ru",
+                "isOnline": true,
+                "dateOfRegistration": "2025-01-15T10:30:00"
+            },
+            "datetime": "2025-03-05T17:10:00",
+            "isUnread": true
+        }
     ]
   }
-];
+]

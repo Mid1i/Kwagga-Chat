@@ -46,6 +46,7 @@ export interface ICurrentChat extends IChat {
 
 // ИНТЕРФЕЙС ИСТОРИИ СООБЩЕНИЙ
 export interface IHistory {
+	id: number;
 	date: string;
 	messages: IMessage[];
 };
