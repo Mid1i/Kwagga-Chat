@@ -3,10 +3,10 @@ import vue from "@vitejs/plugin-vue";
 
 
 const SCSS_FILES = [
-  "default",
   "colors",
   "layers",
   "sizes",
+  "default",
   "durations",
   "typography",
   "mixins",
