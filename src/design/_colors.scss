@@ -1,41 +1,43 @@
-// ФОНЫ
-$color-bg-chats: #202020;
-$color-bg-current-chat: #272727;
-$color-bg-extra: #FFFFFF20;
-
-// АКТИВНЫЕ ЭЛЕМЕНТЫ (КНОПКИ, СКРОЛЛБАРЫ И Т.Д.)
-$color-button: #FFFFFF10;
-$color-group-date: #505050;
-$color-message-input: #323232;
-$color-messages-counter: #A1AAB3;
-$color-scrollbar-track: #2C2C2C95;
-$color-scrollbar-thumb: #FFFFFF50;
-
-// СООБЩЕНИЯ ПОЛЬЗОВАТЕЛЯ
-$color-message-user-bg: #1566A3;
-$color-message-user-meta: #B7D9F3;
-
-// СООБЩЕНИЯ ПОЛУЧАТЕЛЯ
-$color-message-recepient-bg: #FFFFFF10;
-$color-message-recepient-meta: #A1AAB3;
-
-// ТЕКСТЫ
-$color-text-main: #FFFFFF;
-$color-text-muted: #888888;
-
-// ГРАНИЦЫ И РАЗДЕЛИТЕЛИ
-$color-border-light: #FFFFFF05;
-$color-border-dark: #00000010;
-
-// ВЫБРАННЫЕ ЭЛЕМЕНТЫ И HOVER ЭФФЕКТЫ
-$color-active-chat: #FFFFFF10;
-$color-active-icon: #FFFFFF;
-$color-active-button: #FFFFFF20;
-
-// АКЦЕНТНЫЕ ЦВЕТА
-$color-accent: #0078D4;
-$color-yellow: #FFD52A;
-$color-green: #61C339;
-$color-red: #CB2436;
-$color-white: #FFFFFF;
-$color-black: #0A1218;
+:root {
+	// ФОНЫ
+	--color-bg-chats: #202020;
+	--color-bg-current-chat: #272727;
+	--color-bg-extra: #FFFFFF20;
+	
+	// АКТИВНЫЕ ЭЛЕМЕНТЫ (КНОПКИ, СКРОЛЛБАРЫ И Т.Д.)
+	--color-button: #FFFFFF10;
+	--color-group-date: #505050;
+	--color-message-input: #323232;
+	--color-messages-counter: #A1AAB3;
+	--color-scrollbar-track: #2C2C2C;
+	--color-scrollbar-thumb: #FFFFFF50;
+	
+	// СООБЩЕНИЯ ПОЛЬЗОВАТЕЛЯ
+	--color-message-user-bg: #1566A3;
+	--color-message-user-meta: #B7D9F3;
+	
+	// СООБЩЕНИЯ ПОЛУЧАТЕЛЯ
+	--color-message-recepient-bg: #FFFFFF10;
+	--color-message-recepient-meta: #A1AAB3;
+	
+	// ТЕКСТЫ
+	--color-text-main: #FFFFFF;
+	--color-text-muted: #888888;
+	
+	// ГРАНИЦЫ И РАЗДЕЛИТЕЛИ
+	--color-border-light: #FFFFFF05;
+	--color-border-dark: #00000010;
+	
+	// ВЫБРАННЫЕ ЭЛЕМЕНТЫ И HOVER ЭФФЕКТЫ
+	--color-active-chat: #FFFFFF10;
+	--color-active-icon: #FFFFFF;
+	--color-active-button: #FFFFFF20;
+	
+	// АКЦЕНТНЫЕ ЦВЕТА
+	--color-accent: #0078D4;
+	--color-yellow: #FFD52A;
+	--color-green: #61C339;
+	--color-red: #CB2436;
+	--color-white: #FFFFFF;
+	--color-black: #0A1218;
+}

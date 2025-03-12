@@ -1,9 +1,4 @@
-@use "./colors" as *;
-@use "./sizes" as *;
-@use "./durations" as *;
 @use "./typography" as *;
-
-/// Различные глобальные миксины и миксины для кнопок
 
 
 // ВЫРАВНИВАНИЕ FLEX ПО ЦЕНТРУ
@@ -25,13 +20,36 @@
 	width: 100%;
 }
 
+// ПЕРЕПОЛНЕНИЕ СО СКРОЛЛОМ
+@mixin scroll-content($width: 6px) {
+	overflow-y: auto;
+	height: 100%;
+
+	scrollbar-width: thin;
+	scrollbar-color: var(--color-scrollbar-thumb) transparent;
+
+	&::-webkit-scrollbar {
+		width: $width;
+
+		&-track {
+			background: transparent;
+			border-radius: 2px;
+		}
+
+		&-thumb {
+			background: var(--color-scrollbar-thumb);
+			border-radius: 2px;
+		}
+	}
+}
+
 
 // ФОКУС ЭЛЕМЕНТА С КЛАВИАТУРЫ
 @mixin focus-visible {
-	border: 2px solid transparent;
+	border: max(0.1vw, 2px) solid transparent;
 
 	&:focus-visible {
-		border-color: $color-accent;
+		border-color: var(--color-accent);
 	}
 }
 
@@ -42,28 +60,28 @@
 
 	@include flex-center;
 	flex: 0 0 auto;
-	height: $size-avatar-base;
-	width: $size-avatar-base;
+	height: var(--size-avatar-base);
+	width: var(--size-avatar-base);
 
-	@include typography(title);
+	@include title;
 
 	border-radius: 100%;
 
 	overflow: visible;
-	transition: background $duration-animation-none;
+	transition: background var(--duration-transition-none);
 }
 
-
 // БАЗОВАЯ КНОПКА С ИКОНКОЙ
-@mixin button-base {
-	height: $size-button-base;
-	width: $size-button-base;
+@mixin button-base() {
+	@include flex-center;
+	height: var(--size-button-base);
+	width: var(--size-button-base);
 
-	color: $color-text-muted;
+	@include text;
 
-	border-radius: 5px;
+	border-radius: max(0.25vw, 5px);
 
-	transition: all $duration-animation-base ease-in-out, color $duration-animation-none;
+	transition: all var(--duration-transition-base) ease-in-out, color var(--duration-transition-none);
 
 	@include focus-visible;
 
@@ -76,16 +94,15 @@
 // КРУГЛАЯ КНОПКА С ИКОНКОЙ
 @mixin button-round {
 	@include flex-center;
-	
-	height: $size-button-round;
-	width: $size-button-round;
+	height: var(--size-button-round);
+	width: var(--size-button-round);
 
-	color: $color-text-main;
+	@include text(true);
 
-	background: $color-button;
+	background: var(--color-button);
 	border-radius: 100%;
 
-	transition: all $duration-animation-base ease-in-out, color $duration-animation-none;
+	transition: all var(--duration-transition-base) ease-in-out, color var(--duration-transition-none);
 	
 	@include focus-visible;
 

@@ -1,6 +1,6 @@
-/// Различные периоды анимаций и переходов
-
-
-$duration-animation-base: 200ms;
-$duration-animation-none: 0ms;
-$duration-animation-loader: 1000ms;
+:root {
+	--duration-animation-loader: 1000ms;
+	
+	--duration-transition-base: 200ms;
+	--duration-transition-none: 0ms;
+}

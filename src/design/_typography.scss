@@ -1,49 +1,43 @@
-@use "./colors" as *;
-
-// Различные миксины для текста
-
-///
-/// @param {String} $type - Тип текста
-/// @param {Boolean} $user - Сообщение от пользователя или нет
-/// @param {Boolean} $current - Сообщение из текущего чата или нет
-///
-
-
-@mixin typography($type, $user: false, $current: false) {
-	// ЗАГОЛОВКИ, НАЗВАНИЯ ЧАТОВ
-	@if $type == title {
-		color: $color-text-main;
-		font-weight: 600;
-		font-size: 16px;
-	}
-
-	// ДАТЫ СООБЩЕНИЙ В ЧАТЕ
-	@if $type == date {
-		@if $user == true {
-			color: $color-message-user-meta;
-		} @else {
-			color: $color-message-recepient-meta;
-		}
-		font-weight: 300;
-		font-size: 12px;
-	}
-
-	// ТЕКСТ СООБЩЕНИЙ
-	@if $type == text {
-		@if $current == true {
-			color: $color-text-main;
-		} @else {
-			color: $color-text-muted;
-		}
-		font-weight: 400;
-		font-size: 14px;
-	}
-
-	// ПЕРЕПОЛНЕНИЕ ТЕКСТА
+// ПЕРЕПОЛНЕНИЕ ТЕКСТА
+@mixin text-overflow {
 	overflow: hidden;
 	min-width: 0px;
 
 	text-align: left;
 	text-overflow: ellipsis;
 	white-space: nowrap;
+}
+
+// ЗАГОЛОВКИ, НАЗВАНИЯ ЧАТОВ
+@mixin title {
+	color: var(--color-text-main);
+	font-weight: 600;
+	font-size: max(16px, 0.83vw);
+	@include text-overflow;
+}
+
+// ДАТЫ СООБЩЕНИЙ В ЧАТЕ
+@mixin date($is-user: false) {
+	@if $is-user == true {
+		color: var(--color-message-user-meta);
+	} @else {
+		color: var(--color-message-recepient-meta);
+	}
+
+	font-weight: 300;
+	font-size: max(11px, 0.63vw);
+	@include text-overflow;
+}
+
+// ТЕКСТ СООБЩЕНИЙ
+@mixin text($is-white: false) {
+	@if $is-white == true {
+		color: var(--color-text-main);
+	} @else {
+		color: var(--color-text-muted);
+	}
+
+	font-weight: 400;
+	font-size: max(14px, 0.73vw);
+	@include text-overflow;
 }
