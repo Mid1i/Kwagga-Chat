@@ -38,15 +38,15 @@
 <style lang="scss" scoped>
 	.message {
 		align-self: flex-start;
-		padding: 10px 5px 5px;
+		padding: max(10px, 0.52vw) max(5px, 0.26vw) max(5px, 0.26vw);
 		max-width: 60%;
 
-		background: $color-message-recepient-bg;
+		background: var(--color-message-recepient-bg);
 
 		&__text {
-			padding: 0px 5px 5px;
+			padding: 0px max(5px, 0.26vw) max(5px, 0.26vw);
 
-			@include typography(text, false, true);
+			@include text(true);
 			white-space: pre-wrap;
 			word-break: break-word;
 		}
@@ -54,13 +54,13 @@
 		&__meta {
 			align-items: center;
 			display: flex;
-			gap: 2px;
-			margin-top: 5px;
-			margin-left: 15px;
+			gap: max(2px, 0.1vw);
+			margin-top: max(5px, 0.26vw);
+			margin-left: max(15px, 0.78vw);
 			float: right;
 
 			&-time {
-				@include typography(date);
+				@include date;
 			}
 
 			&-icon {
@@ -71,15 +71,33 @@
 		&.user {
 			align-self: flex-end;
 
-			background: $color-message-user-bg;
+			background: var(--color-message-user-bg);
 
 			.message__meta {
 				margin-top: 0px;
 
 				&-time,
 				&-icon {
-					color: $color-message-user-meta;
+					color: var(--color-message-user-meta);
 				}
+			}
+		}
+	}
+
+
+	@media(max-width: 767px) {
+		.message {
+			padding: 5px;
+			max-width: 90%;
+
+			&__text {
+				padding: 0px 5px;
+			}
+
+			&__meta {
+				gap: 1px;
+				margin-top: 3px;
+				margin-left: 5px;
 			}
 		}
 	}

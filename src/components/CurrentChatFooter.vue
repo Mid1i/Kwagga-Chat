@@ -39,7 +39,7 @@
 				</div>
 			</div>
 			<button 
-				class="footer__button"
+				class="footer__button emodji"
 				aria-label="Отправить смайлик"	
 			>
 				<svg class="footer__button-icon">
@@ -69,9 +69,10 @@
 
 <style lang="scss" scoped>
 	.footer {
-		z-index: $layer-sticky-z-index;
+		z-index: var(--layer-sticky-z-index);
 
-		padding: 0px 40px 10px;
+		flex: 1 1 auto;
+		padding: 0px max(40px, 2.04vw) max(10px, 0.52vw);
 		width: 100%;
 
 		&__container {
@@ -81,24 +82,24 @@
 			display: flex;
 			justify-content: space-between;
 
-			background: $color-message-input;
-			border: 1px solid $color-border-dark;
-			border-radius: 10px;
+			background: var(--color-message-input);
+			border: max(1px, 0.05vw) solid var(--color-border-dark);
+			border-radius: max(10px, 0.52vw);
 		}
 
 		&__button {
 			@include button-base;
 			flex: 0 0 auto;
-			padding: 10px;
-			height: 50px;
-			width: 50px;
+			padding: max(10px, 0.52vw);
+			height: var(--size-button-message);
+			width: var(--size-button-message);
 
 			&.hidden {
 				display: none;
 			}
 
 			&.accent {
-				color: $color-accent;
+				color: var(--color-accent);
 			}
 		}
 
@@ -115,7 +116,7 @@
 				left: 0px;
 				top: 50%;
 
-				@include typography(text);
+				@include text;
 				
 				transform: translateY(-50%);
 				pointer-events: none;
@@ -128,11 +129,13 @@
 
 			&-input {
 				overflow-y: auto;
-				min-height: 50px;
-				padding: 15px 0px;
+				min-height: var(--size-button-message);
+				padding: max(15px, 0.78vw) 0px;
 				width: 100%;
 
-				@include typography(text, false, true);
+				color: var(--color-text-main);
+				font-weight: 400;
+				font-size: 14px;
 			}
 		}
 	}
@@ -140,7 +143,33 @@
 
 	@media(hover: hover) {
 		.footer__button:hover {
-			color: $color-active-icon;
+			color: var(--color-active-icon);
+		}
+	}
+
+	@media(max-width: 767px) {
+		.footer {
+			--size-button-message: 40px;
+
+			padding: 0px 0px 5px;
+
+			background: var(--color-message-input);
+
+			&__container {
+				border-radius: 0px;
+			}
+
+			&__button {
+				padding: 6px;
+
+				&.emodji {
+					display: none;
+				}
+			}
+
+			&__message-input {
+				padding: 10px 0px;
+			}
 		}
 	}
 </style>

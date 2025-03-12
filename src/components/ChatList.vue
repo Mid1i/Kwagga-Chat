@@ -3,7 +3,6 @@
 
 	import type { StatusAPI, IChat } from "@/types";
 	
-	import CustomScrollbar from "@/components/CustomScrollbar.vue";
 	import CustomLoader from "@/components/CustomLoader.vue";
 	import ChatListItem from "@/components/ChatListItem.vue";
 	
@@ -17,36 +16,37 @@
 </script>
 
 <template>
-	<custom-scrollbar 
-		css-scrollbar-width="5"
-		css-border-radius="100"
+	<custom-loader
+		:condition-loading="status === 'loading'"
+		:condition-empty="status === 'success' && chats.length === 0"
+		empty-text="Тут пока пусто..."
 	>
-		<custom-loader
-			:condition-loading="status === 'loading'"
-			:condition-empty="status === 'success' && chats.length === 0"
-			empty-text="Тут пока пусто..."
-		>
-			<ul class="container__chats" aria-label="Список чатов">
-				<ChatListItem 
-					v-for="chat in chats"
-					@click="chatStore.setCurrentChat(chat.id)"
-					:is-active="chatStore.currentChat?.id === chat.id"
-					:key="chat.id"
-					:="chat"
-				/>
-			</ul>
-		</custom-loader>
-	</custom-scrollbar>
+		<ul class="container__chats" aria-label="Список чатов">
+			<ChatListItem 
+				v-for="chat in chats"
+				@click="chatStore.setCurrentChat(chat.id)"
+				:is-active="chatStore.currentChat?.id === chat.id"
+				:key="chat.id"
+				:="chat"
+			/>
+		</ul>
+	</custom-loader>
 </template>
 
 <style lang="scss" scoped>
 	.container__chats {
 		@include flex-column;
-		gap: 2px;
-		padding: 0px 5px 10px;
+		gap: max(2px, 0.1vw);
+		padding: 0px max(5px, 0.26vw) max(10px, 0.52vw);
+		
+		@include scroll-content;
+	}
 
-		&::-webkit-scrollbar {
-			display: none;
+
+	@media(max-width: 767px) {
+		.container__chats {
+			gap: 0px;
+			padding: 5px 0px;
 		}
 	}
 </style>

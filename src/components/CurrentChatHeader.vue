@@ -4,16 +4,27 @@
 		chatColor: string;
 		isOnline: boolean;
 	 }>();
+
+	 defineEmits<{ toggleChat: [] }>();
 </script>
 
 
 <template>
 	<header class="header">
+		<button 
+			@click="$emit('toggleChat')"
+			class="header__mobile-button"
+		>
+			<svg class="header__mobile-icon">
+				<use href="@/assets/navigation.svg#closeChat"/>
+			</svg>
+			Назад
+		</button>
 		<div class="header__recepient">
 			<span class="header__recepient-wrapper" :style="{ backgroundColor: chatColor }">{{ chatName[0] }}</span>
 			<div class="header__recepient-content">
 				<h6 class="header__recepient-name">{{ chatName }}</h6>
-				<span :class="['header__recepient-online', { online: isOnline }]">{{ isOnline ? "online" : "был(а) недавно" }}</span>
+				<span :class="['header__recepient-status', { online: isOnline }]">{{ isOnline ? "online" : "был(а) недавно" }}</span>
 			</div>
 		</div>
 		<div class="header__navigation">
@@ -42,6 +53,7 @@
 				</svg>
 			</button>
 		</div>
+		<span class="header__mobile-meta" :style="{ backgroundColor: chatColor }">{{ chatName[0] }}</span>
 	</header>
 </template>
 
@@ -51,14 +63,19 @@
 		align-items: center;
 		display: flex;
 		justify-content: space-between;
-		padding: 15px 40px;
+		padding: max(15px, 0.78) max(40px, 2.04vw);
 
-		border-bottom: 1px solid $color-border-light;
+		border-bottom: max(1px, 0.05vw) solid var(--color-border-light);
+
+		&__mobile-button,
+		&__mobile-meta {
+			display: none;
+		}
 
 		&__recepient {
 			align-items: center;
 			display: flex;
-			gap: 10px;
+			gap: max(10px, 0.52vw);
 
 			&-wrapper {
 				@include avatar-base;
@@ -66,26 +83,26 @@
 
 			&-content {
 				@include flex-column;
-				gap: 5px;
+				gap: max(5px, 0.26vw);
 			}
 
 			&-name {
-				@include typography(title);
+				@include title;
 			}
 
-			&-online {
-				@include typography(text);
-				font-size: 12px;
+			&-status {
+				@include text;
+				font-size: max(12px, 0.62vw);
 
 				&.online {
-					color: $color-accent;
+					color: var(--color-accent);
 				}
 			}
 		}
 
 		&__navigation {
 			display: flex;
-			gap: 10px;
+			gap: max(10px, 0.52vw);
 
 			&-button {
 				@include button-round;
@@ -96,7 +113,50 @@
 
 	@media(hover: hover) {
 		.header__navigation-button:hover {
-			background: $color-active-button;
+			background: var(--color-active-button);
+		}
+	}
+
+	@media(max-width: 767px) {
+		.header {
+			padding: 10px 15px;
+
+			&__mobile {
+				&-button {
+					@include button-base;
+					@include text(true);
+					overflow: visible;
+					flex: 0 0 auto;
+					justify-content: flex-start;
+				}
+
+				&-icon {
+					flex: 0 0 auto;
+				}
+
+				&-meta {
+					@include avatar-base;
+					height: 40px;
+					width: 40px;
+				}
+			}
+
+			&__recepient-wrapper {
+				display: none;
+			}
+
+			&__recepient-content {
+				align-items: center;
+				gap: 1px;
+			}
+
+			&__recepient-status {
+				font-size: 11px;
+			}
+
+			&__navigation {
+				display: none;
+			}
 		}
 	}
 </style>

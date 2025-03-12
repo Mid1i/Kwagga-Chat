@@ -10,8 +10,14 @@
 	.container {
 		align-items: stretch;
 		display: flex;
+		padding-top: max(20px, 1.04vw);
 		@include full-size;
+	}
 
-		padding-top: 20px;
+
+	@media(max-width: 767px) {
+		.container {
+			padding-top: 0px;
+		}
 	}
 </style>

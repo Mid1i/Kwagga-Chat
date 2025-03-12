@@ -27,23 +27,23 @@
 
 		&__loader {
 			position: relative;
-			height: 50px;
-			width: 50px;
+			height: var(--size-loader);
+			width: var(--size-loader);
 
-			border: 5px solid $color-accent;
+			border: max(5px, 0.26vw) solid var(--color-accent);
 			border-bottom-color: transparent;
 			border-radius: 100%;
 
-			animation: rotation $duration-animation-loader linear infinite;
+			animation: rotation var(--duration-animation-loader) linear infinite;
 		}
 
 		&__empty {
-			padding: 10px;
+			padding: max(10px, 0.52vw);
 
-			@include typography(text, false, true);
+			@include text(true);
 
-			background: $color-bg-extra;
-			border-radius: 17px;
+			background: var(--color-bg-extra);
+			border-radius: max(17px, 0.72vw);
 		}
 	}
 

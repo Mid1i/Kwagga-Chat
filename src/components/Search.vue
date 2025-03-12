@@ -41,27 +41,27 @@
 
 <style scoped lang="scss">
 	@mixin active-label {
-		top: -2px;
+		top: max(-2px, -0.1vw);
 
-		@include typography(date, false);
-		color: $color-text-main;
+		@include date;
+		color: var(--color-text-main);
 	}
 
 	.search {
 		position: relative;
 
-		height: 36px;
+		height: max(36px, 1.66vw);
 		width: 100%;
 
 		&__label {
 			position: absolute;
-			left: 10px;
+			left: max(10px, 0.52vw);
 			top: 50%;
 
-			@include typography(text);
+			@include text;
 
 			transform: translateY(-50%);
-			transition: all 0.2s ease-in-out;
+			transition: all var(--duration-transition-base) ease-in-out;
 
 			pointer-events: none;
 
@@ -71,14 +71,14 @@
 		}
 
 		&__input {
-			padding-right: 40px;
-			padding-left: 10px;
+			padding-right: max(40px, 2.1vw);
+			padding-left: max(10px, 0.52vw);
 			@include full-size;
 
-			@include typography(text, false, true);
+			@include text(true);
 
-			background: $color-bg-extra;
-			border-radius: 5px;
+			background: var(--color-bg-extra);
+			border-radius: max(5px, 0.26vw);
 
 			@include focus-visible;
 			
@@ -93,7 +93,7 @@
 
 		&__button {
 			position: absolute;
-			right: 10px;
+			right: max(10px, 0.52vw);
 			top: 50%;
 
 			transform: translateY(-50%);
@@ -105,7 +105,7 @@
 
 	@media(hover: hover) {
 		.search__button:hover {
-			color: $color-active-icon;
+			color: var(--color-active-icon);
 		}
 	}
 </style>

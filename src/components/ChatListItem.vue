@@ -68,23 +68,23 @@
 		
 		align-items: center;
 		display: flex;
-		gap: 10px;
-		padding: 10px;
+		gap: max(10px, 0.52vw);
+		padding: max(10px, 0.5vw);
 		
-		border-radius: 5px;
+		border-radius: max(5px, 0.26vw);
 
 		@include focus-visible;
 
 		&::before {
 			position: absolute;
-			left: -1px;
+			left: max(-1px, -0.05vw);
 			top: 50%;
 
 			height: 50%;
-			width: 3px;
+			width: max(3px, 0.15vw);
 
 			background: transparent;
-			border-radius: 10px;
+			border-radius: max(10px, 0.52vw);
 
 			transform: translateY(-50%);
 
@@ -96,14 +96,14 @@
 
 			&.online::after {
 				position: absolute;
-				bottom: 2px;
-				right: 4px;
+				bottom: max(2px, 0.1vw);
+				right: max(4px, 0.2vw);
 				
-				height: 11px;
-				width: 11px;
+				height: var(--size-status);
+				width: var(--size-status);
 				
-				background: $color-green;
-				border: 2px solid $color-bg-chats;
+				background: var(--color-green);
+				border: max(2px, 0.1vw) solid var(--color-bg-chats);
 				border-radius: 100%;
 				
 				content: "";
@@ -113,62 +113,63 @@
 		&__content {
 			@include flex-column;
 			flex: 1 1 auto;
-			gap: 5px;
-			width: calc(100% - 60px);
+			gap: max(5px, 0.26vw);
+			overflow: hidden;
+			width: calc(100% - max(60px, 3.1vw));
 		}
 
 		&__header {
 			align-items: center;
 			display: flex;
-			gap: 5px;
+			gap: max(5px, 0.26vw);
 
 			&-recepient {
 				flex: 1 1 auto;
 
-				@include typography(title);
+				@include title;
 			}
 
 			&-datetime {
-				@include typography(text);
+				@include text;
 			}
 		}
 
 		&__footer {
 			align-items: center;
 			display: flex;
-			gap: 5px;
+			gap: max(5px, 0.26vw);
 
 			&-message {
 				flex: 1 1 auto;
 
-				@include typography(text);
+				@include text;
 			}
 
 			&-label {
-				@include typography(text);
-				color: $color-accent;
+				@include text;
+				color: var(--color-accent);
 			}
 
 			&-counter {
 				flex: 0 0 auto;
-				padding: 3px 8px;
+				padding: max(3px, 0.15vw) max(8px, 0.42vw);
 
-				@include typography(text, false, true);
+				@include text(true);
 
-				background: $color-messages-counter;
-				border-radius: 20px;
+				background: var(--color-messages-counter);
+				border-radius: max(20px, 1.04vw);
 			}
 		}
 
 		&.active {
-			background: $color-active-chat;
+			background: var(--color-active-chat);
 
 			&::before {
-				background: $color-accent;
+				background: var(--color-accent);
 			}
 
 			.chat__footer-counter {
-				background: $color-accent;
+				background: var(--color-accent);
 			}
 		}
 	}
@@ -176,7 +177,31 @@
 
 	@media(hover: hover) {
 		.chat:hover {
-			background: $color-active-chat;
+			background: var(--color-active-chat);
+		}
+	}
+
+	@media(max-width: 767px) {
+		.chat {
+			padding: 10px 15px;
+
+			&:not(:last-child) {
+				border-bottom: 1px solid var(--color-border-light);
+			}
+
+			&::before {
+				display: none;
+			}
+
+			&__content {
+				gap: 1px;
+			}
+
+			&__footer-counter {
+				padding: 1px 8px;
+
+				border-radius: 9px;
+			}
 		}
 	}
 </style>

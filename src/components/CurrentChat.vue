@@ -5,7 +5,6 @@
 
 	import CurrentChatHeader from "@/components/CurrentChatHeader.vue";
 	import CurrentChatFooter from "@/components/CurrentChatFooter.vue";
-	import CustomScrollbar from "@/components/CustomScrollbar.vue";
 	import CustomLoader from "@/components/CustomLoader.vue";
 	import Message from "@/components/Message.vue";
 
@@ -52,21 +51,18 @@
 
 
 <template>
-	<div class="chat">
+	<div :class="['chat', { opened: chatStore.isOpen }]">
 		<custom-loader
 			:condition-loading="!!chat && historyStatus === 'loading'"
 			:condition-empty="!chat"
 			empty-text="Выберите, кому хотели бы написать"
 		>
 			<CurrentChatHeader
+				@toggleChat="chatStore.toggleChat"
 				:chat-color="chat!.color"
 				:chat-name="`${chat!.recepient.firstName} ${chat!.recepient.lastName}`"
 				:is-online="chat!.recepient.isOnline"
 			/>
-			<custom-scrollbar 
-				css-scrollbar-width="10" 
-				css-border-radius="3"
-			>
 				<custom-loader
 					:condition-loading="historyStatus === 'loading'"
 					:condition-empty="historyStatus === 'success' && !history"
@@ -89,7 +85,6 @@
 						</div>
 					</div>
 				</custom-loader>
-			</custom-scrollbar>
 			<CurrentChatFooter
 				@inputMessage="(text: string) => chatStore.updateUnsentMessages(text)"
 			/>
@@ -105,8 +100,10 @@
 		@include flex-column;
 		flex: 1 1 auto;
 
-		background: $color-bg-current-chat;
-		border-radius: 20px 0px 0px 20px;
+		background: var(--color-bg-current-chat);
+		border-top-left-radius: max(20px, 1.04vw);
+
+		transition: all var(--duration-transition-base);
 
 		&__history {
 			position: relative;
@@ -114,9 +111,11 @@
 			display: flex;
 			flex: 1 1 auto;
 			flex-direction: column-reverse;
-			gap: 10px;
+			gap: max(10px, 0.52vw);
 
-			padding: 10px 40px;
+			padding: max(10px, 0.52vw) max(40px, 2.1vw);
+
+			@include scroll-content(10px);
 		}
 
 		&__group {
@@ -125,21 +124,47 @@
 			gap: inherit;
 
 			&-date {
-				z-index: $layer-sticky-z-index;
+				z-index: var(--layer-sticky-z-index);
 
 				align-self: center;
 				order: 1;
 
 				position: sticky;
-				top: 10px;
+				top: max(10px, 0.52vw);
 
-				padding: 10px;
+				padding: max(10px, 0.52vw);
 
-				@include typography(text, false, true);
+				@include text(true);
 
-				background: $color-group-date;
-				border: 1px solid $color-border-dark;
-				border-radius: 20px;
+				background: var(--color-group-date);
+				border: max(1px, 0.05vw) solid var(--color-border-dark);
+				border-radius: max(20px, 1.04vw);
+			}
+		}
+	}
+
+
+	@media(max-width: 767px) {
+		.chat {
+			position: fixed;
+			right: -100%;
+			top: 0px;
+			
+			overflow: hidden;
+			@include full-size;
+
+			&.opened {
+				right: 0px;
+			}
+
+			&__history {
+				padding: 5px 15px;
+			}
+
+			&__group-date {
+				top: 0px;
+
+				padding: 5px 10px;
 			}
 		}
 	}
