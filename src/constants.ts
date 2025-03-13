@@ -41,6 +41,3 @@ export const WEEK_MS = 7 * DAY_MS;
 
 // Год в милисекундах
 export const YEAR_MS = 365 * DAY_MS;
-
-// Ссылка для api-запросов
-export const API_URL = import.meta.env.VITE_API_URL;
