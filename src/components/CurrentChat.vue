@@ -1,39 +1,37 @@
 <script setup lang="ts">
-	import { computed } from "vue";
+	import { storeToRefs } from "pinia";
 
-	import type { IHistory, StatusAPI, ICurrentChat } from "@/types";
+	import type { ICurrentChat } from "@/types";
 
 	import CurrentChatHeader from "@/components/CurrentChatHeader.vue";
 	import CurrentChatFooter from "@/components/CurrentChatFooter.vue";
 	import CustomLoader from "@/components/CustomLoader.vue";
 	import Message from "@/components/Message.vue";
 
+	import { formattedDate } from "@/helpers/datetime";
 	import { useChatStore } from "@/stores/chat";
 	import { useUserStore } from "@/stores/user";
 
-	import { MONTHES } from "@/constants";
+
+	const { currentUser } = storeToRefs(useUserStore());
+
+	const { saveUnsentMessage, setCurrentChat } = useChatStore();
+	
+	const { 
+		currentChat, 
+		chatHistory, 
+		isChatOpen, 
+		loading
+	} = storeToRefs(useChatStore());
 
 
-	const chatStore = useChatStore();
-	const userStore = useUserStore();
-
-	const chat = computed<ICurrentChat | null>(() => chatStore.currentChat);
-
-	const history = computed<IHistory[]>(() => chatStore.history);
-	const historyStatus = computed<StatusAPI>(() => chatStore.historyStatus);
-
-	const getGroupMonth = (date: string): string => {
-		const month = new Date(date).getMonth();
-		return `${month} ${MONTHES[month]}`;
-	};
-
-	const isUserMessage = (senderId: number): boolean => senderId === userStore.user.id;
+	const isUserMessage = (senderId: number): boolean => senderId === currentUser.value.id;
 
 	const getMessageRadius = (groupIndex: number, index: number): Record<string, string> => {
 		const BASE_RADIUS = window.matchMedia("(max-width: 767px)").matches ? "10px" : "15px";
 		const SMALL_RADIUS = "5px";
 
-		const { messages } = history.value[groupIndex];
+		const { messages } = chatHistory.value[groupIndex];
 		const messageSender = messages[index].sender.id;
 
 		const prevSender = messages[index - 1]?.sender.id;
@@ -54,28 +52,27 @@
 
 
 <template>
-	<div :class="['chat', { opened: chatStore.isOpen }]">
+	<div :class="['chat', { opened: isChatOpen }]">
 		<custom-loader
-			:condition-loading="!!chat && historyStatus === 'loading'"
-			:condition-empty="!chat"
+			:condition-empty="!currentChat"
 			empty-text="Выберите, кому хотели бы написать"
 		>
 			<CurrentChatHeader
-				@back-to-chats="chatStore.setCurrentChat(null)"
-				:="(chat as ICurrentChat)"
+				@back-to-chats="setCurrentChat(null)"
+				:="(currentChat as ICurrentChat)"
 			/>
 				<custom-loader
-					:condition-loading="historyStatus === 'loading'"
-					:condition-empty="historyStatus === 'success' && !history"
+					:condition-loading="loading"
+					:condition-empty="chatHistory.length === 0"
 					empty-text="Сообщений пока нет"
 				>
 					<div class="chat__history">
 						<div
-							v-for="(group, groupIndex) in history"
+							v-for="(group, groupIndex) in chatHistory"
 							class="chat__group"
 							:key="group.date"
 						>
-							<span class="chat__group-date">{{ getGroupMonth(group.date) }}</span>
+							<span class="chat__group-date">{{ formattedDate(new Date(group.date)) }}</span>
 							<Message
 								v-for="(message, index) in group.messages"
 								:message-radius="getMessageRadius(groupIndex, index)"
@@ -86,7 +83,7 @@
 						</div>
 					</div>
 				</custom-loader>
-			<CurrentChatFooter @inputMessage="(text: string) => chatStore.updateUnsentMessages(text)"/>
+			<CurrentChatFooter @inputMessage="(text: string) => saveUnsentMessage(text)"/>
 		</custom-loader>
 	</div>
 </template>
@@ -138,15 +135,7 @@
 				border: max(1px, 0.05vw) solid var(--color-border-dark);
 				border-radius: max(20px, 1.04vw);
 
-				pointer-events: none;
-				opacity: 0;
-
 				-webkit-backdrop-filter: blur(max(5px, 0.26vw));
-
-				&.active {
-					pointer-events: auto;
-					opacity: 1;
-				}
 			}
 		}
 	}

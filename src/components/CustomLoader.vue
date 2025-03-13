@@ -1,6 +1,6 @@
 <script setup lang="ts">
 	defineProps<{ 
-		conditionLoading: boolean; 
+		conditionLoading?: boolean; 
 		conditionEmpty: boolean;
 		emptyText: string; 
 	}>();

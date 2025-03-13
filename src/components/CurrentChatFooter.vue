@@ -4,6 +4,7 @@
 
 	const emit = defineEmits<{ inputMessage: [ text: string ] }>();
 
+	
 	const unsentMessage = ref<string>("");
 
 	const updateMessage = (event: Event) => {

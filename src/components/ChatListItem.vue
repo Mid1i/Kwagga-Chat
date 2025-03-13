@@ -1,5 +1,7 @@
 <script setup lang="ts">
+	import { storeToRefs } from "pinia";
 	import { RouterLink } from "vue-router";
+
 	import type { IChat } from "@/types";
 
 	import { formattedDatetime, formattedWeekDay } from "@/helpers/datetime";
@@ -10,7 +12,7 @@
 
 	defineProps<IChat & { isActive: boolean }>();
 
-	const userStore = useUserStore();
+	const { currentUser } = storeToRefs(useUserStore());
 
 	const getMessageDatetime = (messageDate: string): string => {
 		const date = new Date(messageDate);
@@ -48,7 +50,7 @@
 			</div>
 			<div class="chat__footer">
 				<span class="chat__footer-message">
-					<span v-if="lastMessage.sender.id === userStore.user.id" class="chat__footer-label">Вы: </span>
+					<span v-if="lastMessage.sender.id === currentUser.id" class="chat__footer-label">Вы: </span>
 					{{ lastMessage.text }}
 				</span>
 				<span 

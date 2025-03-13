@@ -1,31 +1,30 @@
 <script setup lang="ts">
-	import { computed } from "vue";
+	import { storeToRefs } from "pinia";
 
-	import type { StatusAPI, IChat } from "@/types";
-	
 	import CustomLoader from "@/components/CustomLoader.vue";
 	import ChatListItem from "@/components/ChatListItem.vue";
 	
+	import { useChatsStore } from "@/stores/chats";
 	import { useChatStore } from "@/stores/chat";
 
 
-	const chatStore = useChatStore();
+	const { currentChat } = storeToRefs(useChatStore());
+	const { setCurrentChat } = useChatStore();
 
-	const status = computed<StatusAPI>(() => chatStore.chatsStatus);
-	const chats = computed<IChat[]>(() => chatStore.chats);
+	const { chats, loading } = storeToRefs(useChatsStore());
 </script>
 
 <template>
 	<custom-loader
-		:condition-loading="status === 'loading'"
-		:condition-empty="status === 'success' && chats.length === 0"
+		:condition-loading="loading"
+		:condition-empty="chats.length === 0"
 		empty-text="Тут пока пусто..."
 	>
 		<div class="container__chats" aria-label="Список чатов">
 			<ChatListItem 
 				v-for="chat in chats"
-				@click="chatStore.setCurrentChat(chat.id)"
-				:is-active="chatStore.currentChat?.id === chat.id"
+				@click="setCurrentChat(chat.id)"
+				:is-active="currentChat?.id === chat.id"
 				:key="chat.id"
 				:="chat"
 			/>
