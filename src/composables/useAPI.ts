@@ -1,33 +1,24 @@
 import { ref } from "vue";
-import axios from "axios";
-
-import type { StatusAPI, MethodAPI } from "@/types";
-
-import { API_URL } from "@/constants";
 
 
-export default function useAPI<T>(initialData: T) {
-	const data = ref<T>(initialData);
-	const status = ref<StatusAPI>("idle");
+export default function useAPI<T, P = void>(apiFunc: (params: P) => Promise<T>) {
+	const data = ref<T | null>(null);
+	const loading = ref<boolean>(false);
+	const error = ref<Error | null>(null);
 
 
-	const fetchData = async (url: string, method: MethodAPI, body?: Record<string, any>) => {
-		status.value = "loading";
+	const fetchData = async (params: P) => {
+		loading.value = true;
 
 		try {
-			const response = await axios({ method, url: `${API_URL}${url}`, data: body });
-			data.value = response.data;
-			status.value = "success";
-		} catch(error) {
-			console.error(error);
-			status.value = "error";
+			data.value = await apiFunc(params);
+		} catch(err) {
+			error.value = err instanceof Error ? err : new Error(String(err));
+		} finally {
+			loading.value = false;
 		}
 	};
 
 
-	return {
-		data,
-		status,
-		fetchData
-	}
+	return { data, loading, error, fetchData };
 };
