@@ -30,22 +30,25 @@
 	const isUserMessage = (senderId: number): boolean => senderId === userStore.user.id;
 
 	const getMessageRadius = (groupIndex: number, index: number): Record<string, string> => {
-		const currentHistory = history.value[groupIndex];
+		const BASE_RADIUS = window.matchMedia("(max-width: 767px)").matches ? "10px" : "15px";
+		const SMALL_RADIUS = "5px";
 
-		const messageSender = currentHistory.messages[index].sender.id;
+		const { messages } = history.value[groupIndex];
+		const messageSender = messages[index].sender.id;
 
-		const prevMessageSender = index > 0 ? currentHistory.messages[index - 1].sender.id : 0;
-		const nextMessageSender = index < currentHistory.messages.length - 1 ? currentHistory.messages[index + 1].sender.id : 0;
+		const prevSender = messages[index - 1]?.sender.id;
+		const nextSender = messages[index + 1]?.sender.id;
 
-		const hasPrevFromSameSender = !!prevMessageSender && prevMessageSender === messageSender;
-		const hasNextFromSameSender = !!nextMessageSender && nextMessageSender === messageSender;
+		const hasPrevFromSameSender = prevSender === messageSender;
+		const hasNextFromSameSender = nextSender === messageSender;
+		const isUser = isUserMessage(messageSender);
 		
 		return {
-			borderTopLeftRadius: `${isUserMessage(messageSender) ? 15 : hasNextFromSameSender ? 5 : 15}px`,
-			borderTopRightRadius: `${isUserMessage(messageSender) ? (hasNextFromSameSender ? 5 : 15) : 15}px`,
-			borderBottomLeftRadius: `${isUserMessage(messageSender) ? 15 : hasPrevFromSameSender ? 5 : 15}px`,
-			borderBottomRightRadius: `${isUserMessage(messageSender) ? (hasPrevFromSameSender ? 5 : 15) : 15}px`,
-		};
+			borderTopLeftRadius: isUser || !hasNextFromSameSender ? BASE_RADIUS : SMALL_RADIUS,
+			borderTopRightRadius: isUser && hasNextFromSameSender ? SMALL_RADIUS : BASE_RADIUS,
+			borderBottomLeftRadius: isUser || hasPrevFromSameSender ? BASE_RADIUS : SMALL_RADIUS,
+			borderBottomRightRadius: isUser && !hasPrevFromSameSender ? SMALL_RADIUS : BASE_RADIUS
+		}
 	};
 </script>
 
@@ -58,10 +61,8 @@
 			empty-text="Выберите, кому хотели бы написать"
 		>
 			<CurrentChatHeader
-				@toggleChat="chatStore.toggleChat"
-				:chat-color="chat!.color"
-				:chat-name="`${chat!.recepient.firstName} ${chat!.recepient.lastName}`"
-				:is-online="chat!.recepient.isOnline"
+				@back-to-chats="chatStore.setCurrentChat(null)"
+				:="(chat as ICurrentChat)"
 			/>
 				<custom-loader
 					:condition-loading="historyStatus === 'loading'"
@@ -69,7 +70,7 @@
 					empty-text="Сообщений пока нет"
 				>
 					<div class="chat__history">
-						<div 
+						<div
 							v-for="(group, groupIndex) in history"
 							class="chat__group"
 							:key="group.date"
@@ -85,9 +86,7 @@
 						</div>
 					</div>
 				</custom-loader>
-			<CurrentChatFooter
-				@inputMessage="(text: string) => chatStore.updateUnsentMessages(text)"
-			/>
+			<CurrentChatFooter @inputMessage="(text: string) => chatStore.updateUnsentMessages(text)"/>
 		</custom-loader>
 	</div>
 </template>
@@ -124,21 +123,30 @@
 			gap: inherit;
 
 			&-date {
+				position: sticky;
+				top: max(10px, 0.52vw);
 				z-index: var(--layer-sticky-z-index);
 
 				align-self: center;
-				order: 1;
-
-				position: sticky;
-				top: max(10px, 0.52vw);
-
 				padding: max(10px, 0.52vw);
+				order: 1;
 
 				@include text(true);
 
 				background: var(--color-group-date);
+				backdrop-filter: blur(max(5px, 0.26vw));
 				border: max(1px, 0.05vw) solid var(--color-border-dark);
 				border-radius: max(20px, 1.04vw);
+
+				pointer-events: none;
+				opacity: 0;
+
+				-webkit-backdrop-filter: blur(max(5px, 0.26vw));
+
+				&.active {
+					pointer-events: auto;
+					opacity: 1;
+				}
 			}
 		}
 	}

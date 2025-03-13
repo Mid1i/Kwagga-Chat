@@ -9,6 +9,8 @@
 	const updateMessage = (event: Event) => {
 		const element = event.target as HTMLInputElement;
 		unsentMessage.value = element.textContent ?? "";
+
+		element.style.maxHeight = `${element.scrollHeight}px`;
 		
 		emit('inputMessage', unsentMessage.value);
 	};
@@ -81,7 +83,7 @@
 			align-items: flex-end;
 			display: flex;
 			justify-content: space-between;
-
+			
 			background: var(--color-message-input);
 			border: max(1px, 0.05vw) solid var(--color-border-dark);
 			border-radius: max(10px, 0.52vw);
@@ -132,10 +134,16 @@
 				min-height: var(--size-button-message);
 				padding: max(15px, 0.78vw) 0px;
 				width: 100%;
-
+				
 				color: var(--color-text-main);
 				font-weight: 400;
 				font-size: 14px;
+
+				transition: all var(--duration-transition-base) ease-in-out;
+
+				&::-webkit-scrollbar {
+					display: none;
+				}
 			}
 		}
 	}

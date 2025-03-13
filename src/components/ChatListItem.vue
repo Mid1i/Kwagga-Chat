@@ -1,4 +1,5 @@
 <script setup lang="ts">
+	import { RouterLink } from "vue-router";
 	import type { IChat } from "@/types";
 
 	import { formattedDatetime, formattedWeekDay } from "@/helpers/datetime";
@@ -29,10 +30,10 @@
 </script>
 
 <template>
-	<li 
+	<router-link 
 		:class="['chats__el chat', { active: isActive }]" 
 		aria-label="Открыть чат"
-		tabindex="0"
+		:to="`/${id}`"
 	>
 		<span 
 			:class="['chat__wrapper', { online: recepient.isOnline }]"
@@ -59,7 +60,7 @@
 				</span>
 			</div>
 		</div>
-	</li>
+	</router-link>
 </template>
 
 <style lang="scss" scoped>

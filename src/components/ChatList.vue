@@ -21,7 +21,7 @@
 		:condition-empty="status === 'success' && chats.length === 0"
 		empty-text="Тут пока пусто..."
 	>
-		<ul class="container__chats" aria-label="Список чатов">
+		<div class="container__chats" aria-label="Список чатов">
 			<ChatListItem 
 				v-for="chat in chats"
 				@click="chatStore.setCurrentChat(chat.id)"
@@ -29,7 +29,7 @@
 				:key="chat.id"
 				:="chat"
 			/>
-		</ul>
+		</div>
 	</custom-loader>
 </template>
 

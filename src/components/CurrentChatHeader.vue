@@ -1,18 +1,22 @@
 <script setup lang="ts">
-	defineProps<{ 
-		chatName: string;
-		chatColor: string;
-		isOnline: boolean;
-	 }>();
+	import { computed } from "vue";
+	import type { ICurrentChat } from "@/types";
 
-	 defineEmits<{ toggleChat: [] }>();
+
+	const { recepient, color } = defineProps<ICurrentChat>();
+
+	defineEmits<{ backToChats: [] }>();
+
+	const chatName = computed<string>(() => `${recepient.firstName} ${recepient.lastName}`);
+	const firstLetter = computed<string>(() => recepient.firstName[0]);
+	const isOnline = computed<boolean>(() => recepient.isOnline);
 </script>
 
 
 <template>
 	<header class="header">
 		<button 
-			@click="$emit('toggleChat')"
+			@click="$emit('backToChats')"
 			class="header__mobile-button"
 		>
 			<svg class="header__mobile-icon">
@@ -21,9 +25,9 @@
 			Назад
 		</button>
 		<div class="header__recepient">
-			<span class="header__recepient-wrapper" :style="{ backgroundColor: chatColor }">{{ chatName[0] }}</span>
+			<span class="header__recepient-wrapper" :style="{ backgroundColor: color }">{{ firstLetter }}</span>
 			<div class="header__recepient-content">
-				<h6 class="header__recepient-name">{{ chatName }}</h6>
+				<h6 class="header__recepient-name">{{ chatName  }}</h6>
 				<span :class="['header__recepient-status', { online: isOnline }]">{{ isOnline ? "online" : "был(а) недавно" }}</span>
 			</div>
 		</div>
@@ -53,7 +57,7 @@
 				</svg>
 			</button>
 		</div>
-		<span class="header__mobile-meta" :style="{ backgroundColor: chatColor }">{{ chatName[0] }}</span>
+		<span class="header__mobile-meta" :style="{ backgroundColor: color }">{{ firstLetter }}</span>
 	</header>
 </template>
 
