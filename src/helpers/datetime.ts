@@ -1,4 +1,4 @@
-import { WEEK_DAYS } from "@/constants";
+import { WEEK_DAYS, MONTHES } from "@/constants";
 
 
 // Добавление ведущих нулей
@@ -12,3 +12,9 @@ export const formattedDatetime = (date: Date, separator: string): string => {
 
 // Форматирование дня недели (по его порядковому номеру)
 export const formattedWeekDay = (date: Date): string => WEEK_DAYS[date.getDay()];
+
+// Форматирование даты для истории чата в формат "2 марта"
+export const formattedDate = (date: Date): string => {
+	const month = date.getMonth();
+	return `${date.getMonth()} ${MONTHES[month]}`;
+};
