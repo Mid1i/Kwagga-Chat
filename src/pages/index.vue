@@ -1,26 +1,26 @@
 <script setup lang="ts">
-	import { onMounted, watch } from "vue";
-	import { useRoute } from "vue-router";
+	import { onMounted } from "vue";
+	import { storeToRefs } from "pinia";
 
 	import CurrentChat from "@/components/CurrentChat.vue";
 	import ChatList from "@/components/ChatList.vue";
 	import Search from "@/components/Search.vue";
 
+	import { useChatsStore } from "@/stores/chats";
 	import { useChatStore } from "@/stores/chat";
 
+	
+	const { isChatOpen } = storeToRefs(useChatStore());
 
-	const chatStore = useChatStore();
-	const route = useRoute();
+	const { loadChats } = useChatsStore();
 
 
-	onMounted(chatStore.getChats);
-
-	watch(() => chatStore.chatsStatus, () => chatStore.setCurrentChat(Number(route.params?.id) ?? null));
+	onMounted(loadChats);
 </script>
 
 
 <template>
-	<aside :class="['container__side-nav side-nav', { open: !chatStore.isOpen }]">
+	<aside :class="['container__side-nav side-nav', { open: !isChatOpen }]">
 		<header class="side-nav__header">
 			<button class="side-nav__header-button" aria-label="Открыть меню навигации">
 				<svg class="side-nav__header-icon">
@@ -85,11 +85,20 @@
 			width: var(--size-avatar-base);
 
 			background: var(--color-accent);
+			border: max(2px, 0.1vw) solid transparent;
 
 			& svg {
 				height: 50%;
 				width: 50%;
 			}
+
+			&:focus-visible {
+				border-color: var(--color-text-main);
+			}
+		}
+
+		&:focus-within .side-nav__button {
+			bottom: max(30px, 1.56vw);
 		}
 	}
 
