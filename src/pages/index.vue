@@ -1,5 +1,6 @@
 <script setup lang="ts">
-	import { onMounted } from "vue";
+	import { onMounted, watch } from "vue";
+	import { useRoute } from "vue-router";
 
 	import CurrentChat from "@/components/CurrentChat.vue";
 	import ChatList from "@/components/ChatList.vue";
@@ -9,29 +10,33 @@
 
 
 	const chatStore = useChatStore();
-	
+	const route = useRoute();
+
+
 	onMounted(chatStore.getChats);
+
+	watch(() => chatStore.chatsStatus, () => chatStore.setCurrentChat(Number(route.params?.id) ?? null));
 </script>
 
 
 <template>
 	<aside :class="['container__side-nav side-nav', { open: !chatStore.isOpen }]">
 		<header class="side-nav__header">
-			<button class="side-nav__header-button burger-menu" aria-label="Открыть меню навигации">
+			<button class="side-nav__header-button" aria-label="Открыть меню навигации">
 				<svg class="side-nav__header-icon">
 					<use href="@/assets/navigation.svg#burgerMenu"/>
 				</svg>
 			</button>
-			<button class="side-nav__header-edit" aria-label="Изменить порядок чатов">Изм.</button>
 			<h6 class="side-nav__header-title">Чаты</h6>
-			<button class="side-nav__header-button new-chat" aria-label="Начать новый чат">
-				<svg class="side-nav__header-icon">
-					<use href="@/assets/navigation.svg#newChat"/>
-				</svg>
-			</button>
+			<button class="side-nav__header-edit" aria-label="Изменить порядок чатов">Изм.</button>
 			<Search/>
 		</header>
 		<ChatList/>
+		<button class="side-nav__button" aria-label="Начать новый чат">
+			<svg class="side-nav__icon">
+				<use href="@/assets/navigation.svg#newChat"/>
+			</svg>
+		</button>
 	</aside>
 	<CurrentChat/>
 </template>
@@ -39,6 +44,9 @@
 
 <style scoped lang="scss">
 	.side-nav {
+		position: relative;
+		overflow: hidden;
+
 		display: flex;
 		flex-direction: column;
 		max-width: max(430px, 22.4vw);
@@ -55,10 +63,6 @@
 
 			&-button {
 				@include button-base;
-
-				&.new-chat {
-					margin-left: auto;
-				}
 			}
 
 			&-edit {
@@ -69,12 +73,38 @@
 				@include title;
 			}
 		}
+
+		&__button {
+			position: absolute;
+			bottom: max(-60px, -3.15vw);
+			right: max(40px, 2.1vw);
+			z-index: var(--layer-button-z-index);
+
+			@include button-round;
+			height: var(--size-avatar-base);
+			width: var(--size-avatar-base);
+
+			background: var(--color-accent);
+
+			& svg {
+				height: 50%;
+				width: 50%;
+			}
+		}
 	}
 
 
 	@media(hover: hover) {
+		.side-nav:hover .side-nav__button {
+			bottom: max(30px, 1.56vw);
+		}
+
 		.side-nav__header-button:hover {
 			color: var(--color-active-icon);
+		}
+
+		.side-nav__button:hover {
+			background: var(--color-active-accent);
 		}
 	}
 
@@ -86,24 +116,22 @@
 
 			overflow: hidden;
 			padding-top: 10px;
+			height: 100%;
 			max-width: 100%;
 
 			&.open {
 				left: 0px;
 			}
 
+			&__button {
+				bottom: 20px;
+				right: 20px;
+			}
+
 			&__header {
 				justify-content: space-between;
 				padding: 0px 15px 10px;
 				gap: 20px;
-
-				&-button.new-chat {
-					margin-left: 0px;
-				}
-
-				&-button.burger-menu {
-					display: none;
-				}
 
 				&-edit {
 					display: block;
