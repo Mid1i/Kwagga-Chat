@@ -1,23 +1,23 @@
 :root {
 	// ФОНЫ
 	--color-bg-chats: #202020;
-	--color-bg-current-chat: #272727;
-	--color-bg-extra: #FFFFFF20;
+	--color-bg-current-chat: rgba(58, 58, 58, .3);
+	--color-bg-extra: rgba(255, 255, 255, .1);
 	
 	// АКТИВНЫЕ ЭЛЕМЕНТЫ (КНОПКИ, СКРОЛЛБАРЫ И Т.Д.)
-	--color-button: #FFFFFF10;
-	--color-group-date: #505050;
-	--color-message-input: #323232;
-	--color-messages-counter: #A1AAB3;
-	--color-scrollbar-track: #2C2C2C;
-	--color-scrollbar-thumb: #FFFFFF50;
+	--color-button: rgba(255, 255, 255, .1);
+	--color-group-date: rgba(255, 255, 255, .2);
+	--color-message-input: rgba(255, 255, 255, .05);
+	--color-messages-counter: #8A8A8A;
+	--color-scrollbar-track: rgba(44, 44, 44, .95);
+	--color-scrollbar-thumb: rgba(255, 255, 255, .5);
 	
 	// СООБЩЕНИЯ ПОЛЬЗОВАТЕЛЯ
 	--color-message-user-bg: #1566A3;
 	--color-message-user-meta: #B7D9F3;
 	
 	// СООБЩЕНИЯ ПОЛУЧАТЕЛЯ
-	--color-message-recepient-bg: #FFFFFF10;
+	--color-message-recepient-bg: rgba(255, 255, 255, .1);
 	--color-message-recepient-meta: #A1AAB3;
 	
 	// ТЕКСТЫ
@@ -25,16 +25,17 @@
 	--color-text-muted: #888888;
 	
 	// ГРАНИЦЫ И РАЗДЕЛИТЕЛИ
-	--color-border-light: #FFFFFF05;
-	--color-border-dark: #00000010;
+	--color-border-light: rgba(255, 255, 255, .05);
+	--color-border-dark: rgba(0, 0, 0, .1);
 	
 	// ВЫБРАННЫЕ ЭЛЕМЕНТЫ И HOVER ЭФФЕКТЫ
-	--color-active-chat: #FFFFFF10;
+	--color-active-chat: rgba(255, 255, 255, .05);
 	--color-active-icon: #FFFFFF;
-	--color-active-button: #FFFFFF20;
+	--color-active-button: rgba(255, 255, 255, .2);
+	--color-active-accent: #60A7F0;
 	
 	// АКЦЕНТНЫЕ ЦВЕТА
-	--color-accent: #0078D4;
+	--color-accent: #3390EC;
 	--color-yellow: #FFD52A;
 	--color-green: #61C339;
 	--color-red: #CB2436;
