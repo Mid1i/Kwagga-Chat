@@ -1,24 +1,28 @@
-import { defineStore } from "pinia";
-import { ref, reactive, watch } from "vue";
+import { defineStore, storeToRefs } from "pinia";
+import { useRoute } from "vue-router";
+import { ref, watch } from "vue";
 
-import type { IUnsentMessage, IHistory, IChat, ICurrentChat } from "@/types";
+import type { IUnsentMessage, IHistory, ICurrentChat } from "@/types";
 
 import { generateColor } from "@/helpers/color";
+import { useChatsStore } from "@/stores/chats";
 import useAPI from '@/composables/useAPI';
-import { HISTORY } from "@/test";
+import { getHistory } from "@/api/chats";
 
 
 export const useChatStore = defineStore("chats", () => {
-	const { data: chats, status: chatsStatus, fetchData } = useAPI<IChat[]>([]);
-	// const { data: history, status: historyStatus, fetchData: fetchHistory } = useAPI<IHistory[]>([]);
-	
-	const { status: historyStatus, fetchData: fetchHistory } = useAPI<IHistory[]>([]);
-	const history = ref<IHistory[]>(HISTORY);
-
 	const currentChat = ref<ICurrentChat | null>(null);
-	const isOpen = ref<boolean>(false);
+	const chatHistory = ref<IHistory[]>([]);
+	
+	const unsentMessages = ref<IUnsentMessage[]>([]);
+	const isChatOpen = ref<boolean>(false);
 
-	const unsentMessages = reactive<IUnsentMessage[]>([]);
+	const route = useRoute();
+
+	const { chats, loading: loadingChats } = storeToRefs(useChatsStore());
+	
+	const { data, loading, fetchData: fetchHistory } = useAPI<IHistory[], number>(getHistory);
+
 
 	const setCurrentChat = (id: number | null) => {
 		const selected = chats.value.find(el => el.id === id);
@@ -28,41 +32,41 @@ export const useChatStore = defineStore("chats", () => {
 			color: generateColor(selected.recepient.username) 
 		};
 		
-		isOpen.value = !isOpen.value;
+		isChatOpen.value = !isChatOpen.value;
 	};
 
-	const updateUnsentMessages = (text: string) => {
+	const saveUnsentMessage = (text: string) => {
 		if (!currentChat.value) return;
 
-		unsentMessages.push({
-			id: unsentMessages.length,
-			chatId: currentChat.value.id,
-			text
-		});
+		unsentMessages.value = [
+			...unsentMessages.value,
+			{
+				id: unsentMessages.value.length,
+				chatId: currentChat.value.id,
+				text
+			}
+		]
 	};
 
-	const getChats = () => {
-		fetchData("/chats", "get");
+	const loadChatHistory = async () => {
+		if (!currentChat.value) return;
+		
+		await fetchHistory(currentChat.value.id);
+		chatHistory.value = data.value ?? [];
 	};
 
-	const getHistory = () => {
-		// if (currentChat.value) fetchHistory(`/history/${currentChat.value.id}`, "get");
-		// if (currentChat.value) fetchHistory("/history", "get");
-	};
 
-	watch(currentChat, getHistory);
+	watch(loadingChats, () => setCurrentChat(Number(route.params?.id) ?? null));
 
 
 	return {
-		isOpen,
-		chats,
-		chatsStatus,
-		history,
-		historyStatus,
+		isChatOpen,
 		currentChat,
+		loading,
+		chatHistory,
 		unsentMessages,
-		updateUnsentMessages,
-		getChats,
+		saveUnsentMessage,
+		loadChatHistory,
 		setCurrentChat
 	}
 });

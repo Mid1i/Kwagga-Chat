@@ -5,10 +5,9 @@ import type { IUser } from "@/types";
 import { USERS } from "@/test";
 
 
-
 export const useUserStore = defineStore("user", () => {
-	const user = ref<IUser>(USERS[0]);
+	const currentUser = ref<IUser>(USERS[0]);
 
 
-	return { user }
+	return { currentUser }
 });
