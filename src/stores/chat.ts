@@ -20,20 +20,15 @@ export const useChatStore = defineStore("chats", () => {
 
 	const unsentMessages = reactive<IUnsentMessage[]>([]);
 
-	const toggleChat = () => {
-		isOpen.value = !isOpen.value;
-	};
-
-	const setCurrentChat = (id: number) => {
+	const setCurrentChat = (id: number | null) => {
 		const selected = chats.value.find(el => el.id === id);
 		
-		if (selected) {
-			toggleChat();
-			currentChat.value = { 
-				...selected, 
-				color: generateColor(selected.recepient.username) 
-			}
-		}
+		currentChat.value = !selected ? null : {
+			...selected, 
+			color: generateColor(selected.recepient.username) 
+		};
+		
+		isOpen.value = !isOpen.value;
 	};
 
 	const updateUnsentMessages = (text: string) => {
@@ -52,7 +47,7 @@ export const useChatStore = defineStore("chats", () => {
 
 	const getHistory = () => {
 		// if (currentChat.value) fetchHistory(`/history/${currentChat.value.id}`, "get");
-		if (currentChat.value) fetchHistory("/history", "get");
+		// if (currentChat.value) fetchHistory("/history", "get");
 	};
 
 	watch(currentChat, getHistory);
@@ -60,7 +55,6 @@ export const useChatStore = defineStore("chats", () => {
 
 	return {
 		isOpen,
-		toggleChat,
 		chats,
 		chatsStatus,
 		history,
