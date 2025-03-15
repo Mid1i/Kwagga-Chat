@@ -8,5 +8,5 @@ export const getChats = async () => {
 
 export const getHistory = async (id: number) => {
 	const response = await api.get(`/history/${id}`);
-	return response.data;
+	return response.data.history;
 };
