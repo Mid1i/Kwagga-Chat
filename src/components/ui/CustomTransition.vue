@@ -11,8 +11,8 @@
 
 
 <style lang="scss" scoped>
-	.scale-extra-from,
-	.scale-extra-to,
+	.scale-extra-enter-from,
+	.scale-extra-leave-to,
 	.scale-enter-from,
 	.scale-leave-to {
 		opacity: 0;
@@ -32,8 +32,8 @@
 		transform: scale(1);
 	}
 
-	.scale-extra-enter-from,
-	.scale-extra-leave-to {
+	.scale-extra-enter-to,
+	.scale-extra-leave-from {
 		transform: scale(1.1);
 	}
 </style>
