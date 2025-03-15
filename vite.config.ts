@@ -4,8 +4,6 @@ import vue from "@vitejs/plugin-vue";
 
 const SCSS_FILES = [
   "colors",
-  "layers",
-  "sizes",
   "default",
   "durations",
   "typography",
@@ -26,7 +24,7 @@ export default defineConfig({
   css: {
     preprocessorOptions: {
       scss: {
-        additionalData: SCSS_FILES.map(el => `@use "@/design/${el}" as *;`).join("\n")
+        additionalData: SCSS_FILES.map(el => `@use "@/styles/${el}" as *;`).join("\n")
       }
     }
   }
