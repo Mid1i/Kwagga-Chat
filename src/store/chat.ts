@@ -1,5 +1,5 @@
 import { defineStore, storeToRefs } from "pinia";
-import { useRoute } from "vue-router";
+import { useRouter } from "vue-router";
 import { ref, watch } from "vue";
 
 import type { IUnsentMessage, IHistory, ICurrentChat } from "@/types";
@@ -15,14 +15,18 @@ export const useChat = defineStore("chat", () => {
 	const chatHistory = ref<IHistory[]>([]);
 	
 	const unsentMessages = ref<IUnsentMessage[]>([]);
-	const isChatOpen = ref<boolean>(false);
 
-	const route = useRoute();
+	const router = useRouter();
 
 	const { chats, status: chatsStatus } = storeToRefs(useChats());
 	
 	const { data, status, fetchData: fetchHistory } = useAPI<IHistory[], number>(getHistory);
 
+
+	const closeChat = () => {
+		currentChat.value = null;
+		router.push("/");
+	};
 
 	const setCurrentChat = (id?: number) => {
 		if (chatsStatus.value !== "success") return;
@@ -33,8 +37,6 @@ export const useChat = defineStore("chat", () => {
 			...selected, 
 			color: generateColor(selected.recepient.username) 
 		};
-		
-		isChatOpen.value = !isChatOpen.value;
 	};
 
 	const saveUnsentMessage = (text: string) => {
@@ -58,13 +60,13 @@ export const useChat = defineStore("chat", () => {
 	};
 
 
-	watch(chats, () => setCurrentChat(Number(route.params?.id)));
+	watch(chats, () => setCurrentChat(Number(router.currentRoute.value.params?.id)));
 	watch(currentChat, loadChatHistory);
 
 
 	return {
-		isChatOpen,
 		currentChat,
+		closeChat,
 		status,
 		chatHistory,
 		unsentMessages,
