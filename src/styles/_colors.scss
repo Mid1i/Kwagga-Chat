@@ -1,0 +1,81 @@
+:root {
+	// ФОНЫ
+	--color-bg-chats: #212121;
+	--color-bg-current-chat: rgba(58, 58, 58, .3);
+	--color-bg-extra: rgba(255, 255, 255, .1);
+	
+	// АКТИВНЫЕ ЭЛЕМЕНТЫ (КНОПКИ, СКРОЛЛБАРЫ И Т.Д.)
+	--color-button: rgba(255, 255, 255, .1);
+	--color-group-date: rgba(255, 255, 255, .2);
+	--color-message-input: rgba(255, 255, 255, .05);
+	--color-messages-counter: #8A8A8A;
+	--color-scrollbar-track: rgba(44, 44, 44, .95);
+	--color-scrollbar-thumb: rgba(255, 255, 255, .5);
+	
+	// СООБЩЕНИЯ ПОЛЬЗОВАТЕЛЯ
+	--color-message-user-bg: #1566A3;
+	--color-message-user-meta: #B7D9F3;
+	
+	// СООБЩЕНИЯ ПОЛУЧАТЕЛЯ
+	--color-message-recepient-bg: rgba(255, 255, 255, .1);
+	--color-message-recepient-meta: #A1AAB3;
+	
+	// ТЕКСТЫ
+	--color-text-main: #FFFFFF;
+	--color-text-muted: #888888;
+	
+	// ГРАНИЦЫ И РАЗДЕЛИТЕЛИ
+	--color-border-light: rgba(255, 255, 255, .05);
+	--color-border-dark: rgba(0, 0, 0, .1);
+	
+	// ВЫБРАННЫЕ ЭЛЕМЕНТЫ И HOVER ЭФФЕКТЫ
+	--color-active-icon: #FFFFFF;
+	--color-active-chat: rgba(255, 255, 255, .05);
+	--color-active-button: rgba(255, 255, 255, .2);
+	--color-active-accent: #60A7F0;
+	
+	// ТЕКУЩИЙ АКЦЕНТНЫЙ ЦВЕТ
+	--color-accent: #3390EC;
+
+	// ВСЕ АКЦЕНТНЫЕ ЦВЕТА
+	--color-purple: #6524CB;
+	--color-blue: #68BCF7;
+	--color-pink: #E73E8D;
+	--color-red: #CB2436;
+	--color-green: #4BB841;
+	--color-yellow: #EEBD34;
+	--color-orange: #F96D2F;
+
+	// БАЗОВЫЕ ЦВЕТА
+	--color-white: #FFFFFF;
+	--color-black: #0A1218;
+}
+
+
+[data-accent="accent-yellow"] {
+	--color-accent: var(--color-yellow);
+}
+
+[data-accent="accent-green"] {
+	--color-accent: var(--color-green);
+}
+
+[data-accent="accent-red"] {
+	--color-accent: var(--color-red);
+}
+
+[data-accent="accent-pink"] {
+	--color-accent: var(--color-pink);
+}
+
+[data-accent="accent-purple"] {
+	--color-accent: var(--color-purple);
+}
+
+[data-accent="accent-blue"] {
+	--color-accent: var(--color-blue);
+}
+
+[data-accent="accent-orange"] {
+	--color-accent: var(--color-orange);
+}

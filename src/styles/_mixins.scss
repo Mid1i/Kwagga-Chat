@@ -1,0 +1,54 @@
+@use "./typography" as *;
+
+
+// ВЫРАВНИВАНИЕ FLEX ПО ЦЕНТРУ
+@mixin flex-center {
+	align-items: center;
+	display: flex;
+	justify-content: center;
+}
+
+// ВЫРАВНИВАНИЕ FLEX В СТОЛБЕЦ
+@mixin flex-column {
+	display: flex;
+	flex-direction: column;
+}
+
+// ВСЁ ДОСТУПНОЕ ПРОСТРАНСТВО
+@mixin full-size {
+	height: 100%;
+	width: 100%;
+}
+
+// ПЕРЕПОЛНЕНИЕ СО СКРОЛЛОМ
+@mixin scroll-content($width: 6px) {
+	overflow-y: auto;
+	height: 100%;
+
+	scrollbar-width: thin;
+	scrollbar-color: var(--color-scrollbar-thumb) transparent;
+
+	&::-webkit-scrollbar {
+		width: $width;
+
+		&-track {
+			background: transparent;
+			border-radius: 2px;
+		}
+
+		&-thumb {
+			background: var(--color-scrollbar-thumb);
+			border-radius: 2px;
+		}
+	}
+}
+
+
+// ФОКУС ЭЛЕМЕНТА С КЛАВИАТУРЫ
+@mixin focus-visible($color: var(--color-accent)) {
+	border: 2px solid transparent;
+
+	&:focus-visible {
+		border-color: $color;
+	}
+}
