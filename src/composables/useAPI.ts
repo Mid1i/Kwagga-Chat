@@ -1,24 +1,33 @@
 import { ref } from "vue";
 
+import type { StatusAPI } from "@/types";
 
-export default function useAPI<T, P = void>(apiFunc: (params: P) => Promise<T>) {
+
+const useAPI = <T, P = void>(apiFunc: (params: P) => Promise<T>) => {
 	const data = ref<T | null>(null);
-	const loading = ref<boolean>(false);
+	const status = ref<StatusAPI>("idle");
 	const error = ref<Error | null>(null);
 
 
 	const fetchData = async (params: P) => {
-		loading.value = true;
+		status.value = "loading";
 
 		try {
 			data.value = await apiFunc(params);
+			status.value = "success";
 		} catch(err) {
 			error.value = err instanceof Error ? err : new Error(String(err));
-		} finally {
-			loading.value = false;
+			status.value = "error";
 		}
 	};
 
 
-	return { data, loading, error, fetchData };
+	return { 
+		data, 
+		status, 
+		error, 
+		fetchData 
+	}
 };
+
+export default useAPI;

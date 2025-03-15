@@ -1,7 +1,7 @@
 import { ref } from "vue";
 
 
-export default function useSearch() {
+const useSearch = () => {
 	const searchValue = ref<string>("");
 
 	const clearSearch = (): void => {
@@ -12,5 +12,10 @@ export default function useSearch() {
 	};
 
 
-	return { searchValue, clearSearch }
+	return { 
+		searchValue, 
+		clearSearch 
+	}
 };
+
+export default useSearch;
