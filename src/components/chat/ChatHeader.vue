@@ -5,10 +5,8 @@
 	import Avatar from "@/components/ui/Avatar.vue";
 
 
-	const { recepient } = defineProps<ICurrentChat>();
-
-	const { firstName, lastName, isOnline, username } = recepient;
-
+	defineProps<ICurrentChat>();
+	
 	defineEmits<{ backToChats: [] }>();
 </script>
 
@@ -24,12 +22,12 @@
 				text="Назад"
 			/>
 			<Avatar
-				:first-name
-				:username
+				:first-name="recepient.firstName"
+				:username="recepient.username"
 			/>
 			<div class="header__recepient-content">
-				<h6 class="header__recepient-name">{{ `${firstName} ${lastName}`  }}</h6>
-				<span :class="['header__recepient-status', { online: isOnline }]">{{ isOnline ? "online" : "был(а) недавно" }}</span>
+				<h6 class="header__recepient-name">{{ `${recepient.firstName} ${recepient.lastName}`  }}</h6>
+				<span :class="['header__recepient-status', { online: recepient.isOnline }]">{{ recepient.isOnline ? "online" : "был(а) недавно" }}</span>
 			</div>
 		</div>
 		<div class="header__navigation">
