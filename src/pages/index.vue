@@ -2,19 +2,19 @@
 	import { onMounted } from "vue";
 	import { storeToRefs } from "pinia";
 
-	import CurrentChat from "@/components/CurrentChat.vue";
-	import ChatList from "@/components/ChatList.vue";
-	import Search from "@/components/Search.vue";
+	import Chat from "@/components/chat/Chat.vue";
+	import ChatList from "@/components/chat/ChatList.vue";
+	import CustomButton from "@/components/ui/CustomButton.vue";
+	import Search from "@/components/search/Search.vue";
 
-	import { useChatsStore } from "@/stores/chats";
-	import { useChatStore } from "@/stores/chat";
+	import { useChats, useChat } from "@/store";
 
 	
-	const { isChatOpen } = storeToRefs(useChatStore());
+	const { isChatOpen } = storeToRefs(useChat());
 
-	const { loadChats } = useChatsStore();
+	const { loadChats } = useChats();
 
-
+	
 	onMounted(loadChats);
 </script>
 
@@ -22,23 +22,27 @@
 <template>
 	<aside :class="['container__side-nav side-nav', { open: !isChatOpen }]">
 		<header class="side-nav__header">
-			<button class="side-nav__header-button" aria-label="Открыть меню навигации">
-				<svg class="side-nav__header-icon">
-					<use href="@/assets/navigation.svg#burgerMenu"/>
-				</svg>
-			</button>
+			<CustomButton
+				is-base
+				label="Открыть меню навигации"
+				icon="burgerMenu"
+			/>
 			<h6 class="side-nav__header-title">Чаты</h6>
-			<button class="side-nav__header-edit" aria-label="Изменить порядок чатов">Изм.</button>
+			<CustomButton
+				custom-class="mobile"
+				label="Изменить порядок чатов"
+				text="Изм."
+			/>
 			<Search/>
 		</header>
 		<ChatList/>
-		<button class="side-nav__button" aria-label="Начать новый чат">
-			<svg class="side-nav__icon">
-				<use href="@/assets/navigation.svg#newChat"/>
-			</svg>
-		</button>
+		<CustomButton
+			is-round-accent
+			label="Начать новый чат"
+			icon="newChat"
+		/>
 	</aside>
-	<CurrentChat/>
+	<Chat/>
 </template>
 
 
@@ -49,21 +53,17 @@
 
 		display: flex;
 		flex-direction: column;
-		max-width: max(430px, 22.4vw);
+		max-width: 430px;
 		width: 100%;
 
-		transition: all var(--duration-transition-base);
+		transition: var(--transition-all);
 
 		&__header {
 			align-items: center;
 			display: flex;
 			flex-wrap: wrap;
-			gap: max(15px, 0.78vw);
-			padding: 0px max(15px, 0.78vw) max(10px, 0.52vw);
-
-			&-button {
-				@include button-base;
-			}
+			gap: 15px;
+			padding: 0px 15px 10px;
 
 			&-edit {
 				display: none;
@@ -74,46 +74,26 @@
 			}
 		}
 
-		&__button {
+		:deep(.button.round-accent) {
 			position: absolute;
-			bottom: max(-60px, -3.15vw);
-			right: max(40px, 2.1vw);
-			z-index: var(--layer-button-z-index);
-
-			@include button-round;
-			height: var(--size-avatar-base);
-			width: var(--size-avatar-base);
-
-			background: var(--color-accent);
-			border: max(2px, 0.1vw) solid transparent;
-
-			& svg {
-				height: 50%;
-				width: 50%;
-			}
-
-			&:focus-visible {
-				border-color: var(--color-text-main);
-			}
+			bottom: -60px;
+			right: 40px;
+			z-index: 5px;
 		}
 
-		&:focus-within .side-nav__button {
-			bottom: max(30px, 1.56vw);
+		&:focus-within :deep(.button.round-accent) {
+			bottom: 30px;
 		}
 	}
 
 
 	@media(hover: hover) {
-		.side-nav:hover .side-nav__button {
-			bottom: max(30px, 1.56vw);
+		.side-nav:hover :deep(.button.round-accent) {
+			bottom: 30px;
 		}
 
 		.side-nav__header-button:hover {
 			color: var(--color-active-icon);
-		}
-
-		.side-nav__button:hover {
-			background: var(--color-active-accent);
 		}
 	}
 
@@ -132,7 +112,7 @@
 				left: 0px;
 			}
 
-			&__button {
+			:deep(.button.round-accent) {
 				bottom: 20px;
 				right: 20px;
 			}

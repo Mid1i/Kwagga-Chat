@@ -12,4 +12,15 @@
 </template>
 
 
-<style lang="scss"></style>
+<style lang="scss">
+	*.mobile {
+		display: none !important;
+	}
+
+
+	@media(max-width: 767px) {
+		*.mobile {
+			display: flex !important;
+		}
+	}
+</style>
