@@ -14,12 +14,14 @@
 
 	const { currentUser } = storeToRefs(useUser());
 
-	const { saveUnsentMessage, setCurrentChat } = useChat();
+	const { 
+		saveUnsentMessage,
+		closeChat 
+	} = useChat();
 	
 	const { 
 		currentChat, 
-		chatHistory, 
-		isChatOpen, 
+		chatHistory,  
 		status
 	} = storeToRefs(useChat());
 
@@ -51,13 +53,13 @@
 
 
 <template>
-	<div :class="['chat', { opened: isChatOpen }]">
+	<div class="chat">
 		<custom-loader
 			:condition-empty="!currentChat"
 			empty-text="Выберите, кому хотели бы написать"
 		>
 			<ChatHeader
-				@back-to-chats="setCurrentChat"
+				@back-to-chats="closeChat"
 				:="(currentChat as ICurrentChat)"
 			/>
 				<custom-loader
@@ -142,16 +144,12 @@
 
 	@media(max-width: 767px) {
 		.chat {
-			position: fixed;
-			right: -100%;
-			top: 0px;
+			flex: 0 0 auto;
+			height: 100%;
+			width: 100%;
 			
 			overflow: hidden;
 			@include full-size;
-
-			&.opened {
-				right: 0px;
-			}
 
 			&__history {
 				padding: 35px 15px;

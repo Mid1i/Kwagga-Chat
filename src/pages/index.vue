@@ -1,48 +1,66 @@
 <script setup lang="ts">
-	import { onMounted } from "vue";
+	import { ref, computed, onMounted, onUnmounted } from "vue";
 	import { storeToRefs } from "pinia";
 
 	import Chat from "@/components/chat/Chat.vue";
 	import ChatList from "@/components/chat/ChatList.vue";
+	import CustomTransition from "@/components/ui/CustomTransition.vue";
 	import CustomButton from "@/components/ui/CustomButton.vue";
 	import Search from "@/components/search/Search.vue";
 
 	import { useChats, useChat } from "@/store";
 
 	
-	const { isChatOpen } = storeToRefs(useChat());
+	const { currentChat } = storeToRefs(useChat());
 
 	const { loadChats } = useChats();
 
+	const windowWidth = ref<number>(window.innerWidth);
+
+	const isBigScreen = computed<boolean>(() => windowWidth.value > 767);
+	const isChatOpen = computed<boolean>(() => isBigScreen.value || !!currentChat.value);
+	const isMenuOpen = computed<boolean>(() => isBigScreen.value || !currentChat.value);
+
+	const updateWidth = () => {
+		windowWidth.value = window.innerWidth;
+	};
+
 	
 	onMounted(loadChats);
+
+	onMounted(() => window.addEventListener("resize", updateWidth));
+	onUnmounted(() => window.removeEventListener("resize", updateWidth));
 </script>
 
 
 <template>
-	<aside :class="['container__side-nav side-nav', { open: !isChatOpen }]">
-		<header class="side-nav__header">
+	<custom-transition>
+		<aside v-if="isMenuOpen" class="container__side-nav side-nav">
+			<header class="side-nav__header">
+				<CustomButton
+					is-base
+					label="Открыть меню навигации"
+					icon="burgerMenu"
+				/>
+				<h6 class="side-nav__header-title">Чаты</h6>
+				<CustomButton
+					custom-class="mobile"
+					label="Изменить порядок чатов"
+					text="Изм."
+				/>
+				<Search/>
+			</header>
+			<ChatList/>
 			<CustomButton
-				is-base
-				label="Открыть меню навигации"
-				icon="burgerMenu"
+				is-round-accent
+				label="Начать новый чат"
+				icon="newChat"
 			/>
-			<h6 class="side-nav__header-title">Чаты</h6>
-			<CustomButton
-				custom-class="mobile"
-				label="Изменить порядок чатов"
-				text="Изм."
-			/>
-			<Search/>
-		</header>
-		<ChatList/>
-		<CustomButton
-			is-round-accent
-			label="Начать новый чат"
-			icon="newChat"
-		/>
-	</aside>
-	<Chat/>
+		</aside>
+	</custom-transition>
+	<custom-transition>
+		<Chat v-if="isChatOpen"/>
+	</custom-transition>
 </template>
 
 
@@ -54,6 +72,7 @@
 		display: flex;
 		flex-direction: column;
 		max-width: 430px;
+		height: 100%;
 		width: 100%;
 
 		transition: var(--transition-all);
@@ -97,20 +116,17 @@
 		}
 	}
 
+	@media(max-width: 1100px) {
+		.side-nav {
+			max-width: 235px;
+		}
+	}
+
 	@media(max-width: 767px) {
 		.side-nav {
-			position: fixed;
-			left: -100%;
-			top: 0px;
-
 			overflow: hidden;
 			padding-top: 10px;
-			height: 100%;
 			max-width: 100%;
-
-			&.open {
-				left: 0px;
-			}
 
 			:deep(.button.round-accent) {
 				bottom: 20px;

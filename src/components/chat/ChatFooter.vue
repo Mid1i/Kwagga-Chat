@@ -50,7 +50,7 @@
 				icon="sendEmodji"
 			/>
 			<div class="footer__wrapper">
-				<CustomTransition>
+				<CustomTransition transition-name="scale-extra">
 					<template v-if="!unsentMessage">
 						<CustomButton
 							is-base

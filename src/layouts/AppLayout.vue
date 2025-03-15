@@ -8,6 +8,8 @@
 
 <style lang="scss">
 	.container {
+		position: relative;
+		
 		align-items: stretch;
 		display: flex;
 		padding-top: max(20px, 1.04vw);
