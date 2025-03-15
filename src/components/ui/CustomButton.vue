@@ -68,8 +68,6 @@
 			background: var(--color-button);
 			border-radius: 100%;
 
-			transition: var(--transition-all);
-
 			& svg {
 				height: 70%;
 				width: 70%;
