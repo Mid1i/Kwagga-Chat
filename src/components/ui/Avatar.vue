@@ -39,6 +39,7 @@
 		border-radius: 100%;
 		
 		overflow: visible;
+		transition: background 0s;
 
 		&.online::after {
 			position: absolute;
