@@ -1,12 +1,13 @@
 <script setup lang="ts">
-	const { sprite = "navigation.svg" } = defineProps<{
+	const { 
+		sprite = "navigation.svg",
+		type = "base" 
+	} = defineProps<{
+		type?: "round" | "base" | "text" | "round-accent" | "nav";
 		customClass?: string;
-		isRoundAccent?: boolean;
-		isRound?: boolean;
-		isBase?: boolean;
+		isActive?: boolean;
 		text?: string;
-		label: string;
-		title?: string;
+		label?: string;
 		sprite?: string;
 		icon?: string;
 	}>();
@@ -18,16 +19,9 @@
 
 <template>
 	<button 
-		:class="[
-			'button', 
-			customClass,
-			{ 'base': isBase },
-			{ 'round': isRound },
-			{ 'round-accent': isRoundAccent },
-			{ 'text': text }
-		]"
+		:class="[ 'button', type, customClass, { active: isActive } ]"
 		:aria-label="label"
-		:title="title ?? label"
+		:title="label"
 	>
 		<svg v-if="icon" class="button__icon">
 			<use :href="`${src}#${icon}`"/>
@@ -40,10 +34,11 @@
 <style lang="scss" scoped>
 	.button {
 		@include flex-center;
+		@include focus-visible;
+		
 		flex: 0 0 auto;
 
-		border-radius: 5px;
-		@include focus-visible;
+		border-radius: 10px;
 
 		transition: var(--transition-svg);
 
@@ -56,7 +51,11 @@
 			height: 24px;
 			width: 24px;
 
-			color: var(--color-text-muted);
+			color: var(--color-icon);
+
+			&.active {
+				background: var(--color-active-button);
+			}
 		}
 
 		&.round {
@@ -88,7 +87,8 @@
 			}
 		}
 
-		&.text {
+		&.text,
+		&.nav {
 			justify-content: flex-start;
 
 			color: var(--color-text-main);
@@ -100,16 +100,33 @@
 				width: 24px;
 			}
 		}
+
+		&.nav {
+			gap: 15px;
+			padding: 5px 30px 5px 5px;
+
+			font-weight: 500;
+
+			border-radius: 8px;
+
+			& svg {
+				height: 20px;
+				width: 20px;
+
+				color: var(--color-icon);
+			}
+		}
 	}
 
 
 	@media(hover: hover) {
-		.button.base:hover {
-			color: var(--color-active-icon);
-		}
-
+		.button.base:hover,
 		.button.round:hover {
 			background: var(--color-active-button);
+		}
+
+		.button.nav:hover {
+			background: var(--color-active-nav-button);
 		}
 
 		.button.round-accent:hover {
