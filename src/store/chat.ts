@@ -29,7 +29,7 @@ export const useChat = defineStore("chat", () => {
 	};
 
 	const setCurrentChat = (id?: number) => {
-		if (chatsStatus.value !== "success") return;
+		if (chatsStatus.value !== "success" || currentChat.value?.id === id) return;
 
 		const selected = chats.value.find(el => el.id === id);
 		
@@ -60,7 +60,7 @@ export const useChat = defineStore("chat", () => {
 	};
 
 
-	watch(chats, () => setCurrentChat(Number(router.currentRoute.value.params?.id)));
+	watch([chats, () => router.currentRoute.value.params?.id], () => setCurrentChat(Number(router.currentRoute.value.params?.id)));
 	watch(currentChat, loadChatHistory);
 
 
