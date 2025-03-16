@@ -4,16 +4,21 @@
 
 	import Chat from "@/components/chat/Chat.vue";
 	import ChatList from "@/components/chat/ChatList.vue";
-	import CustomTransition from "@/components/ui/CustomTransition.vue";
+	import Menu from "@/components/ui/Menu.vue";
 	import CustomButton from "@/components/ui/CustomButton.vue";
+	import CustomTransition from "@/components/ui/CustomTransition.vue";
+	import Backdrop from "@/components/ui/Backdrop.vue";
 	import Search from "@/components/search/Search.vue";
 
+	import usePopup from "@/composables/usePopup";
 	import { useChats, useChat } from "@/store";
 
 	
 	const { currentChat } = storeToRefs(useChat());
 
 	const { loadChats } = useChats();
+
+	const { isOpen, togglePopup } = usePopup();
 
 	const windowWidth = ref<number>(window.innerWidth);
 
@@ -38,7 +43,8 @@
 		<aside v-if="isMenuOpen" class="container__side-nav side-nav">
 			<header class="side-nav__header">
 				<CustomButton
-					is-base
+					@click="togglePopup"
+					:is-active="isOpen"
 					label="Открыть меню навигации"
 					icon="burgerMenu"
 				/>
@@ -46,13 +52,20 @@
 				<CustomButton
 					custom-class="mobile"
 					label="Изменить порядок чатов"
+					type="text"
 					text="Изм."
 				/>
 				<Search/>
+				<Backdrop
+					@toggle-popup="togglePopup"
+					:is-open
+				>
+					<Menu/>
+				</Backdrop>
 			</header>
 			<ChatList/>
 			<CustomButton
-				is-round-accent
+				type="round-accent"
 				label="Начать новый чат"
 				icon="newChat"
 			/>
@@ -84,10 +97,6 @@
 			gap: 15px;
 			padding: 0px 15px 10px;
 
-			&-edit {
-				display: none;
-			}
-
 			&-title {
 				@include title;
 			}
@@ -97,7 +106,7 @@
 			position: absolute;
 			bottom: -60px;
 			right: 40px;
-			z-index: 5px;
+			z-index: var(--z-sticky-button);
 		}
 
 		&:focus-within :deep(.button.round-accent) {
@@ -139,9 +148,8 @@
 				gap: 20px;
 
 				&-edit {
-					display: block;
-
 					@include text(true);
+					display: block;
 				}
 			}
 		}
