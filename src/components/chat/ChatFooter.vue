@@ -25,7 +25,6 @@
 	<footer class="footer">
 		<div class="footer__container">
 			<CustomButton
-				is-base
 				label="Прикрепить файл"
 				sprite="actions.svg"
 				icon="attach"
@@ -43,7 +42,6 @@
 				</div>
 			</div>
 			<CustomButton
-				is-base
 				custom-class="emodji"
 				label="Отправить смайлик"
 				sprite="actions.svg"
@@ -53,7 +51,6 @@
 				<CustomTransition transition-name="scale-extra">
 					<template v-if="!unsentMessage">
 						<CustomButton
-							is-base
 							label="Отправить голосовое сообщение"
 							sprite="actions.svg"
 							icon="sendVoice"
@@ -79,7 +76,7 @@
 	.footer {
 		--size-button-message: 50px;
 
-		z-index: 5px;
+		z-index: var(--z-sticky-footer);
 
 		flex: 1 1 auto;
 		padding: 0px 40px 10px;
@@ -122,11 +119,11 @@
 			width: 0px;
 
 			&-placeholder {
+				@include text;
+				
 				position: absolute;
 				left: 0px;
 				top: 50%;
-
-				@include text;
 				
 				transform: translateY(-50%);
 				pointer-events: none;

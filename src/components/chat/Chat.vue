@@ -92,17 +92,18 @@
 
 <style scoped lang="scss">
 	.chat {
+		@include flex-column;
+		
 		position: relative;
 
-		@include flex-column;
 		flex: 1 1 auto;
 
 		background: var(--color-bg-current-chat);
 		border-top-left-radius: 20px;
 
-		transition: var(--transition-all);
-
 		&__history {
+			@include scroll-content(10px);
+			
 			position: relative;
 
 			display: flex;
@@ -111,8 +112,6 @@
 			gap: 10px;
 
 			padding: 10px 40px;
-
-			@include scroll-content(10px);
 		}
 
 		&__group {
@@ -121,18 +120,18 @@
 			gap: inherit;
 
 			&-date {
+				@include text(true);
+				
 				position: sticky;
 				top: 10px;
-				z-index: 2px;
+				z-index: var(--z-sticky-date);
 
 				align-self: center;
 				padding: 10px;
 				order: 1;
 
-				@include text(true);
-
-				background: var(--color-group-date);
 				backdrop-filter: blur(5px);
+				background: var(--color-group-date);
 				border: 1px solid var(--color-border-dark);
 				border-radius: 20px;
 
@@ -144,12 +143,10 @@
 
 	@media(max-width: 767px) {
 		.chat {
+			@include full-size;
 			flex: 0 0 auto;
-			height: 100%;
-			width: 100%;
 			
 			overflow: hidden;
-			@include full-size;
 
 			&__history {
 				padding: 35px 15px;

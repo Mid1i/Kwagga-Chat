@@ -20,6 +20,7 @@
 				label="Назад к чатам"
 				icon="closeChat"
 				text="Назад"
+				type="text"
 			/>
 			<Avatar
 				:first-name="recepient.firstName"
@@ -32,17 +33,17 @@
 		</div>
 		<div class="header__navigation">
 			<CustomButton
-				is-round
+				type="round"
 				label="Поиск по сообщениям"
 				icon="searchMessage"
 			/>
 			<CustomButton
-				is-round
+				type="round"
 				label="Информация по чату"
 				icon="chatData"
 			/>
 			<CustomButton
-				is-round
+				type="round"
 				label="Настройки чата"
 				icon="moreOptions"
 			/>
@@ -53,6 +54,8 @@
 
 <style lang="scss" scoped>
 	.header {
+		z-index: var(--z-sticky-header);
+
 		align-items: center;
 		display: flex;
 		justify-content: space-between;

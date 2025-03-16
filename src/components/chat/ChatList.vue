@@ -33,11 +33,11 @@
 
 <style lang="scss" scoped>
 	.container__chats {
+		@include scroll-content;
 		@include flex-column;
+		
 		gap: 2px;
 		padding: 0px 5px 10px;
-		
-		@include scroll-content;
 	}
 
 

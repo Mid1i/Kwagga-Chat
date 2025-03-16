@@ -6,12 +6,9 @@
 
 	import Avatar from "@/components/ui/Avatar.vue";
 
+	import { formattedDatetime, formattedWeekDay } from "@/helpers";
 	import { WEEK_MS, YEAR_MS } from "@/constants";
 	import { useUser } from "@/store";
-	import { 
-		formattedDatetime, 
-		formattedWeekDay 
-	} from "@/helpers";
 
 
 	defineProps<IChat & { isActive: boolean }>();
@@ -71,6 +68,8 @@
 
 <style lang="scss" scoped>
 	.chat {
+		@include focus-visible;
+		
 		position: relative;
 		
 		align-items: center;
@@ -80,7 +79,7 @@
 		
 		border-radius: 5px;
 
-		@include focus-visible;
+		transition: var(--transition-all);
 
 		&::before {
 			position: absolute;
@@ -93,6 +92,7 @@
 			background: transparent;
 			border-radius: 10px;
 
+			transition: var(--transition-all);
 			transform: translateY(-50%);
 
 			content: "";
@@ -100,8 +100,9 @@
 
 		&__content {
 			@include flex-column;
-			flex: 1 1 auto;
+			
 			gap: 5px;
+			flex: 1 1 auto;
 			overflow: hidden;
 			width: calc(100% - 60px);
 		}
@@ -112,9 +113,8 @@
 			gap: 5px;
 
 			&-recepient {
-				flex: 1 1 auto;
-
 				@include title;
+				flex: 1 1 auto;
 			}
 
 			&-datetime {
@@ -128,9 +128,8 @@
 			gap: 5px;
 
 			&-message {
-				flex: 1 1 auto;
-
 				@include text;
+				flex: 1 1 auto;
 			}
 
 			&-label {
@@ -139,10 +138,10 @@
 			}
 
 			&-counter {
+				@include text(true);
+				
 				flex: 0 0 auto;
 				padding: 3px 8px;
-
-				@include text(true);
 
 				background: var(--color-messages-counter);
 				border-radius: 20px;
