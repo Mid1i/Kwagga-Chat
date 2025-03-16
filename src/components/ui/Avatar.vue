@@ -27,19 +27,19 @@
 
 <style lang="scss" scoped>
 	.avatar {
+		@include flex-center;
+		@include title;
+		
 		position: relative;
 		
-		@include flex-center;
 		flex: 0 0 auto;
 		height: 50px;
 		width: 50px;
 		
-		@include title;
-		
 		border-radius: 100%;
 		
 		overflow: visible;
-		transition: background 0s;
+		transition: var(--transition-all), background 0s;
 
 		&.online::after {
 			position: absolute;

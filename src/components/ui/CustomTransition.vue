@@ -1,5 +1,7 @@
 <script setup lang="ts">
-	const { transitionName = "scale" } = defineProps<{ transitionName?: "scale" | "scale-extra" }>();
+	const { transitionName = "scale" } = defineProps<{ 
+		transitionName?: "scale" | "scale-extra"
+	}>();
 </script>
 
 
@@ -24,7 +26,7 @@
 	.scale-enter-active,
 	.scale-leave-active {
 		position: absolute;
-		transition: all var(--transition-all);
+		transition: var(--transition-all);
 	}
 
 	.scale-enter-to,

@@ -29,7 +29,6 @@
 		<label :class="['search__label', { active: !!searchValue }]" for="chatSearch">Поиск</label>
 		<CustomButton
 			@click="clearSearch"
-			is-base
 			label="Очистить поле ввода"
 			icon="clearSearch"
 		/>
@@ -52,14 +51,14 @@
 		width: 100%;
 
 		&__label {
+			@include text;
+			
 			position: absolute;
 			left: 10px;
 			top: 50%;
 
-			@include text;
-
 			transform: translateY(-50%);
-			transition: all var(--duration-transition-base) ease-in-out;
+			transition: var(--transition-all);
 
 			pointer-events: none;
 
@@ -69,16 +68,18 @@
 		}
 
 		&__input {
+			@include full-size;
+			@include text(true);
+			@include focus-visible;
+			
 			padding-right: 40px;
 			padding-left: 10px;
-			@include full-size;
 
-			@include text(true);
 
 			background: var(--color-bg-extra);
 			border-radius: 5px;
 
-			@include focus-visible;
+			transition: var(--transition-all);
 			
 			&::-webkit-search-cancel-button {
 				display: none;

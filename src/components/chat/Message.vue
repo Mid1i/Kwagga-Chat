@@ -43,9 +43,10 @@
 		background: var(--color-message-recepient-bg);
 
 		&__text {
+			@include text(true);
+			
 			padding: 0px 5px 5px;
 
-			@include text(true);
 			white-space: pre-wrap;
 			word-break: break-word;
 		}
@@ -54,9 +55,9 @@
 			align-items: center;
 			display: flex;
 			gap: 2px;
+			float: right;
 			margin-top: 5px;
 			margin-left: 15px;
-			float: right;
 
 			&-time {
 				@include date;
