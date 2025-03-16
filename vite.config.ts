@@ -4,6 +4,7 @@ import vue from "@vitejs/plugin-vue";
 
 const SCSS_FILES = [
   "colors",
+  "layers",
   "default",
   "durations",
   "typography",
