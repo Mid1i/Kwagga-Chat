@@ -3,9 +3,11 @@
 	--color-bg-chats: #212121;
 	--color-bg-current-chat: rgba(58, 58, 58, .3);
 	--color-bg-extra: rgba(255, 255, 255, .1);
+	--color-bg-popup: rgba(33, 33, 33, .9);
 	
 	// АКТИВНЫЕ ЭЛЕМЕНТЫ (КНОПКИ, СКРОЛЛБАРЫ И Т.Д.)
-	--color-button: rgba(255, 255, 255, .1);
+	--color-icon: #AAAAAA;
+	--color-button: rgba(255, 255, 255, .05);
 	--color-group-date: rgba(255, 255, 255, .2);
 	--color-message-input: rgba(255, 255, 255, .05);
 	--color-messages-counter: #8A8A8A;
@@ -27,11 +29,13 @@
 	// ГРАНИЦЫ И РАЗДЕЛИТЕЛИ
 	--color-border-light: rgba(255, 255, 255, .05);
 	--color-border-dark: rgba(0, 0, 0, .1);
+	--color-box-shadow: rgba(16, 16, 16, 0.612);
 	
 	// ВЫБРАННЫЕ ЭЛЕМЕНТЫ И HOVER ЭФФЕКТЫ
 	--color-active-icon: #FFFFFF;
 	--color-active-chat: rgba(255, 255, 255, .05);
-	--color-active-button: rgba(255, 255, 255, .2);
+	--color-active-button: rgba(255, 255, 255, .1);
+	--color-active-nav-button: rgba(0, 0, 0, .5);
 	--color-active-accent: #60A7F0;
 	
 	// ТЕКУЩИЙ АКЦЕНТНЫЙ ЦВЕТ
