@@ -1,40 +1,69 @@
 <script setup lang="ts">
-	import { ref, computed, onMounted, onUnmounted } from "vue";
+	import { computed, onMounted } from "vue";
+	import { useRouter } from "vue-router";
 	import { storeToRefs } from "pinia";
+
+	import type { IMenuItem } from "@/types";
 
 	import Chat from "@/components/chat/Chat.vue";
 	import ChatList from "@/components/chat/ChatList.vue";
-	import Menu from "@/components/ui/Menu.vue";
+	import PopupMenu from "@/components/chat/PopupMenu.vue";
 	import CustomButton from "@/components/ui/CustomButton.vue";
 	import CustomTransition from "@/components/ui/CustomTransition.vue";
 	import Backdrop from "@/components/ui/Backdrop.vue";
 	import Search from "@/components/search/Search.vue";
 
+	import useWindowWidth from "@/composables/useWindowWidth";
 	import usePopup from "@/composables/usePopup";
-	import { useChats, useChat } from "@/store";
+	import { KC_HOST } from "@/constants";
+	import { 
+		useChats,
+		useChat,
+		useAuth,
+	} from "@/store";
 
 	
 	const { currentChat } = storeToRefs(useChat());
+	const { currentUser } = storeToRefs(useAuth());
 
 	const { loadChats } = useChats();
 
+
+	const router = useRouter();
+
 	const { isOpen, togglePopup } = usePopup();
+	const { isBigScreen } = useWindowWidth();
 
-	const windowWidth = ref<number>(window.innerWidth);
-
-	const isBigScreen = computed<boolean>(() => windowWidth.value > 767);
 	const isChatOpen = computed<boolean>(() => isBigScreen.value || !!currentChat.value);
 	const isMenuOpen = computed<boolean>(() => isBigScreen.value || !currentChat.value);
 
-	const updateWidth = () => {
-		windowWidth.value = window.innerWidth;
-	};
+
+	const NAV_MENU_ITEMS: IMenuItem[] = [
+		{
+			icon: "favourites",
+			text: "Избранное",
+			onClick: () => {
+				router.push(`/${currentUser.value?.sub}`);
+			}
+		},
+		{
+			icon: "account",
+			text: "Аккаунт",
+			onClick: () => {
+				window.location.href = KC_HOST
+			}
+		},
+		{
+			icon: "settings",
+			text: "Настройки",
+			onClick: () => {
+				router.push("/settings");
+			}
+		}
+	];
 
 	
 	onMounted(loadChats);
-
-	onMounted(() => window.addEventListener("resize", updateWidth));
-	onUnmounted(() => window.removeEventListener("resize", updateWidth));
 </script>
 
 
@@ -60,7 +89,11 @@
 					@toggle-popup="togglePopup"
 					:is-open
 				>
-					<Menu/>
+					<PopupMenu 
+						custom-class="side-nav__menu"
+						label="Меню навигации"
+						:items="NAV_MENU_ITEMS"
+					/>
 				</Backdrop>
 			</header>
 			<ChatList/>
@@ -100,6 +133,11 @@
 			&-title {
 				@include title;
 			}
+		}
+
+		:deep(.side__nav-menu) {
+			left: 15px;
+			top: 55px;
 		}
 
 		:deep(.button.round-accent) {
@@ -151,6 +189,10 @@
 					@include text(true);
 					display: block;
 				}
+			}
+
+			:deep(.side__nav-menu) {
+				top: 50px;
 			}
 		}
 	}
