@@ -4,6 +4,7 @@ import { ref, watch } from "vue";
 
 import type { IUnsentMessage, IHistory, ICurrentChat } from "@/types";
 
+// import useStomp from "@/composables/useStomp";
 import useAPI from '@/composables/useAPI';
 import { generateColor } from "@/helpers";
 import { useChats } from "@/store";
@@ -43,13 +44,14 @@ export const useChat = defineStore("chat", () => {
 		if (!currentChat.value) return;
 
 		unsentMessages.value = [
-			...unsentMessages.value,
+			...unsentMessages.value.filter(el => el.chatId !== currentChat.value?.id),
 			{
 				id: unsentMessages.value.length,
 				chatId: currentChat.value.id,
 				text
 			}
 		]
+		console.log(unsentMessages.value, text)
 	};
 
 	const loadChatHistory = async () => {
@@ -64,7 +66,21 @@ export const useChat = defineStore("chat", () => {
 	watch(currentChat, loadChatHistory);
 
 
+	// const { messages, sendMessage } = useStomp("wss://5hgzrdg8-8080.euw.devtunnels.ms/api/ws", "/messages/chat/1", "/chat/1");
+
+	const send = () => {
+		const message = unsentMessages.value.find(el => el.chatId === currentChat.value?.id);
+		
+		if (message && message.text.trim()) {
+			// sendMessage(message.text.trim());
+			unsentMessages.value = unsentMessages.value.filter(el => el !== message);
+		}
+	}
+
+
 	return {
+		// messages,
+		send,
 		currentChat,
 		closeChat,
 		status,
