@@ -10,9 +10,9 @@
 	border: 0px;
 
 	transition: 
-		background var(--duration-transition-base) ease-in-out, 
-		border var(--duration-transition-base) ease-in-out, 
-		color var(--duration-transition-base) ease-in-out;
+		background 0.2s ease-in-out, 
+		border 0.2s ease-in-out, 
+		color 0.2s ease-in-out;
 }	
 
 *:focus, 
