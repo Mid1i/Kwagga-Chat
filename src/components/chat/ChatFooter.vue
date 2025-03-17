@@ -5,18 +5,32 @@
 	import CustomButton from "@/components/ui/CustomButton.vue";
 
 
-	const emit = defineEmits<{ inputMessage: [ text: string ] }>();
+	const emit = defineEmits<{ inputMessage: [ text: string ], send: [] }>();
 
 	
 	const unsentMessage = ref<string>("");
 
-	const updateMessage = (event: Event) => {
-		const element = event.target as HTMLInputElement;
-		unsentMessage.value = element.textContent ?? "";
+	const inputRef = ref<HTMLElement | null>(null);
 
-		element.style.maxHeight = `${element.scrollHeight}px`;
-		
+	const updateMessage = () => {
+		const input = inputRef.value;
+		if (!input) return;
+
+		unsentMessage.value = input.textContent ?? "";	
 		emit('inputMessage', unsentMessage.value);
+		
+		input.style.maxHeight = `${input.scrollHeight}px`;
+	};
+
+	const sendMessage = () => {
+		const input = inputRef.value;
+		if (!input) return;
+
+		unsentMessage.value = "";
+		input.textContent = null;
+		emit('send');
+		
+		input.style.maxHeight = `${input.scrollHeight}px`;
 	};
 </script>
 
@@ -33,7 +47,9 @@
 				<span :class="['footer__message-placeholder', { hidden: !!unsentMessage }]" aria-hidden="true">Напишите сообщение...</span>
 				<div 
 					@input="updateMessage"
+					@keydown.enter.prevent="sendMessage"
 					class="footer__message-input"
+					ref="inputRef"
 					contenteditable
 					role="textbox"
 					aria-label="Напишите сообщение"
@@ -58,6 +74,7 @@
 					</template>
 					<template v-else>
 						<CustomButton
+							@click="sendMessage"
 							is-base
 							custom-class="accent"
 							label="Отправить сообщение"
@@ -158,7 +175,7 @@
 		.footer {
 			--size-button-message: 40px;
 
-			padding: 0px 0px 10px;
+			padding: 5px 0px 10px;
 
 			background: var(--color-message-input);
 

@@ -6,6 +6,7 @@
 		type?: "round" | "base" | "text" | "round-accent" | "nav";
 		customClass?: string;
 		isActive?: boolean;
+		isDelete?: boolean;
 		text?: string;
 		label?: string;
 		sprite?: string;
@@ -19,7 +20,13 @@
 
 <template>
 	<button 
-		:class="[ 'button', type, customClass, { active: isActive } ]"
+		:class="[ 
+			'button', 
+			type, 
+			customClass, 
+			{ active: isActive },
+			{ delete: isDelete }
+		]"
 		:aria-label="label"
 		:title="label"
 	>
@@ -116,6 +123,14 @@
 				color: var(--color-icon);
 			}
 		}
+
+		&.delete {
+			color: var(--color-red);
+
+			& svg {
+				color: inherit;
+			}
+		}
 	}
 
 
@@ -131,6 +146,33 @@
 
 		.button.round-accent:hover {
 			background: var(--color-active-accent);
+		}
+	}
+
+	@media(max-width: 767px) {
+		.button.base {
+			height: 28px;
+			width: 28px;
+		}
+
+		.button.round-accent {
+			height: 60px;
+			width: 60px;
+		}
+
+		.button.text svg,
+		.button.nav svg {
+			height: 28px;
+			width: 28px;
+		}
+
+		.button.text,
+		.button.nav {
+			font-size: 16px;
+		}
+
+		.button.nav {
+			gap: 20px;
 		}
 	}
 </style>

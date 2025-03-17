@@ -103,14 +103,23 @@
 	@media(max-width: 767px) {
 		.header {
 			padding: 10px 15px;
+			padding-left: 10px;
 
 			&__recepient {
+				position: relative;
+
 				flex: 1 1 auto;
 				justify-content: space-between;
 
 				&-content {
+					position: absolute;
+					left: 50%;
+					top: 50%;
+
 					align-items: center;
 					gap: 1px;
+				
+					transform: translate(-50%, -50%);
 				}
 
 				&-status {

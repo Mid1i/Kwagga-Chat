@@ -1,8 +1,12 @@
 <script setup lang="ts">
 	import { storeToRefs } from "pinia";
 
+	import type { IMenuItem } from "@/types";
+
 	import ChatListItem from "@/components/chat/ChatListItem.vue";
 	import CustomLoader from "@/components/ui/CustomLoader.vue";
+	import PopupMenu from "@/components/chat/PopupMenu.vue";
+	import Backdrop from "@/components/ui/Backdrop.vue";
 	
 	import { useChats, useChat } from "@/store";
 
@@ -10,7 +14,34 @@
 	const { currentChat } = storeToRefs(useChat());
 	const { setCurrentChat } = useChat();
 
-	const { chats, status } = storeToRefs(useChats());
+	const { 
+		currentMenu,
+		chats, 
+		status 
+	} = storeToRefs(useChats());
+
+	const { 
+		deleteChat,
+		setCurrentMenu, 
+		closeCurrentMenu 
+	} = useChats();
+
+
+	const CHAT_MENU_ITEMS: IMenuItem[] = [
+		{
+			icon: "newTab",
+			text: "Открыть в новой вкладке",
+			onClick: () => {
+				window.open(`${window.location.origin}/${currentMenu.value!.id}`, "_blank");
+			}
+		},
+		{
+			isDelete: true,
+			icon: "delete",
+			text: "Удалить чат",
+			onClick: deleteChat
+		}
+	];
 </script>
 
 <template>
@@ -23,11 +54,22 @@
 			<ChatListItem 
 				v-for="chat in chats"
 				@click="setCurrentChat(chat.id)"
+				@contextmenu.prevent="setCurrentMenu($event, chat.id)"
 				:is-active="currentChat?.id === chat.id"
 				:key="chat.id"
 				:="chat"
 			/>
 		</div>
+		<Backdrop
+			@toggle-popup="closeCurrentMenu"
+			:is-open="!!currentMenu"
+		>
+			<PopupMenu
+				:custom-style="{ top: `${currentMenu!.y}px`, left: `${currentMenu!.x}px` }"
+				label="Меню управления чатом"
+				:items="CHAT_MENU_ITEMS"
+			/>
+		</Backdrop>
 	</custom-loader>
 </template>
 

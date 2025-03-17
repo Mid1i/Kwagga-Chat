@@ -1,8 +1,8 @@
 <script setup lang="ts">
 	const { size = "50" } = defineProps<{ 
 		conditionLoading?: boolean; 
-		conditionEmpty: boolean;
-		emptyText: string; 
+		conditionEmpty?: boolean;
+		emptyText?: string; 
 		size?: string
 	}>();
 </script>

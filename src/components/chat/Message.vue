@@ -89,6 +89,7 @@
 	@media(max-width: 767px) {
 		.message {
 			padding: 5px;
+			padding-right: 0px;
 			max-width: 90%;
 
 			&__text {

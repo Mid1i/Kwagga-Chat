@@ -8,25 +8,23 @@
 	import ChatFooter from "@/components/chat/ChatFooter.vue";
 	import CustomLoader from "@/components/ui/CustomLoader.vue";
 
-	import { useChat, useUser } from "@/store";
 	import { formattedDate } from "@/helpers";
+	import { useChat, useAuth } from "@/store";
 
 
-	const { currentUser } = storeToRefs(useUser());
+	const { currentUser } = storeToRefs(useAuth());
 
-	const { 
-		saveUnsentMessage,
-		closeChat 
-	} = useChat();
+	const { saveUnsentMessage, closeChat, send } = useChat();
 	
 	const { 
 		currentChat, 
 		chatHistory,  
-		status
+		status,
+		// messages
 	} = storeToRefs(useChat());
 
 
-	const isUserMessage = (senderId: number): boolean => senderId === currentUser.value.id;
+	const isUserMessage = (senderId: string): boolean => senderId === currentUser.value?.sub;
 
 	const getMessageRadius = (groupIndex: number, index: number): Record<string, string> => {
 		const BASE_RADIUS = window.matchMedia("(max-width: 767px)").matches ? "10px" : "15px";
@@ -82,9 +80,14 @@
 								:="message"
 							/>
 						</div>
+						<!-- <Message
+								v-for="(message, index) in messages"
+								:key="index"
+								:text="message"
+							/> -->
 					</div>
 				</custom-loader>
-			<ChatFooter @inputMessage="(text: string) => saveUnsentMessage(text)"/>
+			<ChatFooter @inputMessage="(text: string) => saveUnsentMessage(text)" @send="send"/>
 		</custom-loader>
 	</div>
 </template>
