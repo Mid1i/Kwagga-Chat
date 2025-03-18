@@ -33,7 +33,7 @@ export const useAuth = defineStore("auth", () => {
 			
 			if (authenticated) currentUser.value = keycloak.tokenParsed!;
 		} catch (error) {
-			console.error("Ошибка инициализации Kwycloak: ", error);
+			console.error("Ошибка инициализации Keycloak: ", error);
 		}
 	};
 
@@ -52,6 +52,10 @@ export const useAuth = defineStore("auth", () => {
 				logout();
 			}
 		}, 50000);
+	};
+
+	const redirectToAccount = () => {
+		window.location.href = keycloak.createAccountUrl();
 	};
 
 	const login = () => {
@@ -76,6 +80,7 @@ export const useAuth = defineStore("auth", () => {
 		keycloak,
 		currentUser,
 		isAuthenticated,
+		redirectToAccount,
 		refreshToken,
 		register,
 		logout,
