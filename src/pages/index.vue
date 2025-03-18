@@ -15,7 +15,6 @@
 
 	import useWindowWidth from "@/composables/useWindowWidth";
 	import usePopup from "@/composables/usePopup";
-	import { KC_HOST } from "@/constants";
 	import { 
 		useChats,
 		useChat,
@@ -26,6 +25,7 @@
 	const { currentChat } = storeToRefs(useChat());
 	const { currentUser } = storeToRefs(useAuth());
 
+	const { redirectToAccount } = useAuth();
 	const { loadChats } = useChats();
 
 
@@ -42,23 +42,17 @@
 		{
 			icon: "favourites",
 			text: "Избранное",
-			onClick: () => {
-				router.push(`/${currentUser.value?.sub}`);
-			}
+			onClick: () => router.push(`/${currentUser.value?.sub}`)
 		},
 		{
 			icon: "account",
 			text: "Аккаунт",
-			onClick: () => {
-				window.location.href = KC_HOST
-			}
+			onClick: redirectToAccount
 		},
 		{
 			icon: "settings",
 			text: "Настройки",
-			onClick: () => {
-				router.push("/settings");
-			}
+			onClick: () => router.push("/settings")
 		}
 	];
 
