@@ -16,7 +16,10 @@ router.beforeEach((to, _, next) => {
 	const isWelcome = to.name === "welcome";
 	const authenticated = isAuthenticated.value;
 
-	if (isWelcome && authenticated) next({ name: "index" });
+	if (isWelcome && authenticated) {
+		next({ name: "index" });
+		return;
+	}
 
 	(!isWelcome && to.name !== "callback" && !authenticated) ? next({ name: "welcome" }) : next();
 });
