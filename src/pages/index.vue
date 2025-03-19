@@ -8,10 +8,11 @@
 	import Chat from "@/components/chat/Chat.vue";
 	import ChatList from "@/components/chat/ChatList.vue";
 	import PopupMenu from "@/components/chat/PopupMenu.vue";
+	import SearchUser from "@/components/chat/SearchUser.vue";
 	import CustomButton from "@/components/ui/CustomButton.vue";
 	import CustomTransition from "@/components/ui/CustomTransition.vue";
 	import Backdrop from "@/components/ui/Backdrop.vue";
-	import Search from "@/components/search/Search.vue";
+	import Search from "@/components/ui/Search.vue";
 
 	import useWindowWidth from "@/composables/useWindowWidth";
 	import usePopup from "@/composables/usePopup";
@@ -24,13 +25,20 @@
 	
 	const { currentChat } = storeToRefs(useChat());
 	const { currentUser } = storeToRefs(useAuth());
+	const { search } = storeToRefs(useChats());
 
 	const { redirectToAccount } = useAuth();
-	const { loadChats } = useChats();
+
+	const { 
+		loadChats, 
+		onSearch, 
+		clearSearch 
+	} = useChats();
 
 
 	const router = useRouter();
 
+	const { isOpen: isNewChat, togglePopup: toggleNewChat } = usePopup();
 	const { isOpen, togglePopup } = usePopup();
 	const { isBigScreen } = useWindowWidth();
 
@@ -65,20 +73,37 @@
 	<custom-transition>
 		<aside v-if="isMenuOpen" class="container__side-nav side-nav">
 			<header class="side-nav__header">
-				<CustomButton
-					@click="togglePopup"
-					:is-active="isOpen"
-					label="Открыть меню навигации"
-					icon="burgerMenu"
-				/>
-				<h6 class="side-nav__header-title">Чаты</h6>
+				<div class="side-nav__header-icon">
+					<custom-transition transition-name="rotate">
+							<template v-if="!isNewChat">
+								<CustomButton
+									@click="togglePopup"
+									:is-active="isOpen"
+									label="Открыть меню навигации"
+									icon="burgerMenu"
+								/>
+							</template>
+							<template v-else>
+								<CustomButton
+									@click="toggleNewChat"
+									label="Вернуться назад"
+									icon="goBack"
+								/>
+							</template>
+					</custom-transition>
+				</div>
+				<h6 class="side-nav__header-title">{{ isNewChat ? "Поиск пользователей" : "Чаты"}}</h6>
 				<CustomButton
 					custom-class="mobile"
 					label="Изменить порядок чатов"
 					type="text"
 					text="Изм."
 				/>
-				<Search/>
+				<Search
+					v-model="search"
+					@clear-search="clearSearch"
+					@on-search="onSearch"
+				/>
 				<Backdrop
 					@toggle-popup="togglePopup"
 					:is-open
@@ -90,12 +115,18 @@
 					/>
 				</Backdrop>
 			</header>
-			<ChatList/>
-			<CustomButton
-				type="round-accent"
-				label="Начать новый чат"
-				icon="newChat"
-			/>
+			<custom-transition>
+				<div v-if="!isNewChat" class="side-nav__content">
+					<ChatList/>
+					<CustomButton
+						@click="toggleNewChat"
+						label="Начать новый чат"
+						type="round-accent"
+						icon="newChat"
+					/>
+				</div>
+				<SearchUser v-else/>
+			</custom-transition>
 		</aside>
 	</custom-transition>
 	<custom-transition>
@@ -124,9 +155,20 @@
 			gap: 15px;
 			padding: 0px 15px 10px;
 
+			&-icon {
+				position: relative;
+
+				height: 24px;
+				width: 24px;
+			}
+
 			&-title {
 				@include title;
 			}
+		}
+
+		&__content {
+			flex: 1 1 auto;
 		}
 
 		:deep(.side__nav-menu) {
