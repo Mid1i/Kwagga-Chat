@@ -1,19 +1,39 @@
-import { ref } from "vue";
+import { ref, watch } from "vue";
+import { debounce } from "lodash";
+
+import useAPI from "@/composables/useAPI";
 
 
-const useSearch = () => {
-	const searchValue = ref<string>("");
+const useSearch = <T>(apiFunc: (params: string) => Promise<T>) => {
+	const { data: results, status, fetchData } = useAPI<T, string>(apiFunc);
 
-	const clearSearch = (): void => {
+	const search = ref<string>("");
+
+
+	const clearSearch = () => {
 		const activeElement = document.activeElement as HTMLElement;
 		if (activeElement) activeElement.blur();
 
-		searchValue.value = "";
+		search.value = "";
 	};
+
+	const onSearch = () => {
+		const query = search.value.trim();
+		if (!query) return;
+
+		console.log("Поиск пользователя с никнеймом: ", query);
+		debounce(() => fetchData(query), 1000);
+	};
+
+	
+	watch(search, onSearch);
 
 
 	return { 
-		searchValue, 
+		results,
+		status,
+		search,
+		onSearch, 
 		clearSearch 
 	}
 };
