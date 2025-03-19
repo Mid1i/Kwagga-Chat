@@ -1,6 +1,6 @@
-import { defineStore } from 'pinia';
-import { ref } from "vue";
 import Keycloak, { KeycloakTokenParsed } from "keycloak-js";
+import { defineStore } from "pinia";
+import { ref } from "vue";
 
 import {
 	KC_CLIENT_ID, 
