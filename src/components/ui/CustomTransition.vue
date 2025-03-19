@@ -1,6 +1,6 @@
 <script setup lang="ts">
 	const { transitionName = "scale" } = defineProps<{ 
-		transitionName?: "scale" | "scale-extra"
+		transitionName?: "scale" | "scale-extra" | "rotate"
 	}>();
 </script>
 
@@ -37,5 +37,22 @@
 	.scale-extra-enter-to,
 	.scale-extra-leave-from {
 		transform: scale(1.1);
+	}
+
+	.rotate-enter-from,
+	.rotate-leave-to {
+		transform: rotate(-360deg) scale(0);
+		opacity: 0;
+	}
+
+	.rotate-enter-active,
+	.rotate-leave-active {
+		position: absolute;
+		transition: var(--transition-all);
+	}
+
+	.rotate-enter-to
+	.rotate-leave-from {
+		transform: rotate(0deg) scale(1);
 	}
 </style>
