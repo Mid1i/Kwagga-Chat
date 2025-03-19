@@ -1,11 +1,12 @@
 import { ref } from "vue";
 import { defineStore } from "pinia";
 
-import type { IChat } from "@/types";
+import type { IChat, IUser } from "@/types";
 
 import useWindowWidth from "@/composables/useWindowWidth";
+import useSearch from "@/composables/useSearch";
+import { getChats, searchUser } from "@/api";
 import useAPI from "@/composables/useAPI";
-import { getChats } from "@/api";
 
 
 export const useChats = defineStore("chats", () => {
@@ -14,6 +15,8 @@ export const useChats = defineStore("chats", () => {
 	const currentMenu = ref<{ id: number; x: number; y: number } | null>(null);
 
 	const { data, status, fetchData: fetchChats } = useAPI<IChat[]>(getChats);
+
+	const { results, status: searchStatus, search, onSearch, clearSearch } = useSearch<IUser[]>(searchUser);
 
 	const { isBigScreen } = useWindowWidth();
 
@@ -49,6 +52,11 @@ export const useChats = defineStore("chats", () => {
 		chats,
 		status,
 		deleteChat,
-		loadChats
+		loadChats,
+		results,
+		searchStatus,
+		search,
+		onSearch,
+		clearSearch
 	}
 });
