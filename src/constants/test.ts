@@ -3,7 +3,7 @@ import type { IHistory, IMessage, IChat, IUser } from "@/types";
 
 export const USERS: IUser[] = [
   {
-    id: 1,
+    id: "1",
     firstName: "Иван",
     lastName: "Иванов",
     username: "ivan123",
@@ -12,7 +12,7 @@ export const USERS: IUser[] = [
     dateOfRegistration: "2025-01-15T10:30:00"
   },
   {
-    id: 2,
+    id: "2",
     firstName: "Мария",
     lastName: "Петрова",
     username: "masha_p",
@@ -21,7 +21,7 @@ export const USERS: IUser[] = [
     dateOfRegistration: "2025-01-20T14:45:00"
   },
   {
-    id: 3,
+    id: "3",
     firstName: "Дмитрий",
     lastName: "Смирнов",
     username: "dmitry_smirnov",
@@ -179,7 +179,7 @@ export const HISTORY: IHistory[] = [
             "id": 1,
             "text": "Привет, как ты? Давно не общались!",
             "sender": {
-                "id": 1,
+                "id": "1",
                 "firstName": "Иван",
                 "lastName": "Иванов",
                 "username": "ivan123",
@@ -188,7 +188,7 @@ export const HISTORY: IHistory[] = [
                 "dateOfRegistration": "2025-01-15T10:30:00"
             },
             "recepient": {
-                "id": 2,
+                "id": "2",
                 "firstName": "Мария",
                 "lastName": "Петрова",
                 "username": "masha_p",
@@ -203,7 +203,7 @@ export const HISTORY: IHistory[] = [
             "id": 2,
             "text": "Добрый день! Как все прошло на встрече?",
             "sender": {
-                "id": 2,
+                "id": "2",
                 "firstName": "Мария",
                 "lastName": "Петрова",
                 "username": "masha_p",
@@ -212,7 +212,7 @@ export const HISTORY: IHistory[] = [
                 "dateOfRegistration": "2025-01-20T14:45:00"
             },
             "recepient": {
-                "id": 1,
+                "id": "1",
                 "firstName": "Иван",
                 "lastName": "Иванов",
                 "username": "ivan123",
@@ -226,7 +226,7 @@ export const HISTORY: IHistory[] = [
             "id": 3,
             "text": "Не забудь про отчет до конца недели!",
             "sender": {
-                "id": 3,
+                "id": "3",
                 "firstName": "Дмитрий",
                 "lastName": "Смирнов",
                 "username": "dmitry_smirnov",
@@ -235,7 +235,7 @@ export const HISTORY: IHistory[] = [
                 "dateOfRegistration": "2025-02-05T08:25:00"
             },
             "recepient": {
-                "id": 1,
+                "id": "1",
                 "firstName": "Иван",
                 "lastName": "Иванов",
                 "username": "ivan123",
@@ -249,7 +249,7 @@ export const HISTORY: IHistory[] = [
             "id": 4,
             "text": "Спасибо за помощь вчера!",
             "sender": {
-                "id": 1,
+                "id": "1",
                 "firstName": "Иван",
                 "lastName": "Иванов",
                 "username": "ivan123",
@@ -258,7 +258,7 @@ export const HISTORY: IHistory[] = [
                 "dateOfRegistration": "2025-01-15T10:30:00"
             },
             "recepient": {
-                "id": 3,
+                "id": "3",
                 "firstName": "Дмитрий",
                 "lastName": "Смирнов",
                 "username": "dmitry_smirnov",
@@ -273,7 +273,7 @@ export const HISTORY: IHistory[] = [
             "id": 5,
             "text": "У тебя получится все сделать в срок?",
             "sender": {
-                "id": 2,
+                "id": "2",
                 "firstName": "Мария",
                 "lastName": "Петрова",
                 "username": "masha_p",
@@ -282,7 +282,7 @@ export const HISTORY: IHistory[] = [
                 "dateOfRegistration": "2025-01-20T14:45:00"
             },
             "recepient": {
-                "id": 3,
+                "id": "3",
                 "firstName": "Дмитрий",
                 "lastName": "Смирнов",
                 "username": "dmitry_smirnov",
@@ -296,7 +296,7 @@ export const HISTORY: IHistory[] = [
             "id": 6,
             "text": "Поздравляю с новой должностью!",
             "sender": {
-                "id": 3,
+                "id": "3",
                 "firstName": "Дмитрий",
                 "lastName": "Смирнов",
                 "username": "dmitry_smirnov",
@@ -305,7 +305,7 @@ export const HISTORY: IHistory[] = [
                 "dateOfRegistration": "2025-02-05T08:25:00"
             },
             "recepient": {
-                "id": 2,
+                "id": "2",
                 "firstName": "Мария",
                 "lastName": "Петрова",
                 "username": "masha_p",
@@ -319,7 +319,7 @@ export const HISTORY: IHistory[] = [
             "id": 7,
             "text": "Что планируешь на выходных?",
             "sender": {
-                "id": 1,
+                "id": "1",
                 "firstName": "Иван",
                 "lastName": "Иванов",
                 "username": "ivan123",
@@ -328,7 +328,7 @@ export const HISTORY: IHistory[] = [
                 "dateOfRegistration": "2025-01-15T10:30:00"
             },
             "recepient": {
-                "id": 3,
+                "id": "3",
                 "firstName": "Дмитрий",
                 "lastName": "Смирнов",
                 "username": "dmitry_smirnov",
@@ -342,7 +342,7 @@ export const HISTORY: IHistory[] = [
             "id": 8,
             "text": "Не забудь про звонок в 16:00",
             "sender": {
-                "id": 2,
+                "id": "2",
                 "firstName": "Мария",
                 "lastName": "Петрова",
                 "username": "masha_p",
@@ -351,7 +351,7 @@ export const HISTORY: IHistory[] = [
                 "dateOfRegistration": "2025-01-20T14:45:00"
             },
             "recepient": {
-                "id": 1,
+                "id": "1",
                 "firstName": "Иван",
                 "lastName": "Иванов",
                 "username": "ivan123",
@@ -365,7 +365,7 @@ export const HISTORY: IHistory[] = [
             "id": 9,
             "text": "Как тебе новая идея для проекта?",
             "sender": {
-                "id": 1,
+                "id": "1",
                 "firstName": "Иван",
                 "lastName": "Иванов",
                 "username": "ivan123",
@@ -374,7 +374,7 @@ export const HISTORY: IHistory[] = [
                 "dateOfRegistration": "2025-01-15T10:30:00"
             },
             "recepient": {
-                "id": 2,
+                "id": "2",
                 "firstName": "Мария",
                 "lastName": "Петрова",
                 "username": "masha_p",
@@ -388,7 +388,7 @@ export const HISTORY: IHistory[] = [
             "id": 10,
             "text": "Привет, ты видел новое обновление на сайте?",
             "sender": {
-                "id": 3,
+                "id": "3",
                 "firstName": "Дмитрий",
                 "lastName": "Смирнов",
                 "username": "dmitry_smirnov",
@@ -397,7 +397,7 @@ export const HISTORY: IHistory[] = [
                 "dateOfRegistration": "2025-02-05T08:25:00"
             },
             "recepient": {
-                "id": 1,
+                "id": "1",
                 "firstName": "Иван",
                 "lastName": "Иванов",
                 "username": "ivan123",
@@ -418,7 +418,7 @@ export const HISTORY: IHistory[] = [
             "id": 1,
             "text": "Привет, как ты? Давно не общались!",
             "sender": {
-                "id": 1,
+                "id": "1",
                 "firstName": "Иван",
                 "lastName": "Иванов",
                 "username": "ivan123",
@@ -427,7 +427,7 @@ export const HISTORY: IHistory[] = [
                 "dateOfRegistration": "2025-01-15T10:30:00"
             },
             "recepient": {
-                "id": 2,
+                "id": "2",
                 "firstName": "Мария",
                 "lastName": "Петрова",
                 "username": "masha_p",
@@ -442,7 +442,7 @@ export const HISTORY: IHistory[] = [
             "id": 2,
             "text": "Добрый день! Как все прошло на встрече?",
             "sender": {
-                "id": 2,
+                "id": "2",
                 "firstName": "Мария",
                 "lastName": "Петрова",
                 "username": "masha_p",
@@ -451,7 +451,7 @@ export const HISTORY: IHistory[] = [
                 "dateOfRegistration": "2025-01-20T14:45:00"
             },
             "recepient": {
-                "id": 1,
+                "id": "1",
                 "firstName": "Иван",
                 "lastName": "Иванов",
                 "username": "ivan123",
@@ -465,7 +465,7 @@ export const HISTORY: IHistory[] = [
             "id": 3,
             "text": "Не забудь про отчет до конца недели!",
             "sender": {
-                "id": 3,
+                "id": "3",
                 "firstName": "Дмитрий",
                 "lastName": "Смирнов",
                 "username": "dmitry_smirnov",
@@ -474,7 +474,7 @@ export const HISTORY: IHistory[] = [
                 "dateOfRegistration": "2025-02-05T08:25:00"
             },
             "recepient": {
-                "id": 1,
+                "id": "1",
                 "firstName": "Иван",
                 "lastName": "Иванов",
                 "username": "ivan123",
@@ -488,7 +488,7 @@ export const HISTORY: IHistory[] = [
             "id": 4,
             "text": "Спасибо за помощь вчера!",
             "sender": {
-                "id": 1,
+                "id": "1",
                 "firstName": "Иван",
                 "lastName": "Иванов",
                 "username": "ivan123",
@@ -497,7 +497,7 @@ export const HISTORY: IHistory[] = [
                 "dateOfRegistration": "2025-01-15T10:30:00"
             },
             "recepient": {
-                "id": 3,
+                "id": "3",
                 "firstName": "Дмитрий",
                 "lastName": "Смирнов",
                 "username": "dmitry_smirnov",
@@ -512,7 +512,7 @@ export const HISTORY: IHistory[] = [
             "id": 5,
             "text": "У тебя получится все сделать в срок?",
             "sender": {
-                "id": 2,
+                "id": "2",
                 "firstName": "Мария",
                 "lastName": "Петрова",
                 "username": "masha_p",
@@ -521,7 +521,7 @@ export const HISTORY: IHistory[] = [
                 "dateOfRegistration": "2025-01-20T14:45:00"
             },
             "recepient": {
-                "id": 3,
+                "id": "3",
                 "firstName": "Дмитрий",
                 "lastName": "Смирнов",
                 "username": "dmitry_smirnov",
@@ -535,7 +535,7 @@ export const HISTORY: IHistory[] = [
             "id": 6,
             "text": "Поздравляю с новой должностью!",
             "sender": {
-                "id": 3,
+                "id": "3",
                 "firstName": "Дмитрий",
                 "lastName": "Смирнов",
                 "username": "dmitry_smirnov",
@@ -544,7 +544,7 @@ export const HISTORY: IHistory[] = [
                 "dateOfRegistration": "2025-02-05T08:25:00"
             },
             "recepient": {
-                "id": 2,
+                "id": "2",
                 "firstName": "Мария",
                 "lastName": "Петрова",
                 "username": "masha_p",
@@ -558,7 +558,7 @@ export const HISTORY: IHistory[] = [
             "id": 7,
             "text": "Что планируешь на выходных?",
             "sender": {
-                "id": 1,
+                "id": "1",
                 "firstName": "Иван",
                 "lastName": "Иванов",
                 "username": "ivan123",
@@ -567,7 +567,7 @@ export const HISTORY: IHistory[] = [
                 "dateOfRegistration": "2025-01-15T10:30:00"
             },
             "recepient": {
-                "id": 3,
+                "id": "3",
                 "firstName": "Дмитрий",
                 "lastName": "Смирнов",
                 "username": "dmitry_smirnov",
@@ -581,7 +581,7 @@ export const HISTORY: IHistory[] = [
             "id": 8,
             "text": "Не забудь про звонок в 16:00",
             "sender": {
-                "id": 2,
+                "id": "2",
                 "firstName": "Мария",
                 "lastName": "Петрова",
                 "username": "masha_p",
@@ -590,7 +590,7 @@ export const HISTORY: IHistory[] = [
                 "dateOfRegistration": "2025-01-20T14:45:00"
             },
             "recepient": {
-                "id": 1,
+                "id": "1",
                 "firstName": "Иван",
                 "lastName": "Иванов",
                 "username": "ivan123",
@@ -604,7 +604,7 @@ export const HISTORY: IHistory[] = [
             "id": 9,
             "text": "Как тебе новая идея для проекта?",
             "sender": {
-                "id": 1,
+                "id": "1",
                 "firstName": "Иван",
                 "lastName": "Иванов",
                 "username": "ivan123",
@@ -613,7 +613,7 @@ export const HISTORY: IHistory[] = [
                 "dateOfRegistration": "2025-01-15T10:30:00"
             },
             "recepient": {
-                "id": 2,
+                "id": "2",
                 "firstName": "Мария",
                 "lastName": "Петрова",
                 "username": "masha_p",
@@ -627,7 +627,7 @@ export const HISTORY: IHistory[] = [
             "id": 10,
             "text": "Привет, ты видел новое обновление на сайте?",
             "sender": {
-                "id": 3,
+                "id": "3",
                 "firstName": "Дмитрий",
                 "lastName": "Смирнов",
                 "username": "dmitry_smirnov",
@@ -636,7 +636,7 @@ export const HISTORY: IHistory[] = [
                 "dateOfRegistration": "2025-02-05T08:25:00"
             },
             "recepient": {
-                "id": 1,
+                "id": "1",
                 "firstName": "Иван",
                 "lastName": "Иванов",
                 "username": "ivan123",
