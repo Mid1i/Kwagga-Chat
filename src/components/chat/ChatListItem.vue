@@ -46,7 +46,7 @@
 		/>
 		<div class="chat__content">
 			<div class="chat__header">
-				<span class="chat__header-recepient">{{ `${recepient.firstName} ${recepient.lastName}` }}</span>
+				<span class="chat__header-recepient">{{recepient.firstName}} {{recepient.lastName}}</span>
 				<span class="chat__header-datetime">{{ getMessageDatetime(lastMessage.datetime) }}</span>
 			</div>
 			<div class="chat__footer">

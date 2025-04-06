@@ -27,7 +27,7 @@
 				:username="recepient.username"
 			/>
 			<div class="header__recepient-content">
-				<h6 class="header__recepient-name">{{ `${recepient.firstName} ${recepient.lastName}`  }}</h6>
+				<h6 class="header__recepient-name">{{recepient.firstName}} {{recepient.lastName}}</h6>
 				<span :class="['header__recepient-status', { online: recepient.isOnline }]">{{ recepient.isOnline ? "online" : "был(а) недавно" }}</span>
 			</div>
 		</div>
